@@ -1,6 +1,6 @@
 ## Group members && GitHub id
 
-Yitong An 
+Yitong An - vinkoos 
 Haoze Li
 Ze Kun Song
 Owen Hexiang Wang- Adidazdoge
