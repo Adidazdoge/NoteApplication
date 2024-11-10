@@ -1,7 +1,7 @@
 ## Group members && GitHub id
 
 Yitong An - vinkoos 
-Haoze Li
+Haoze Li - FlashYDirOX
 Ze Kun Song
 Owen Hexiang Wang- Adidazdoge
 Xiaoshu Lin - Michael-lin6677
