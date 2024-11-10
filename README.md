@@ -1,36 +1,76 @@
-# Note Application
+## Group members && GitHub id
 
-This is a minimal example demonstrating usage of the
-password-protected user part of the API used in lab 5.
+Yitong An - Adidazdoge
+Haoze Li
+Ze Kun Song
+Owen Hexiang Wang
+Xiaoshu Lin - Michael-lin6677
 
-You can find more information about the API endpoints in
-[the documentation](https://www.postman.com/cloudy-astronaut-813156/csc207-grade-apis-demo/documentation/fg3zkjm/5-password-protected-user).
+## Software Specification
+The game is a 60-day simulation in which the player acts as a group leader navigating 
+the challenges of a zombie apocalypse. Players allocate a set number of initial points 
+across resources (e.g., people, weaponry, food, luck) before the first day. These choices 
+impact the group's survival strategies and outcomes. Each day, the program provides a 
+brief description of the group's current location and what has transpired, such as how 
+many people survived or died, the quantity of resources found, or any weaponry acquired.
 
-If your team is considering an application for which it would be convenient to
-store data in something like a database, you may find that the API calls demonstrated
-here will be useful in your project, as this will allow you to store
-an arbitrary JSON object associated with a username and password.
 
-In this application, a single note has a name (the "username" in terms of the API) and the note
-can be read by anyone who knows the name — but only edited by someone who
-knows the password for it.
+### User Stories and Functional Requirements
 
-You can see the documentation in the various files for more information.
+**1. Allocation of Remaining Points** - Yitong An
+- **Feature**: Points Allocation System
+- **As a player**:
+    - I want to allocate my remaining points to my Team, Weapons, Food, and Luck,
+    - so I can strengthen specific areas and increase my chances of survival.
+- **Requirements**:
+    - Players can see how many points are available to allocate.
+    - Players can distribute points to Team, Weapons, Food, or Luck as they choose.
+    - Allocated points are applied immediately and affect the player’s stats.
 
-## Testing
+**2. Status Check** - Haoze Li
+- **Feature**: Status Update Interface
+- **As a player**:
+    - I want to get updates on the current status so I can make informed decisions.
+- **Requirements**:
+    - Players can view:
+        - **Weather**: Information on current weather conditions.
+        - **Environment**: Description of surroundings, including potential threats 
+        - or opportunities.
+        - **Location**: The current position on the map.
+        - **Date**: In-game date to help track progression.
+        - **Backpack**: Inventory overview, showing items and supplies.
+        - **Body State**: Health and energy status of team members.
 
-The repo also includes an example of a use case interactor test, as well as
-an example of an end-to-end test which automates button clicks and inspects
-the contents of the actual views. This is something we discussed in the lectures
-about testing in CA but had not provided a code example of before. Note, one
-could also inspect the contents of the ViewModel objects instead when testing
-CA to make a similar test which would be less dependent on the details of the
-specific UI implementation.
+**3. Decision-Making Actions** - Ze Kun Song
+- **Feature**: Action Menu
+- **As a player**:
+    - I want to make strategic decisions like moving, gathering, defending, 
+    - or broadcasting to improve my team’s survival.
+- **Requirements**:
+    - **Move**: Enables relocation to a new area on the map.
+    - **Gather**: Allows collection of resources from the current environment.
+    - **Defend**: Option to set up defenses against threats.
+    - **Broadcast**: Sends out signals or attempts to locate survivors and information.
+    - Actions have context-dependent outcomes, with feedback influenced by 
+    - the environment or events.
 
-## Project Starter Code
+**4. Interaction with Random Events** - Owen Hexiang Wang
+- **Feature**: Random Events Engine
+- **As a player**:
+    - I want to interact with unexpected events to experience realistic challenges and 
+    - surprises.
+- **Requirements**:
+    - Random events are triggered based on factors like location, weather, 
+    - and player actions.
+    - Events impact resources, health, or the environment, requiring adaptive strategies.
 
-Your team may choose to use this repo as starter code for your project. You could
-also use the lab 5 code — or start from an empty repo if your team prefers.
+**5. Game Exit** - Xiaoshu Lin
+- **Feature**: Exit Game
+- **As a player**:
+    - I want the option to end or save my game to resume later.
+- **Requirements**:
+    - Players can choose to end or save their progress.
+    - When ending, the game provides a summary of progress, achievements, and challenges 
+    - faced.
 
-If you choose to use one of the repositories we have provided, you can either make
-a fork of it or copy the subset of code you want into a completely new repository.
+
