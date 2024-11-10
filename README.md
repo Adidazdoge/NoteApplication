@@ -1,9 +1,9 @@
 ## Group members && GitHub id
 
-Yitong An - Adidazdoge
+Yitong An 
 Haoze Li
 Ze Kun Song
-Owen Hexiang Wang
+Owen Hexiang Wang- Adidazdoge
 Xiaoshu Lin - Michael-lin6677
 
 ## Software Specification
