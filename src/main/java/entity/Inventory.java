@@ -8,14 +8,14 @@ public class Inventory {
     private int food;
     private int water;
     private int firearm;
-    private int nonfirearm;
+    private int nonFireArm;
     private int people;
 
     public Inventory() {
         this.food = Entityconstants.STARTERFOOD;
         this.water = Entityconstants.STARTERWATER;
         this.firearm = Entityconstants.STARTFIREARM;
-        this.nonfirearm = Entityconstants.STARTERNONFIREARM;
+        this.nonFireArm = Entityconstants.STARTERNONFIREARM;
         this.people = Entityconstants.STARTERPEOPLE;
     }
 
@@ -25,10 +25,10 @@ public class Inventory {
 
     /**
      * Changing food in inventory, can be pos or neg.
-     * @param foodchange the change which is happening.
+     * @param foodChange the change which is happening.
      */
-    public void changeFood(int foodchange) {
-        this.food = this.food + foodchange;
+    public void changeFood(int foodChange) {
+        this.food = this.food + foodChange;
     }
 
     public int getWater() {
@@ -37,10 +37,10 @@ public class Inventory {
 
     /**
      * Changing water in inventory, can be pos or neg.
-     * @param Waterchange the change which is happening.
+     * @param waterChange the change which is happening.
      */
-    public void changeWater(int Waterchange) {
-        this.water = this.water + Waterchange;
+    public void changeWater(int waterChange) {
+        this.water = this.water + waterChange;
     }
 
     public int getFirearm() {
@@ -55,16 +55,16 @@ public class Inventory {
         this.firearm = this.firearm + firearmChange;
     }
 
-    public int getNonfirearm() {
-        return nonfirearm;
+    public int getNonFireArm() {
+        return nonFireArm;
     }
 
     /**
      * Changing nonfirearm in inventory, can be pos or neg.
-     * @param nonfirearmChange the change which is happening.
+     * @param nonFirearmChange the change which is happening.
      */
-    public void changeNonfirearm(int nonfirearmChange) {
-        this.nonfirearm = this.nonfirearm + nonfirearmChange;
+    public void changeNonfirearm(int nonFirearmChange) {
+        this.nonFireArm = this.nonFireArm + nonFirearmChange;
     }
 
     public int getPeople() {

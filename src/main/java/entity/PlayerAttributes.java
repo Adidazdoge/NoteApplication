@@ -3,21 +3,26 @@ package entity;
 /**
  * Class responsible for storing attribution information and updates.
  * Note, the class shouldn't be called after player formally "started" the game as attributes are fixed.
- * Points: how many points you have to allowcate. If difficulty extention introduced, change the starterattributepoint.
- * Charismma: Increase the chance and number of people joined after each broadcast.
+ * Points: how many points you have to allocate. If difficulty extension introduced, change the starterattributepoint.
+ * Charisma: Increase the chance and number of people joined after each broadcast.
  * Luck: Increase probability of positive events, Decrease probability of negative events.
- * Mobilization: Better mobilizartion ability allow group to move faster. num of action perday increase accordingly.
- * Thrift: Ability of better allowcating resources, decrease food/water consumption.
- * Generalship: Increase firepower by changing/increase perportion of how it's calculated.
+ * Mobilization: Better mobilization ability allow group to move faster. num of action per day increase accordingly.
+ * Thrift: Ability of better allocating resources, decrease food/water consumption.
+ * Generalship: Increase firepower by changing/increase proportion of how it's calculated.
  * Could be more for modification added later.
  */
 
 public class PlayerAttributes {
     private int points;
+    // Control the amount of people involvement per day
     private int charisma;
+    // Control the possibility of the positive effects
     private int luck;
+    // Control the moving scale and moving times
     private int mobilization;
+    // Control the resource consumption per individual per day
     private int thrift;
+    // Control the level of firepower
     private int generalship;
 
     public PlayerAttributes() {

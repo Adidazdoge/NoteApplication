@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * This class is responsible for creating the map with randomization.
- * Method returns location of core for resourse calculation.
+ * Method returns location of core for resource calculation.
  * Method returns the grid for map data.
  */
 public class MapFactory {
@@ -48,6 +48,7 @@ public class MapFactory {
         }
         return environmentCores;
     }
+
     // This is a hlper method
     private double calculateDistance(Map.Entry<Integer, Integer> point1, Map.Entry<Integer, Integer> point2) {
         final int xDiff = point1.getKey() - point2.getKey();
@@ -59,7 +60,7 @@ public class MapFactory {
      * Construct the map/grid using the cores provided.
      * @param xWidth Map size width.
      * @param yLength Map size length.
-     * @param cores DIfferent cores given.
+     * @param cores Different cores given.
      * @return grid made of locations
      */
 

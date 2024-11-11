@@ -1,7 +1,7 @@
 package entity;
 
 /**
- * Player class of the program, could be used for scoreborad extension of the program, ranked by score & won.
+ * Player class of the program, could be used for scoreboard extension of the program, ranked by score & won.
  * This classes should only be responsible for keeping and updating the data, not score calculation process.
  * The class should only be updating any instance (player of it) once and which is after game ends, not termination!
  * The getter might be called multiple time for score board representation.
@@ -9,13 +9,13 @@ package entity;
 public class Player {
     private String name;
     private int score;
-    private int dayssurvived;
+    private int daysSurvived;
     private boolean won;
 
     public Player(String name) {
         this.name = name;
         this.score = 0;
-        this.dayssurvived = 0;
+        this.daysSurvived = 0;
         this.won = false;
     }
 
@@ -35,12 +35,12 @@ public class Player {
         this.score = score;
     }
 
-    public int getDayssurvived() {
-        return dayssurvived;
+    public int getDaysSurvived() {
+        return daysSurvived;
     }
 
-    public void setDayssurvived(int dayssurvived) {
-        this.dayssurvived = dayssurvived;
+    public void setDaysSurvived(int daysSurvived) {
+        this.daysSurvived = daysSurvived;
     }
 
     public boolean getWon() {
