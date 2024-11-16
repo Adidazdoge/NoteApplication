@@ -6,8 +6,7 @@ package entity;
 public class Entityconstants {
     public static final int STARTERFOOD = 100;
     public static final int STARTERWATER = 100;
-    public static final int STARTFIREARM = 5;
-    public static final int STARTERNONFIREARM = 5;
+    public static final int STARTWEAPON = 5;
     public static final int STARTERPEOPLE = 10;
     public static final int STARTERATRIBUTEPOINT = 20;
     public static final double STARTERRESOURCESCALAR = 1;
@@ -23,5 +22,14 @@ public class Entityconstants {
     public static final String CITY = "City";
     public static final String PLAIN = "Plain";
     public static final int BIOMERADIUS = 16;
+    public static final int FIRSTCHOICE = 1;
+    public static final int SECONDCHOICE = 2;
+    public static final int THIRDCHOICE = 3;
+    public static final int FOURTHCHOICE = 4;
+    public static final double COMMONEVENTBASEPROB = 0.1;
+    public static final double RAREEVENTBASEPROB = 0.03;
+    public static final int STARTERHORDEMAGNITUDE = 300;
+    public static final int STARTERHORDEDURATION = 10;
+
 
 }

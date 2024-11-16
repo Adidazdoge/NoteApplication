@@ -82,7 +82,7 @@ public class MapFactory {
         for (int x = 0; x < xWidth; x++) {
             final ArrayList<Location> partGrids = new ArrayList<>();
             for (int y = 0; y < yLength; y++) {
-                partGrids.add(new Plain());
+                partGrids.add(new LocationPlain());
             }
             grids.add(partGrids);
         }
@@ -131,17 +131,17 @@ public class MapFactory {
     private Location createLocationByTypeAndDistance(String environmentType, int distance) {
         switch (environmentType) {
             case Entityconstants.CITY:
-                return new City(distance);
+                return new LocationCity(distance);
             case Entityconstants.FOREST:
-                return new Forest(distance);
+                return new LocationForest(distance);
             case Entityconstants.PLAIN:
-                return new Plain();
+                return new LocationPlain();
             case Entityconstants.ICELAND:
-                return new Iceland(distance);
+                return new LocationIceland(distance);
             case Entityconstants.DESERT:
-                return new Desert(distance);
+                return new LocationDesert(distance);
             default:
-                return new Plain();
+                return new LocationPlain();
         }
     }
 
@@ -154,19 +154,19 @@ public class MapFactory {
         for (ArrayList<Location> row : grids) {
             for (Location loc : row) {
                 // Determine the character representation based on the Location type
-                if (loc instanceof Plain) {
+                if (loc instanceof LocationPlain) {
                     System.out.print("P ");
                 }
-                else if (loc instanceof Iceland) {
+                else if (loc instanceof LocationIceland) {
                     System.out.print("i ");
                 }
-                else if (loc instanceof Desert) {
+                else if (loc instanceof LocationDesert) {
                     System.out.print("  ");
                 }
-                else if (loc instanceof City) {
+                else if (loc instanceof LocationCity) {
                     System.out.print("W ");
                 }
-                else if (loc instanceof Forest) {
+                else if (loc instanceof LocationForest) {
                     System.out.print("' ");
                 }
                 else {

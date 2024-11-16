@@ -10,12 +10,18 @@ package entity;
 public interface Location {
 
     /**
-     * temperature is crucial for calculating food/water consumption. ideally, closer to core of iceland,
+     * Temperature is crucial for calculating food/water consumption. ideally, closer to core of iceland,
      * Colder it is, as well as desert, specific calculation are for later.
      * @param distance distance of location from its core.
      * @return temperature.
      */
-    Double gettemperature(int distance);
+    Double getsettemperature(int distance);
+
+    /**
+     * Getter method of temperature.
+     * @return Temperature of that location.
+     */
+    Double gettemperature();
 
     /**
      * Crucial to the number people joins, in a double represent the number we'll use as scalar for people increase
@@ -25,7 +31,13 @@ public interface Location {
      * @param distance distance from its core.
      * @return people resource scalar.
      */
-    Double getpeopleresourceavailable(int distance);
+    Double getsetpeopleresourceavailable(int distance);
+
+    /**
+     * Getter method of people resource scalar.
+     * @return people resource scalar of that location.
+     */
+    Double getpeopleresourceavailable();
 
     /**
      * Crucial to the number of food gathers act as scalar. Ideally, make it high in city and woods, the scalar decrease
@@ -33,7 +45,13 @@ public interface Location {
      * @param distance distance from its core.
      * @return food resource scalar
      */
-    Double getfoodresourceavailable(int distance);
+    Double getsetfoodresourceavailable(int distance);
+
+    /**
+     * Getter method of food resource scalar.
+     * @return food resource scalar of that location.
+     */
+    Double getfoodresourceavailable();
 
     /**
      * Crucial to the number of water gathers act as scalar. Ideally, make it high in iceland and wood
@@ -41,7 +59,13 @@ public interface Location {
      * @param distance distance from its core.
      * @return water resource scalar
      */
-    Double getwaterresourceavailable(int distance);
+    Double getsetwaterresourceavailable(int distance);
+
+    /**
+     * Getter method of water resource scalar.
+     * @return water resource scalar of that location.
+     */
+    Double getwaterresourceavailable();
 
     /**
      * Crucial to number of firearm gathered. Closer to city center, this scalar will be higher.
@@ -49,15 +73,13 @@ public interface Location {
      * @param distance distance from its core.
      * @return firearm resource scalar
      */
-    Double getfirearmresourceavailable(int distance);
+    Double getsetweaponresourceavailable(int distance);
 
     /**
-     * Crucial to number of nonfirearm gathered. Closer to city center, this scalar will be higher.
-     * Same spot, decrease this.
-     * @param distance distance from its core.
-     * @return nonfirearm resource scalar.
+     * Getter method of firearm resource scalar.
+     * @return firearm resource scalar of that location.
      */
-    Double getnonfirearmresourceavailable(int distance);
+    Double getweaponresourceavailable();
 
     /**
      * The method responsible for decrease the scalar of the location if they stayed, by some proportion
@@ -71,5 +93,11 @@ public interface Location {
      * @param distance distance from its core.
      * @return threat level.
      */
-    Double getthreatlevel(int distance);
+    Double getsetthreatlevel(int distance);
+
+    /**
+     * Getter method of threat scalar.
+     * @return people threat scalar of that location.
+     */
+    Double getthreatlevel();
 }

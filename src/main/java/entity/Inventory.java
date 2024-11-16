@@ -7,15 +7,13 @@ public class Inventory {
 
     private int food;
     private int water;
-    private int firearm;
-    private int nonFireArm;
+    private int weapon;
     private int people;
 
     public Inventory() {
         this.food = Entityconstants.STARTERFOOD;
         this.water = Entityconstants.STARTERWATER;
-        this.firearm = Entityconstants.STARTFIREARM;
-        this.nonFireArm = Entityconstants.STARTERNONFIREARM;
+        this.weapon = Entityconstants.STARTWEAPON;
         this.people = Entityconstants.STARTERPEOPLE;
     }
 
@@ -43,28 +41,16 @@ public class Inventory {
         this.water = this.water + waterChange;
     }
 
-    public int getFirearm() {
-        return firearm;
+    public int getWeapon() {
+        return Weapon;
     }
 
     /**
      * Changing firearm in inventory, can be pos or neg.
-     * @param firearmChange the change which is happening.
+     * @param weaponChange the change which is happening.
      */
-    public void changeFirearm(int firearmChange) {
-        this.firearm = this.firearm + firearmChange;
-    }
-
-    public int getNonFireArm() {
-        return nonFireArm;
-    }
-
-    /**
-     * Changing nonfirearm in inventory, can be pos or neg.
-     * @param nonFirearmChange the change which is happening.
-     */
-    public void changeNonfirearm(int nonFirearmChange) {
-        this.nonFireArm = this.nonFireArm + nonFirearmChange;
+    public void changeweapon(int weaponChange) {
+        this.Weapon = this.Weapon + weaponChange;
     }
 
     public int getPeople() {
