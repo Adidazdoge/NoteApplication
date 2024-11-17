@@ -15,7 +15,7 @@ package entity;
 public class PlayerAttributes {
     private int points;
     // Control the amount of people involvement per day
-    private int charisma;
+    private int social;
     // Control the possibility of the positive effects
     private int luck;
     // Control the moving scale and moving times
@@ -27,7 +27,7 @@ public class PlayerAttributes {
 
     public PlayerAttributes() {
         this.points = Entityconstants.STARTERATRIBUTEPOINT;
-        this.charisma = 0;
+        this.social = 0;
         this.luck = 0;
         this.mobilization = 0;
         this.thrift = 0;
@@ -41,12 +41,12 @@ public class PlayerAttributes {
         this.points = points;
     }
 
-    public int getCharisma() {
-        return charisma;
+    public int getSocial() {
+        return social;
     }
 
-    public void setCharisma(int charisma) {
-        this.charisma = charisma;
+    public void setSocial(int social) {
+        this.social = social;
     }
 
     public int getLuck() {

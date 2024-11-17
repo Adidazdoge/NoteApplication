@@ -65,4 +65,68 @@ public class Inventory {
         this.people = this.people + peopleChange;
     }
 
+    /**
+     * Calculatign the firepower of the group.
+     * @return firepower total.
+     */
+    public double getfirepower() {
+        // Calculate the number of people with weapon.
+        final int pairs = Math.min(people, weapon);
+        // Remaining people who are unarmed
+        final int unarmedPeople = people - pairs;
+
+        // Firepower: each pair contributes 5, and each unarmed person contributes 1
+        return (pairs * Entityconstants.ARMEDPEOPLEPOWER)
+                + unarmedPeople * Entityconstants.UNARMPEOPLEPOWER;
+    }
+
+    /**
+     * Method of generating string description on the change of inventory.
+     * @param foodChange change of food.
+     * @param waterChange change of water.
+     * @param peopleChange change of people.
+     * @param weaponChange change of weapon.
+     * @return String of the description.
+     */
+    public String generateResourceChangeMessage(final int foodChange, final int waterChange,
+                                                final int weaponChange, final int peopleChange) {
+        final StringBuilder message = new StringBuilder("Your group has ");
+        boolean hasChanges = false;
+
+        hasChanges |= appendChange(message, "food", foodChange);
+        hasChanges |= appendChange(message, "water", waterChange);
+        hasChanges |= appendChange(message, "people", peopleChange);
+        hasChanges |= appendChange(message, "weapons", weaponChange);
+
+        final String ans;
+        if (!hasChanges) {
+            ans = "Nothing has changed for your group.";
+        }
+        else {
+            message.append(".");
+            ans = message.toString();
+        }
+
+        return ans;
+    }
+
+    private boolean appendChange(final StringBuilder message, final String resourceName, final int change) {
+        boolean ans = false;
+
+        if (change != 0) {
+            if (message.length() > Entityconstants.LENGTHMESSAGECOMMA) {
+                message.append(", ");
+            }
+            if (change > 0) {
+                message.append("gained ").append(change).append(" units of ").append(resourceName);
+            }
+            else {
+                message.append("lost ").append(Math.abs(change)).append(" units of ").append(resourceName);
+            }
+            ans = true;
+        }
+
+        return ans;
+    }
+
 }
