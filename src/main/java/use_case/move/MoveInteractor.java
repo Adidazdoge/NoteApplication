@@ -16,8 +16,9 @@ public class MoveInteractor implements MoveInputBoundary {
     }
 
     @Override
-    public void execute(String direction) {
+    public void execute(MoveInputData moveInputData) {
         // Fetch necessary data
+        final String direction = moveInputData.getDirection();
         final int speed = 1 + (moveDataAccessObject.getPlayerAttributes().getMobilization()
                 / Entityconstants.MOBILIZATIONIMPACTSPEED);
         final PlayerLocation currentLocation = moveDataAccessObject.getPlayerLocation();

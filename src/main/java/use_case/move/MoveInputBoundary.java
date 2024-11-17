@@ -7,7 +7,7 @@ public interface MoveInputBoundary {
 
     /**
      * Execute the move for player based on given direction.
-     * @param direction direction player choose.
+     * @param inputdata direction player choose in MoveInputData format.
      */
-    void execute(String direction);
+    void execute(MoveInputData inputdata);
 }

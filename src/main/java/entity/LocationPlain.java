@@ -75,6 +75,10 @@ public class LocationPlain implements Location {
         this.foodResource = this.foodResource * Entityconstants.RESOUCEDECREASERATIO;
         this.waterResource = this.waterResource * Entityconstants.RESOUCEDECREASERATIO;
         this.weaponResource = this.weaponResource * Entityconstants.RESOUCEDECREASERATIO;
+    }
+
+    @Override
+    public void decreaserepeopleavailable() {
         this.peopleResource = this.peopleResource * Entityconstants.RESOUCEDECREASERATIO;
     }
 

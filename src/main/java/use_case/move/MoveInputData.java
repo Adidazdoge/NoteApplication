@@ -10,4 +10,8 @@ public class MoveInputData {
     public MoveInputData(String direction) {
         this.direction = direction;
     }
+
+    public String getDirection() {
+        return direction;
+    }
 }

@@ -75,6 +75,10 @@ public class LocationIceland implements Location {
         this.foodresource = this.foodresource * Entityconstants.RESOUCEDECREASERATIO;
         this.waterresource = this.waterresource * Entityconstants.RESOUCEDECREASERATIO;
         this.weaponresource = this.weaponresource * Entityconstants.RESOUCEDECREASERATIO;
+    }
+
+    @Override
+    public void decreaserepeopleavailable() {
         this.peopleresource = this.peopleresource * Entityconstants.RESOUCEDECREASERATIO;
     }
 

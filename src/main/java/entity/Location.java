@@ -82,10 +82,17 @@ public interface Location {
     Double getweaponresourceavailable();
 
     /**
-     * The method responsible for decrease the scalar of the location if they stayed, by some proportion
-     * Notice, it is for all 5 resource scalar.
+     * The method responsible for decrease the scalar of the location if they stayed, by some proportion, determined
+     * by player's selected move ex: if player gathered, food weapon and water resource drop
+     * This is for food weapon and water drop.
      */
     void decreaseresourceavailable();
+
+    /**
+     * Decrease the scalar by some proportion, which is gonna happen if player broadcast, so what's left is less.
+     */
+    void decreaserepeopleavailable();
+
 
     /**
      * The threat level of this location, used for calculating power of the horde, and people decrease.
