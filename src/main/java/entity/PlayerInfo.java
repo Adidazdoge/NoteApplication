@@ -6,13 +6,13 @@ package entity;
  * The class should only be updating any instance (player of it) once and which is after game ends, not termination!
  * The getter might be called multiple time for score board representation.
  */
-public class Player {
+public class PlayerInfo {
     private String name;
     private int score;
     private int daysSurvived;
     private boolean won;
 
-    public Player(String name) {
+    public PlayerInfo(String name) {
         this.name = name;
         this.score = 0;
         this.daysSurvived = 0;

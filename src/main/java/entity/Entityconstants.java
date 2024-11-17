@@ -30,6 +30,9 @@ public class Entityconstants {
     public static final double RAREEVENTBASEPROB = 0.03;
     public static final int STARTERHORDEMAGNITUDE = 300;
     public static final int STARTERHORDEDURATION = 10;
-
-
+    public static final int MOBILIZATIONIMPACTSPEED = 10;
+    public static final String UP = "up";
+    public static final String DOWN = "down";
+    public static final String LEFT = "left";
+    public static final String RIGHT = "right";
 }

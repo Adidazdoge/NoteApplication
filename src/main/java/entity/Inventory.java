@@ -42,7 +42,7 @@ public class Inventory {
     }
 
     public int getWeapon() {
-        return Weapon;
+        return weapon;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Inventory {
      * @param weaponChange the change which is happening.
      */
     public void changeweapon(int weaponChange) {
-        this.Weapon = this.Weapon + weaponChange;
+        this.weapon = this.weapon + weaponChange;
     }
 
     public int getPeople() {
