@@ -14,5 +14,9 @@ public class Constants {
     public static final int SIX_HUNDRED = 600;
     public static final int FOUR_HUNDRED = 400;
     public static final int EIGHTY = 80;
+    public static final int EIGHT_HUNDRED = 800;
+    public static final int ONE_HUNDRED = 100;
+    public static final int THREE = 3;
+    public static final int ONE_THOUSAND = 1000;
 
 }
