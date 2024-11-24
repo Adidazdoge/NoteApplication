@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 /**
  * Constants used in this program.

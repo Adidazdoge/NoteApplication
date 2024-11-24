@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,11 +13,11 @@ public class LoginView extends JFrame {
     private SpringLayout springLayout = new SpringLayout();
     private JPanel centerPanel = new JPanel(springLayout);
     private JLabel userNameLabel = new JLabel("username");
-    private JTextField userText = new JTextField();
+    private static JTextField userText = new JTextField();
     private JLabel passwordLabel = new JLabel("password");
-    private JPasswordField passwordText = new JPasswordField();
-    private JButton loginBotton = new JButton("log in");
-    private JButton registerButton = new JButton("sign up");
+    private static JPasswordField passwordText = new JPasswordField();
+    private static JButton loginBotton = new JButton("log in");
+    private static JButton registerButton = new JButton("sign up");
 
     public LoginView() {
         super("Log in");
@@ -50,6 +50,17 @@ public class LoginView extends JFrame {
         final Spring spaceWidth = Spring.constant(20);
         final Spring childWidth = Spring.sum(Spring.sum(titleLabelWidth, titleTextWidth), spaceWidth);
         final int offsetX = childWidth.getValue() / 2;
+        layout(offsetX);
+
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        // setLocation(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
+
+    }
+
+    private void layout(int offsetX) {
         springLayout.putConstraint(SpringLayout.WEST, userNameLabel, -offsetX, SpringLayout.HEIGHT, centerPanel);
         springLayout.putConstraint(SpringLayout.NORTH, userNameLabel, Constants.TWENTY, SpringLayout.NORTH,
                 centerPanel);
@@ -69,17 +80,25 @@ public class LoginView extends JFrame {
         // set registerButton
         springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.SIXTY, SpringLayout.EAST, loginBotton);
         springLayout.putConstraint(SpringLayout.NORTH, registerButton, 0, SpringLayout.NORTH, loginBotton);
-
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
-        // setLocation(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(true);
-
     }
 
-    public static void main(String[] args) {
-        new LoginView();
+    // public static void main(String[] args) {
+    // new LoginView();
+    // }
+
+    public static String getUser() {
+        return userText.getText();
     }
 
+    public static String getPwd() {
+        return passwordText.getText();
+    }
+
+    public static JButton getLoginButton() {
+        return loginBotton;
+    }
+
+    public static JButton getRegisterButton() {
+        return registerButton;
+    }
 }
