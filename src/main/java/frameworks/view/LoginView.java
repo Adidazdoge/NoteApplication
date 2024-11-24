@@ -82,9 +82,9 @@ public class LoginView extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, registerButton, 0, SpringLayout.NORTH, loginBotton);
     }
 
-    // public static void main(String[] args) {
-    // new LoginView();
-    // }
+     public static void main(String[] args) {
+     new LoginView();
+     }
 
     public static String getUser() {
         return userText.getText();
