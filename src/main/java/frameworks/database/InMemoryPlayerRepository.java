@@ -42,4 +42,15 @@ public class InMemoryPlayerRepository implements PlayerRepository {
     public Player findByUsername(String username) {
         return players.get(username);
     }
+
+    /**
+     * Checks if the given username already exists in the repository.
+     *
+     * @param username The username to check.
+     * @return True if the username exists, otherwise false.
+     */
+    @Override
+    public boolean isUsernameDuplicate(String username) {
+        return players.containsKey(username);
+    }
 }

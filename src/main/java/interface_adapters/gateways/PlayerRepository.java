@@ -21,4 +21,12 @@ public interface PlayerRepository {
      * @return A Player object if the username exists in the data source, otherwise null.
      */
     Player findByUsername(String username);
+
+    /**
+     * Checks if the given username already exists in the data source.
+     *
+     * @param username The username to check.
+     * @return True if the username exists, otherwise false.
+     */
+    boolean isUsernameDuplicate(String username);
 }
