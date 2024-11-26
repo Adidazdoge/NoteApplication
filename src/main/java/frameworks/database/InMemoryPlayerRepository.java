@@ -24,9 +24,9 @@ public class InMemoryPlayerRepository implements PlayerRepository {
      */
     public InMemoryPlayerRepository() {
         // todo
-        //  Logic for storing the players information to the players MAP.
-        //  players.put("user1", new Player("1", "user1", "password1"));
-        //  players.put("user2", new Player("2", "user2", "password2"));
+        //  Database import
+        players.put("user1", new Player("1", "user1", "password1"));
+        players.put("user2", new Player("2", "user2", "password2"));
     }
 
     /**
@@ -52,5 +52,15 @@ public class InMemoryPlayerRepository implements PlayerRepository {
     @Override
     public boolean isUsernameDuplicate(String username) {
         return players.containsKey(username);
+    }
+
+    /**
+     * Update the new player object in Hashmap players.
+     *
+     * @param player The object for Player.
+     */
+    @Override
+    public void addPlayer(Player player) {
+        players.put(player.getUsername(), player);
     }
 }

@@ -27,10 +27,9 @@ public class InMemoryRankingRepository implements RankingRepository {
      */
     public InMemoryRankingRepository() {
         // todo
-        // rankings.add(new RankingEntry("player1", 100));
-        // rankings.add(new RankingEntry("player2", 200));
-        // rankings.add(new RankingEntry("player3", 150));
-        // rankings.add(new RankingEntry("player4", 250));
+        // Database import
+        rankings.add(new RankingEntry("player1", 100, 40, false));
+        rankings.add(new RankingEntry("player2", 200, 60,true));
     }
 
     /**

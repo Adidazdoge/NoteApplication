@@ -1,7 +1,5 @@
 package interface_adapters.controllers;
 
-import usecases.login.LoginRequest;
-import usecases.login.LoginResponse;
 import usecases.login.LoginUseCase;
 
 /**
@@ -29,16 +27,10 @@ public class LoginController {
      *
      * @param username The username provided by the user.
      * @param password The password provided by the user.
+     *
+     * @return The response for the giver username and password.
      */
-    public void handleLogin(String username, String password) {
-        final LoginRequest request = new LoginRequest(username, password);
-        final LoginResponse response = useCase.execute(request);
-
-        if (response.isSuccess()) {
-            System.out.println(response.getMessage() + " Player ID: " + response.getPlayerId());
-        }
-        else {
-            System.out.println(response.getMessage());
-        }
+    public String handleLogin(String username, String password) {
+        return useCase.execute(username, password);
     }
 }

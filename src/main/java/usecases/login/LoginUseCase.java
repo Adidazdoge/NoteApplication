@@ -4,14 +4,14 @@ import entities.Player;
 import interface_adapters.gateways.PlayerRepository;
 
 /**
- * Handles the login logic.
- * Validates the user's credentials and returns a response indicating success or failure.
+ * Handles the logic for logging in a player.
+ * Validates credentials against the existing database.
  */
 public class LoginUseCase {
     private final PlayerRepository repository;
 
     /**
-     * Constructs a new LoginUseCase with the given player repository.
+     * Constructs a LoginUseCase with the specified player repository.
      *
      * @param repository The repository to access player data.
      */
@@ -20,15 +20,20 @@ public class LoginUseCase {
     }
 
     /**
-     * Executes the login use case with the given login request.
-     * @param request The login request containing the username and password.
-     * @return A LoginResponse indicating the result of the login attempt.
+     * Executes the login logic for a player.
+     *
+     * @param username The username provided by the player.
+     * @param password The password provided by the player.
+     * @return A success message if login is successful, otherwise an error message.
      */
-    public LoginResponse execute(LoginRequest request) {
-        final Player player = repository.findByUsername(request.getUsername());
-        if (player != null && player.validatePassword(request.getPassword())) {
-            return new LoginResponse(true, "Login successful!", player.getId());
+    public String execute(String username, String password) {
+        final Player player = repository.findByUsername(username);
+        if (player == null) {
+            return "Login failed: Username not found.";
         }
-        return new LoginResponse(false, "Invalid username or password.", null);
+        if (!player.validatePassword(password)) {
+            return "Login failed: Incorrect password.";
+        }
+        return "Login successful! Welcome back, " + username + ".";
     }
 }
