@@ -1,14 +1,14 @@
-{
-  "name": "data",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+[
+  {
+    "playerId": "1",
+    "score": 200,
+    "daysSurvived": 30,
+    "won": true
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Adidazdoge/NoteApplication.git"
-  },
-  "private": true
-}
+  {
+    "playerId": "2",
+    "score": 150,
+    "daysSurvived": 20,
+    "won": false
+  }
+]
