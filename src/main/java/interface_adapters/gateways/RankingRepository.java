@@ -2,7 +2,7 @@ package interface_adapters.gateways;
 
 import java.util.List;
 
-import entities.RankingEntry;
+import entities.PlayerRankingEntry;
 
 /**
  * Represents the interface for accessing ranking data.
@@ -14,5 +14,5 @@ public interface RankingRepository {
      *
      * @return A list of all ranking entries.
      */
-    List<RankingEntry> getAllRankings();
+    List<PlayerRankingEntry> getAllRankings();
 }

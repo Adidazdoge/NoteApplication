@@ -3,7 +3,7 @@ package frameworks.database;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.RankingEntry;
+import entities.PlayerRankingEntry;
 import interface_adapters.gateways.RankingRepository;
 
 /**
@@ -20,7 +20,7 @@ import interface_adapters.gateways.RankingRepository;
  *        controller.handleRankingRequest(3);
  */
 public class InMemoryRankingRepository implements RankingRepository {
-    private final List<RankingEntry> rankings = new ArrayList<>();
+    private final List<PlayerRankingEntry> rankings = new ArrayList<>();
 
     /**
      * Constructs an InMemoryRankingRepository with a predefined set of ranking entries.
@@ -28,8 +28,8 @@ public class InMemoryRankingRepository implements RankingRepository {
     public InMemoryRankingRepository() {
         // todo
         // Database import
-        rankings.add(new RankingEntry("player1", 100, 40, false));
-        rankings.add(new RankingEntry("player2", 200, 60,true));
+        rankings.add(new PlayerRankingEntry("player1", 100, 40, false));
+        rankings.add(new PlayerRankingEntry("player2", 200, 60, true));
     }
 
     /**
@@ -38,7 +38,7 @@ public class InMemoryRankingRepository implements RankingRepository {
      * @return A list of all ranking entries.
      */
     @Override
-    public List<RankingEntry> getAllRankings() {
+    public List<PlayerRankingEntry> getAllRankings() {
         // Return a copy to prevent modification
         return new ArrayList<>(rankings);
     }

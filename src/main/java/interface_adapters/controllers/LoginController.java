@@ -1,36 +1,38 @@
 package interface_adapters.controllers;
 
-import usecases.login.LoginUseCase;
+import usecases.login.LoginInputBoundary;
+import usecases.login.LoginInputData;
 
 /**
  * The LoginController class is responsible for handling user input from the UI
- * and invoking the LoginUseCase to process the login logic.
- * It serves as the bridge between the user interface and the business logic.
+ * and invoking the Login use case to process the login logic.
+ * It acts as the bridge between the user interface and the application's business logic.
  */
 public class LoginController {
-    private final LoginUseCase useCase;
+    private final LoginInputBoundary loginUseCase;
 
     /**
-     * Constructs a new LoginController with the specified LoginUseCase.
+     * Constructs a new LoginController with the specified LoginInputBoundary.
      *
-     * @param useCase The use case instance responsible for processing login requests.
+     * @param loginUseCase The input boundary instance responsible for processing login requests.
      */
-    public LoginController(LoginUseCase useCase) {
-        this.useCase = useCase;
+    public LoginController(LoginInputBoundary loginUseCase) {
+        this.loginUseCase = loginUseCase;
     }
 
     /**
-     * This method creates a LoginRequest object using the provided username and password,
-     * passes it to the LoginUseCase for processing, and handles the LoginResponse.
-     * If the login is successful, it prints a success message along with the player's ID.
-     * Otherwise, it prints an error message.
+     * Handles the login process by creating a LoginInputData object with the provided
+     * username and password, passing it to the Login use case, and returning the result.
      *
      * @param username The username provided by the user.
      * @param password The password provided by the user.
-     *
-     * @return The response for the giver username and password.
      */
-    public String handleLogin(String username, String password) {
-        return useCase.execute(username, password);
+    public void handleLogin(String username, String password) {
+        // Create input data object for the use case
+        final LoginInputData inputData = new LoginInputData(username, password);
+
+        // Invoke the use case with the input data
+        loginUseCase.execute(inputData);
     }
 }
+

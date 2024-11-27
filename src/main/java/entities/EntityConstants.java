@@ -5,7 +5,7 @@ package entities;
  * Notice, by changing these constant, we can alter game dramatically.
  * This could be used to achieve game balance as well as for difficulty setting implementation.
  */
-public class Entityconstants {
+public class EntityConstants {
     public static final int STARTERFOOD = 100;
     public static final int STARTERWATER = 100;
     public static final int STARTWEAPON = 5;
@@ -78,6 +78,9 @@ public class Entityconstants {
     public static final int AMBUSHFAILRESOURCEWATER = -30;
     public static final int AMBUSHFAILRESOURCEPEOPLE = -5;
     public static final int AMBUSHFAILRESOURCEWEAPON = -10;
+    // for event ambush, resource lost for failed.
+    // for any general escape choice, the distance move randomly at max.
+    public static final int LENGTHMESSAGECOMMA = 17;
 
     // Flood constants.
     public static final int FLOODRESOURCELOSS = -10;
@@ -109,4 +112,5 @@ public class Entityconstants {
 
     public static final String NEWLINE = "\n";
 
+>>>>>>> f2a2a8275faa0cc5e1e294e8fcb3832bbde8f194:src/main/java/entities/Entityconstants.java
 }

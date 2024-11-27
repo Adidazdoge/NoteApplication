@@ -27,7 +27,7 @@ public class EventBlizzard implements Event {
         this.description = "A harsh blizzard strikes, blanketing the area in ice and snow. The biting cold "
                 + "and lack of visibility make travel dangerous, and hunger begins to take its toll";
         this.choices = new HashMap<>();
-        this.probability = Entityconstants.COMMONEVENTBASEPROB;
+        this.probability = EntityConstants.COMMONEVENTBASEPROB;
         this.outcome = "Due to cold, your group had to consume more food";
     }
 

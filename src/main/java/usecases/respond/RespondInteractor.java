@@ -1,6 +1,6 @@
 package usecases.respond;
 
-import entities.Entityconstants;
+import entities.EntityConstants;
 import entities.Event;
 import entities.EventAmbush;
 import entities.EventBlizzard;
@@ -59,6 +59,58 @@ public class RespondInteractor implements RespondInputBoundary {
         String message;
         int foodChange = 0;
         boolean success = true;
+<<<<<<< HEAD
+        final EventAmbush ambush = (EventAmbush) event;
+        if (choice == EntityConstants.FIRSTCHOICE) {
+            if (inventory.getfirepower() >= EntityConstants.AMBUSHPOWER) {
+                foodchange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEFOOD;
+                waterchange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEWATER;
+                weaponchange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEWEAPON;
+                peoplechange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEPEOPLE;
+                message = ambush.getFightoutcomesuccess();
+            }
+            else {
+                foodchange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+                waterchange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+                weaponchange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
+                peoplechange = EntityConstants.AMBUSHFAILRESOURCEPEOPLE;
+                message = ambush.getFightoutcomefailed();
+            }
+        }
+        else if (choice == EntityConstants.SECONDCHOICE) {
+            foodchange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+            waterchange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+            weaponchange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
+            message = ambush.getPayoutcome();
+        }
+        else if (choice == EntityConstants.THIRDCHOICE) {
+            if (attributes.getSocial() < EntityConstants.AMBUSHNEGOTIATE) {
+                foodchange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+                waterchange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+                weaponchange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
+                message = ambush.getNegotiatefailedoutcome();
+            }
+            else {
+                message = ambush.getNegotiatesuccessoutcome();
+            }
+        }
+        else {
+            success = false;
+        }
+        final String inventorymessage = inventory.generateResourceChangeMessage(
+                foodchange, waterchange, weaponchange, peoplechange);
+        inventory.changeFood(foodchange);
+        inventory.changeWater(waterchange);
+        inventory.changeweapon(weaponchange);
+        inventory.changePeople(peoplechange);
+        return new Pair<>(
+                new RespondOutputData(
+                        message, foodchange, waterchange, weaponchange, peoplechange, inventorymessage
+                ),
+                success
+        );
+=======
+>>>>>>> f2a2a8275faa0cc5e1e294e8fcb3832bbde8f194
 
         EventFlood flood = (EventFlood) event;
         if (choice == Entityconstants.FIRSTCHOICE) {

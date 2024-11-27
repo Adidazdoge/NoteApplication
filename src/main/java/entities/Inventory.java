@@ -11,10 +11,10 @@ public class Inventory {
     private int people;
 
     public Inventory() {
-        this.food = Entityconstants.STARTERFOOD;
-        this.water = Entityconstants.STARTERWATER;
-        this.weapon = Entityconstants.STARTWEAPON;
-        this.people = Entityconstants.STARTERPEOPLE;
+        this.food = EntityConstants.STARTERFOOD;
+        this.water = EntityConstants.STARTERWATER;
+        this.weapon = EntityConstants.STARTWEAPON;
+        this.people = EntityConstants.STARTERPEOPLE;
     }
 
     public int getFood() {
@@ -76,8 +76,8 @@ public class Inventory {
         final int unarmedPeople = people - pairs;
 
         // Firepower: each pair contributes 5, and each unarmed person contributes 1
-        return (pairs * Entityconstants.ARMEDPEOPLEPOWER)
-                + unarmedPeople * Entityconstants.UNARMPEOPLEPOWER;
+        return (pairs * EntityConstants.ARMEDPEOPLEPOWER)
+                + unarmedPeople * EntityConstants.UNARMPEOPLEPOWER;
     }
 
     /**
@@ -114,7 +114,7 @@ public class Inventory {
         boolean ans = false;
 
         if (change != 0) {
-            if (message.length() > Entityconstants.LENGTHMESSAGECOMMA) {
+            if (message.length() > EntityConstants.LENGTHMESSAGECOMMA) {
                 message.append(", ");
             }
             if (change > 0) {

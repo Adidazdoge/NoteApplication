@@ -9,8 +9,8 @@ public class Horde {
     private double duration;
 
     public Horde() {
-        this.magnitude = Entityconstants.STARTERHORDEMAGNITUDE;
-        this.duration = Entityconstants.STARTERHORDEDURATION;
+        this.magnitude = EntityConstants.STARTERHORDEMAGNITUDE;
+        this.duration = EntityConstants.STARTERHORDEDURATION;
     }
 
     public double getDuration() {

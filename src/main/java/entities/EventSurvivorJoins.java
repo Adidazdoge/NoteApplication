@@ -31,9 +31,9 @@ public class EventSurvivorJoins implements Event {
         this.description = "You encounter a small group of survivors who ask to join your group. They appear skilled "
                 + "but wary. What will you do?";
         this.choices = new HashMap<>();
-        choices.put(Entityconstants.FIRSTCHOICE, "Accept them into the group");
-        choices.put(Entityconstants.SECONDCHOICE, "Politely reject them");
-        this.probability = Entityconstants.COMMONEVENTBASEPROB;
+        choices.put(EntityConstants.FIRSTCHOICE, "Accept them into the group");
+        choices.put(EntityConstants.SECONDCHOICE, "Politely reject them");
+        this.probability = EntityConstants.COMMONEVENTBASEPROB;
         this.acceptoutcome = "You've accept them into the group";
         this.rejectoutcome = "You've reject them into the group";
         this.roboutcomesuccess = "You've robbed the survivor, they dear not to fight back as your group overpowered"

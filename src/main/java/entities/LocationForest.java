@@ -14,10 +14,10 @@ public class LocationForest implements Location {
     public LocationForest(int dist) {
         this.foodresource = getsetfoodresourceavailable(dist);
         this.waterresource = getsetwaterresourceavailable(dist);
-        this.weaponresource = Entityconstants.STARTERRESOURCESCALAR;
-        this.peopleresource = Entityconstants.STARTERRESOURCESCALAR;
-        this.temperature = Entityconstants.STARTERRESOURCESCALAR;
-        this.threat = Entityconstants.STARTERRESOURCESCALAR;
+        this.weaponresource = EntityConstants.STARTERRESOURCESCALAR;
+        this.peopleresource = EntityConstants.STARTERRESOURCESCALAR;
+        this.temperature = EntityConstants.STARTERRESOURCESCALAR;
+        this.threat = EntityConstants.STARTERRESOURCESCALAR;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class LocationForest implements Location {
 
     @Override
     public Double getsetfoodresourceavailable(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class LocationForest implements Location {
 
     @Override
     public Double getsetwaterresourceavailable(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
     }
 
     @Override
@@ -72,14 +72,14 @@ public class LocationForest implements Location {
 
     @Override
     public void decreaseresourceavailable() {
-        this.foodresource = this.foodresource * Entityconstants.RESOUCEDECREASERATIO;
-        this.waterresource = this.waterresource * Entityconstants.RESOUCEDECREASERATIO;
-        this.weaponresource = this.weaponresource * Entityconstants.RESOUCEDECREASERATIO;
+        this.foodresource = this.foodresource * EntityConstants.RESOUCEDECREASERATIO;
+        this.waterresource = this.waterresource * EntityConstants.RESOUCEDECREASERATIO;
+        this.weaponresource = this.weaponresource * EntityConstants.RESOUCEDECREASERATIO;
     }
 
     @Override
     public void decreaserepeopleavailable() {
-        this.peopleresource = this.peopleresource * Entityconstants.RESOUCEDECREASERATIO;
+        this.peopleresource = this.peopleresource * EntityConstants.RESOUCEDECREASERATIO;
     }
 
     @Override

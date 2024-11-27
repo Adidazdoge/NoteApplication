@@ -1,6 +1,6 @@
 package usecases.newday;
 
-import entities.Entityconstants;
+import entities.EntityConstants;
 
 /**
  * Newday interactor, where logic happen.
@@ -25,7 +25,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final StringBuilder messageBuilder = new StringBuilder("Another day has passed. Here's what happened:\n");
         boolean success = true;
         String failmessage = "";
-        if (newdayDataAccessObject.getPlauerinfo().getDaysSurvived() >= Entityconstants.MAXNUMDAY) {
+        if (newdayDataAccessObject.getPlayerinfo().getDaysSurvived() >= EntityConstants.MAXNUMDAY) {
             success = false;
         }
         // Process resource changes and build the message
@@ -44,60 +44,60 @@ public class NewdayInteractor implements NewdayInputBoundary {
     private void incrementresouce(StringBuilder messageBuilder, int people) {
         // food gain
         final double foodscalar = newdayDataAccessObject.getLocation().getfoodresourceavailable();
-        final double foodgain = people * Entityconstants.PEOPLEGAINPERFOOD * foodscalar;
+        final double foodgain = people * EntityConstants.PEOPLEGAINPERFOOD * foodscalar;
         newdayDataAccessObject.changeFood((int) foodgain);
-        messageBuilder.append("  - Food gained: ").append((int) foodgain).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - Food gained: ").append((int) foodgain).append(EntityConstants.NEWLINE);
 
         // water gain
         final double waterscalar = newdayDataAccessObject.getLocation().getwaterresourceavailable();
-        final double watergain = people * Entityconstants.PEOPLEGAINPERWATER * waterscalar;
+        final double watergain = people * EntityConstants.PEOPLEGAINPERWATER * waterscalar;
         newdayDataAccessObject.changeWater((int) watergain);
-        messageBuilder.append("  - Water gained: ").append((int) watergain).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - Water gained: ").append((int) watergain).append(EntityConstants.NEWLINE);
 
         // people gain
-        final double peoplegain = people * (Entityconstants.PEOPLEBASEJOINRATE
+        final double peoplegain = people * (EntityConstants.PEOPLEBASEJOINRATE
                 * newdayDataAccessObject.getLocation().getpeopleresourceavailable());
         newdayDataAccessObject.changePeople((int) peoplegain);
-        messageBuilder.append("  - New members joined: ").append((int) peoplegain).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - New members joined: ").append((int) peoplegain).append(EntityConstants.NEWLINE);
 
         // weaponry gain
-        double weapongain = peoplegain + people * Entityconstants.PEOPLEGAINPERWEAPON;
+        double weapongain = peoplegain + people * EntityConstants.PEOPLEGAINPERWEAPON;
         weapongain = weapongain * newdayDataAccessObject.getLocation().getweaponresourceavailable();
         newdayDataAccessObject.changeWeapon((int) weapongain);
-        messageBuilder.append("  - Weaponry gained: ").append((int) weapongain).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - Weaponry gained: ").append((int) weapongain).append(EntityConstants.NEWLINE);
     }
 
     private void decrementresource(StringBuilder messageBuilder, int thrift, int people, double temp) {
         // food loss
-        final double basetemp = Entityconstants.DEFAULTTEMP;
+        final double basetemp = EntityConstants.DEFAULTTEMP;
         final double tempdiff = temp - basetemp;
-        double foodloss = people * Entityconstants.PEOPLELOSSPERFOOD;
+        double foodloss = people * EntityConstants.PEOPLELOSSPERFOOD;
         if (tempdiff < 0) {
             foodloss += Math.abs(tempdiff);
         }
-        foodloss = foodloss * (1 - thrift * Entityconstants.THRIFTIMPACTRESOURCELOSS);
+        foodloss = foodloss * (1 - thrift * EntityConstants.THRIFTIMPACTRESOURCELOSS);
         newdayDataAccessObject.changeFood((int) foodloss * -1);
-        messageBuilder.append("  - Food lost: ").append((int) foodloss).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - Food lost: ").append((int) foodloss).append(EntityConstants.NEWLINE);
 
         // water loss
-        double waterloss = people * Entityconstants.PEOPLELOSSPERWATER;
+        double waterloss = people * EntityConstants.PEOPLELOSSPERWATER;
         if (tempdiff > 0) {
             waterloss += Math.abs(tempdiff);
         }
-        waterloss = waterloss * (1 - thrift * Entityconstants.THRIFTIMPACTRESOURCELOSS);
+        waterloss = waterloss * (1 - thrift * EntityConstants.THRIFTIMPACTRESOURCELOSS);
         newdayDataAccessObject.changeWater((int) waterloss * -1);
-        messageBuilder.append("  - Water lost: ").append((int) waterloss).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - Water lost: ").append((int) waterloss).append(EntityConstants.NEWLINE);
 
         // people loss
-        final double peopleloss = people * (Entityconstants.PEOPLEBASEDEATHRATE
+        final double peopleloss = people * (EntityConstants.PEOPLEBASEDEATHRATE
                 * newdayDataAccessObject.getLocation().getthreatlevel());
         newdayDataAccessObject.changePeople((int) peopleloss * -1);
-        messageBuilder.append("  - People lost: ").append((int) peopleloss).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - People lost: ").append((int) peopleloss).append(EntityConstants.NEWLINE);
 
         // weaponry loss
-        final double weaponloss = peopleloss * (1 - thrift * Entityconstants.THRIFTIMPACTRESOURCELOSS);
+        final double weaponloss = peopleloss * (1 - thrift * EntityConstants.THRIFTIMPACTRESOURCELOSS);
         newdayDataAccessObject.changeWeapon((int) weaponloss * -1);
-        messageBuilder.append("  - Weaponry lost: ").append((int) weaponloss).append(Entityconstants.NEWLINE);
+        messageBuilder.append("  - Weaponry lost: ").append((int) weaponloss).append(EntityConstants.NEWLINE);
     }
 
 }
