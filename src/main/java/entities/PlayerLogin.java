@@ -5,7 +5,7 @@ package entities;
  * This entity contains information about the player, such as their ID, username, and password.
  * The Player class encapsulates the player's identity and authentication logic.
  */
-public class Player {
+public class PlayerLogin {
     // Unique identifier for the player
     private final String id;
     // The player's username
@@ -22,7 +22,7 @@ public class Player {
      * @param username  The username chosen by the player for logging into the game.
      * @param password  The player's password for authentication.
      */
-    public Player(String id, String username, String password) {
+    public PlayerLogin(String id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;

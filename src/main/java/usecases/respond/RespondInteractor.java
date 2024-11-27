@@ -1,6 +1,6 @@
 package usecases.respond;
 
-import entities.Entityconstants;
+import entities.EntityConstants;
 import entities.Event;
 import entities.EventAmbush;
 import entities.Inventory;
@@ -50,33 +50,33 @@ public class RespondInteractor implements RespondInputBoundary {
         int peoplechange = 0;
         boolean success = true;
         final EventAmbush ambush = (EventAmbush) event;
-        if (choice == Entityconstants.FIRSTCHOICE) {
-            if (inventory.getfirepower() >= Entityconstants.AMBUSHPOWER) {
-                foodchange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEFOOD;
-                waterchange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEWATER;
-                weaponchange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEWEAPON;
-                peoplechange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEPEOPLE;
+        if (choice == EntityConstants.FIRSTCHOICE) {
+            if (inventory.getfirepower() >= EntityConstants.AMBUSHPOWER) {
+                foodchange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEFOOD;
+                waterchange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEWATER;
+                weaponchange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEWEAPON;
+                peoplechange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEPEOPLE;
                 message = ambush.getFightoutcomesuccess();
             }
             else {
-                foodchange = Entityconstants.AMBUSHFAILRESOURCEFOOD;
-                waterchange = Entityconstants.AMBUSHFAILRESOURCEWATER;
-                weaponchange = Entityconstants.AMBUSHFAILRESOURCEWEAPON;
-                peoplechange = Entityconstants.AMBUSHFAILRESOURCEPEOPLE;
+                foodchange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+                waterchange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+                weaponchange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
+                peoplechange = EntityConstants.AMBUSHFAILRESOURCEPEOPLE;
                 message = ambush.getFightoutcomefailed();
             }
         }
-        else if (choice == Entityconstants.SECONDCHOICE) {
-            foodchange = Entityconstants.AMBUSHFAILRESOURCEFOOD;
-            waterchange = Entityconstants.AMBUSHFAILRESOURCEWATER;
-            weaponchange = Entityconstants.AMBUSHFAILRESOURCEWEAPON;
+        else if (choice == EntityConstants.SECONDCHOICE) {
+            foodchange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+            waterchange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+            weaponchange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
             message = ambush.getPayoutcome();
         }
-        else if (choice == Entityconstants.THIRDCHOICE) {
-            if (attributes.getSocial() < Entityconstants.AMBUSHNEGOTIATE) {
-                foodchange = Entityconstants.AMBUSHFAILRESOURCEFOOD;
-                waterchange = Entityconstants.AMBUSHFAILRESOURCEWATER;
-                weaponchange = Entityconstants.AMBUSHFAILRESOURCEWEAPON;
+        else if (choice == EntityConstants.THIRDCHOICE) {
+            if (attributes.getSocial() < EntityConstants.AMBUSHNEGOTIATE) {
+                foodchange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+                waterchange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+                weaponchange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
                 message = ambush.getNegotiatefailedoutcome();
             }
             else {

@@ -6,7 +6,7 @@ package entities;
  * this could be used to achieve game balance.
  * as well as for difficulty setting implementation.
  */
-public class Entityconstants {
+public class EntityConstants {
     public static final int STARTERFOOD = 100;
     public static final int STARTERWATER = 100;
     public static final int STARTWEAPON = 5;
@@ -65,6 +65,4 @@ public class Entityconstants {
     public static final int ESCAPEMAXDISTANCE = 10;
     // for any general escape choice, the distance move randomly at max.
     public static final int LENGTHMESSAGECOMMA = 17;
-
-
 }

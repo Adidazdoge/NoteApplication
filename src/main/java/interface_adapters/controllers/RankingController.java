@@ -1,42 +1,36 @@
 package interface_adapters.controllers;
 
-import java.util.List;
-
-import frameworks.view.RankingViewModel;
-import interface_adapters.presenters.RankingPresenter;
-import usecases.ranking.RankingRequest;
-import usecases.ranking.RankingResponse;
-import usecases.ranking.RankingUseCase;
+import usecases.ranking.RankingInputBoundary;
+import usecases.ranking.RankingInputData;
 
 /**
- * Handles user input for retrieving the ranking list.
- * Passes the input to the RankingUseCase and processes the output through the RankingPresenter.
+ * The RankingController class is responsible for handling user input from the UI
+ * and invoking the Ranking use case to process the leaderboard retrieval logic.
+ * It acts as the bridge between the user interface and the application's business logic.
  */
 public class RankingController {
-    private final RankingUseCase useCase;
-    private final RankingPresenter presenter;
+    private final RankingInputBoundary rankingUseCase;
 
     /**
-     * Constructs a new RankingController with the specified use case and presenter.
+     * Constructs a new RankingController with the specified RankingInputBoundary.
      *
-     * @param useCase The use case to handle ranking logic.
-     * @param presenter The presenter to process the response for the UI layer.
+     * @param rankingUseCase The input boundary instance responsible for processing ranking requests.
      */
-    public RankingController(RankingUseCase useCase, RankingPresenter presenter) {
-        this.useCase = useCase;
-        this.presenter = presenter;
+    public RankingController(RankingInputBoundary rankingUseCase) {
+        this.rankingUseCase = rankingUseCase;
     }
 
     /**
-     * Handles a ranking request and returns a list of ViewModel objects for the UI layer.
+     * Handles the leaderboard retrieval process by creating a RankingInputData object
+     * with the specified number of top players to retrieve, and passing it to the Ranking use case.
      *
-     * @param topN The number of top players to retrieve.
-     * @return A list of RankingViewModel objects for the UI layer.
+     * @param topN The number of top players to retrieve from the leaderboard.
      */
-    public List<RankingViewModel> handleRankingRequest(int topN) {
-        final RankingRequest request = new RankingRequest(topN);
-        final RankingResponse response = useCase.execute(request);
-        // Convert response to ViewModel
-        return presenter.present(response);
+    public void handleRanking(int topN) {
+        // Create input data object for the use case
+        final RankingInputData inputData = new RankingInputData(topN);
+
+        // Invoke the use case with the input data
+        rankingUseCase.execute(inputData);
     }
 }

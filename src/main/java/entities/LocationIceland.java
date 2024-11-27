@@ -12,9 +12,9 @@ public class LocationIceland implements Location {
     private final double threat;
 
     public LocationIceland(int dist) {
-        this.foodresource = Entityconstants.STARTERRESOURCESCALAR;
+        this.foodresource = EntityConstants.STARTERRESOURCESCALAR;
         this.waterresource = getsetwaterresourceavailable(dist);
-        this.weaponresource = Entityconstants.STARTERRESOURCESCALAR;
+        this.weaponresource = EntityConstants.STARTERRESOURCESCALAR;
         this.peopleresource = getsetpeopleresourceavailable(dist);
         this.temperature = getsettemperature(dist);
         this.threat = getsetthreatlevel(dist);
@@ -22,7 +22,7 @@ public class LocationIceland implements Location {
 
     @Override
     public Double getsettemperature(int dist) {
-        return Entityconstants.DEFAULTTEMP - (Entityconstants.MAXTEMPDIFF * (1 / (dist + 1)));
+        return EntityConstants.DEFAULTTEMP - (EntityConstants.MAXTEMPDIFF * (1 / (dist + 1)));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LocationIceland implements Location {
 
     @Override
     public Double getsetpeopleresourceavailable(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR - (1 / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR - (1 / (dist + 1));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class LocationIceland implements Location {
 
     @Override
     public Double getsetwaterresourceavailable(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
     }
 
     @Override
@@ -72,19 +72,19 @@ public class LocationIceland implements Location {
 
     @Override
     public void decreaseresourceavailable() {
-        this.foodresource = this.foodresource * Entityconstants.RESOUCEDECREASERATIO;
-        this.waterresource = this.waterresource * Entityconstants.RESOUCEDECREASERATIO;
-        this.weaponresource = this.weaponresource * Entityconstants.RESOUCEDECREASERATIO;
+        this.foodresource = this.foodresource * EntityConstants.RESOUCEDECREASERATIO;
+        this.waterresource = this.waterresource * EntityConstants.RESOUCEDECREASERATIO;
+        this.weaponresource = this.weaponresource * EntityConstants.RESOUCEDECREASERATIO;
     }
 
     @Override
     public void decreaserepeopleavailable() {
-        this.peopleresource = this.peopleresource * Entityconstants.RESOUCEDECREASERATIO;
+        this.peopleresource = this.peopleresource * EntityConstants.RESOUCEDECREASERATIO;
     }
 
     @Override
     public Double getsetthreatlevel(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR - (Entityconstants.MAXTHREATDIFF / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR - (EntityConstants.MAXTHREATDIFF / (dist + 1));
     }
 
     @Override

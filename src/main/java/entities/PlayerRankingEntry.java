@@ -4,7 +4,7 @@ package entities;
  * Represents an entry in the ranking list.
  * Contains the player's name, score, days survived, and whether they won.
  */
-public class RankingEntry {
+public class PlayerRankingEntry {
     // Player's username
     private final String name;
     // Player's score
@@ -22,7 +22,7 @@ public class RankingEntry {
      * @param daysSurvived The number of days the player survived.
      * @param won Whether the player won the game.
      */
-    public RankingEntry(String name, int score, int daysSurvived, boolean won) {
+    public PlayerRankingEntry(String name, int score, int daysSurvived, boolean won) {
         this.name = name;
         this.score = score;
         this.daysSurvived = daysSurvived;

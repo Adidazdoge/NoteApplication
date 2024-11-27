@@ -1,6 +1,6 @@
 package interface_adapters.gateways;
 
-import entities.Player;
+import entities.PlayerLogin;
 
 /**
  * Represents the interface for accessing and managing player data.
@@ -17,7 +17,7 @@ public interface PlayerRepository {
      * @param username The username of the player to find.
      * @return The Player object if the username exists in the data source, otherwise null.
      */
-    Player findByUsername(String username);
+    PlayerLogin findByUsername(String username);
 
     /**
      * Checks if the given username already exists in the data source.
@@ -36,7 +36,7 @@ public interface PlayerRepository {
      * This method saves the given Player object into the data source. It assumes
      * that the username is unique and does not perform additional duplicate checks.
      *
-     * @param player The Player object to add to the data source.
+     * @param playerLogin The Player object to add to the data source.
      */
-    void addPlayer(Player player);
+    void addPlayer(PlayerLogin playerLogin);
 }

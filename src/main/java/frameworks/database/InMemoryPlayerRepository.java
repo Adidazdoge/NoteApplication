@@ -3,7 +3,7 @@ package frameworks.database;
 import java.util.HashMap;
 import java.util.Map;
 
-import entities.Player;
+import entities.PlayerLogin;
 import interface_adapters.gateways.PlayerRepository;
 
 /**
@@ -14,7 +14,7 @@ import interface_adapters.gateways.PlayerRepository;
  * player's username and the value is the Player object.
  */
 public class InMemoryPlayerRepository implements PlayerRepository {
-    private final Map<String, Player> players = new HashMap<>();
+    private final Map<String, PlayerLogin> players = new HashMap<>();
 
     /**
      * Constructs an InMemoryPlayerRepository with a predefined set of players.
@@ -25,8 +25,8 @@ public class InMemoryPlayerRepository implements PlayerRepository {
     public InMemoryPlayerRepository() {
         // todo
         //  Database import
-        players.put("user1", new Player("1", "user1", "password1"));
-        players.put("user2", new Player("2", "user2", "password2"));
+        players.put("user1", new PlayerLogin("1", "user1", "password1"));
+        players.put("user2", new PlayerLogin("2", "user2", "password2"));
     }
 
     /**
@@ -39,7 +39,7 @@ public class InMemoryPlayerRepository implements PlayerRepository {
      * @return The Player object if found, or null if no player with the given username exists.
      */
     @Override
-    public Player findByUsername(String username) {
+    public PlayerLogin findByUsername(String username) {
         return players.get(username);
     }
 
@@ -57,10 +57,10 @@ public class InMemoryPlayerRepository implements PlayerRepository {
     /**
      * Update the new player object in Hashmap players.
      *
-     * @param player The object for Player.
+     * @param playerLogin The object for Player.
      */
     @Override
-    public void addPlayer(Player player) {
-        players.put(player.getUsername(), player);
+    public void addPlayer(PlayerLogin playerLogin) {
+        players.put(playerLogin.getUsername(), playerLogin);
     }
 }

@@ -1,34 +1,37 @@
 package interface_adapters.controllers;
 
-import usecases.signup.SignupUseCase;
+import usecases.signup.SignupInputBoundary;
+import usecases.signup.SignupInputData;
 
 /**
- * Handles user input for signing up a new player.
- *
- * The SignupController is responsible for receiving input data from the UI layer
- * and passing this data to the SignupUseCase for processing.
+ * The SignupController class is responsible for handling user input from the UI
+ * and invoking the Signup use case to process the user registration logic.
+ * It acts as the bridge between the user interface and the application's business logic.
  */
 public class SignupController {
-    private final SignupUseCase useCase;
+    private final SignupInputBoundary signupUseCase;
 
     /**
-     * Constructs a SignupController with the specified SignupUseCase.
+     * Constructs a new SignupController with the specified SignupInputBoundary.
      *
-     * @param useCase The SignupUseCase that contains the business logic for signing up a new player.
+     * @param signupUseCase The input boundary instance responsible for processing signup requests.
      */
-    public SignupController(SignupUseCase useCase) {
-        this.useCase = useCase;
+    public SignupController(SignupInputBoundary signupUseCase) {
+        this.signupUseCase = signupUseCase;
     }
 
     /**
-     * Handles the signup request for a new player.
+     * Handles the signup process by creating a SignupInputData object with the provided
+     * username and password, passing it to the Signup use case.
      *
-     * @param username The desired username for the new player.
-     * @param password The desired password for the new player.
-     * @return A string message indicating the result of the signup attempt, such as
-     *         success or failure with an explanation.
+     * @param username The username provided by the user.
+     * @param password The password provided by the user.
      */
-    public String handleSignup(String username, String password) {
-        return useCase.execute(username, password);
+    public void handleSignup(String username, String password) {
+        // Create input data object for the use case
+        final SignupInputData inputData = new SignupInputData(username, password);
+
+        // Invoke the use case with the input data
+        signupUseCase.execute(inputData);
     }
 }

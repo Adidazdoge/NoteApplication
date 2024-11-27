@@ -12,11 +12,11 @@ public class LocationCity implements Location {
     private double threat;
 
     public LocationCity(int dist) {
-        this.foodresource = Entityconstants.STARTERRESOURCESCALAR;
-        this.waterresource = Entityconstants.STARTERRESOURCESCALAR;
+        this.foodresource = EntityConstants.STARTERRESOURCESCALAR;
+        this.waterresource = EntityConstants.STARTERRESOURCESCALAR;
         this.weaponresource = getsetweaponresourceavailable(dist);
         this.peopleresource = getsetpeopleresourceavailable(dist);
-        this.temperature = Entityconstants.STARTERRESOURCESCALAR;
+        this.temperature = EntityConstants.STARTERRESOURCESCALAR;
         this.threat = getsetthreatlevel(dist);
     }
 
@@ -32,7 +32,7 @@ public class LocationCity implements Location {
 
     @Override
     public Double getsetpeopleresourceavailable(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class LocationCity implements Location {
 
     @Override
     public Double getsetweaponresourceavailable(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
     }
 
     @Override
@@ -72,20 +72,20 @@ public class LocationCity implements Location {
 
     @Override
     public void decreaseresourceavailable() {
-        this.foodresource = this.foodresource * Entityconstants.RESOUCEDECREASERATIO;
-        this.waterresource = this.waterresource * Entityconstants.RESOUCEDECREASERATIO;
-        this.weaponresource = this.weaponresource * Entityconstants.RESOUCEDECREASERATIO;
+        this.foodresource = this.foodresource * EntityConstants.RESOUCEDECREASERATIO;
+        this.waterresource = this.waterresource * EntityConstants.RESOUCEDECREASERATIO;
+        this.weaponresource = this.weaponresource * EntityConstants.RESOUCEDECREASERATIO;
 
     }
 
     @Override
     public void decreaserepeopleavailable() {
-        this.peopleresource = this.peopleresource * Entityconstants.RESOUCEDECREASERATIO;
+        this.peopleresource = this.peopleresource * EntityConstants.RESOUCEDECREASERATIO;
     }
 
     @Override
     public Double getsetthreatlevel(int dist) {
-        return Entityconstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
+        return EntityConstants.STARTERRESOURCESCALAR + (1 / (dist + 1));
     }
 
     @Override

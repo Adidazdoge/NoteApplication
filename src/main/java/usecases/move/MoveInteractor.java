@@ -1,6 +1,6 @@
 package usecases.move;
 
-import entities.Entityconstants;
+import entities.EntityConstants;
 import entities.PlayerLocation;
 
 /**
@@ -20,7 +20,7 @@ public class MoveInteractor implements MoveInputBoundary {
         // Fetch necessary data
         final String direction = moveInputData.getDirection();
         final int speed = 1 + (moveDataAccessObject.getPlayerAttributes().getMobilization()
-                / Entityconstants.MOBILIZATIONIMPACTSPEED);
+                / EntityConstants.MOBILIZATIONIMPACTSPEED);
         final PlayerLocation currentLocation = moveDataAccessObject.getPlayerLocation();
         final int x = currentLocation.getXcoordinate();
         final int y = currentLocation.getYcoordinate();
@@ -33,16 +33,16 @@ public class MoveInteractor implements MoveInputBoundary {
 
         // Determine new coordinates based on the direction
         switch (direction) {
-            case Entityconstants.UP:
+            case EntityConstants.UP:
                 newY = Math.max(0, y - speed);
                 break;
-            case Entityconstants.DOWN:
+            case EntityConstants.DOWN:
                 newY = Math.min(mapHeight - 1, y + speed);
                 break;
-            case Entityconstants.LEFT:
+            case EntityConstants.LEFT:
                 newX = Math.max(0, x - speed);
                 break;
-            case Entityconstants.RIGHT:
+            case EntityConstants.RIGHT:
                 newX = Math.min(mapWidth - 1, x + speed);
                 break;
             default:
@@ -75,16 +75,16 @@ public class MoveInteractor implements MoveInputBoundary {
     private boolean isInvalidMove(String direction, int xcoor, int ycoor,
                                   int newX, int newY, int mapWidth, int mapHeight) {
         boolean ans = false;
-        if (direction.equals(Entityconstants.UP)) {
+        if (direction.equals(EntityConstants.UP)) {
             ans = ycoor == 0 || newY == ycoor;
         }
-        else if (direction.equals(Entityconstants.DOWN)) {
+        else if (direction.equals(EntityConstants.DOWN)) {
             ans = ycoor == mapHeight - 1 || newY == ycoor;
         }
-        else if (direction.equals(Entityconstants.LEFT)) {
+        else if (direction.equals(EntityConstants.LEFT)) {
             ans = xcoor == 0 || newX == xcoor;
         }
-        else if (direction.equals(Entityconstants.RIGHT)) {
+        else if (direction.equals(EntityConstants.RIGHT)) {
             ans = xcoor == mapWidth - 1 || newX == xcoor;
         }
         return ans;
