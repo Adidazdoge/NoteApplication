@@ -1,14 +1,12 @@
-{
-  "name": "data",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+[
+  {
+    "id": "1",
+    "username": "user1",
+    "password": "password1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Adidazdoge/NoteApplication.git"
-  },
-  "private": true
-}
+  {
+    "id": "2",
+    "username": "user2",
+    "password": "password2"
+  }
+]
