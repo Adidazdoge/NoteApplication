@@ -43,6 +43,19 @@ public class Entityconstants {
 
     // Player attribute impacts.
     public static final int MOBILIZATIONIMPACTSPEED = 10;
+    public static final double THRIFTIMPACTRESOURCELOSS = 0.03;
+
+    // Newday resource loss module
+    public static final double PEOPLELOSSPERFOOD = 1;
+    public static final double PEOPLELOSSPERWATER = 1;
+    public static final double PEOPLEBASEDEATHRATE = 0.05;
+
+    // Newday resource gain module
+    public static final double PEOPLEGAINPERFOOD = 0.9;
+    public static final double PEOPLEGAINPERWEAPON = 0.04;
+    public static final double PEOPLEGAINPERWATER = 0.9;
+    public static final double PEOPLEBASEJOINRATE = 0.04;
+    public static final double WEAPONBASELOSERATE = 0.04;
 
     // Directions.
     public static final String UP = "up";
@@ -92,5 +105,8 @@ public class Entityconstants {
     public static final int TRADERROBBERYFAILLOSSPEOPLE = -2;
 
     public static final int TRADERIGNORELOSS = 0; // No resource changes for ignoring
+    public static final int MAXNUMDAY = 60;
+
+    public static final String NEWLINE = "\n";
 
 }
