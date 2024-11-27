@@ -1,0 +1,14 @@
+[
+  {
+    "playerId": "1",
+    "score": 200,
+    "daysSurvived": 30,
+    "won": true
+  },
+  {
+    "playerId": "2",
+    "score": 150,
+    "daysSurvived": 20,
+    "won": false
+  }
+]
