@@ -1,7 +1,7 @@
 package interface_adapters.presenters;
 
-import usecases.login.LoginOutputBoundary;
-import usecases.login.LoginOutputData;
+import usecases.accountlogin.LoginOutputBoundary;
+import usecases.accountlogin.LoginOutputData;
 
 /**
  * The LoginPresenter class is responsible for formatting the output data

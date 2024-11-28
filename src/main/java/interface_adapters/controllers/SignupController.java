@@ -1,7 +1,7 @@
 package interface_adapters.controllers;
 
-import usecases.signup.SignupInputBoundary;
-import usecases.signup.SignupInputData;
+import usecases.accountsignup.SignupInputBoundary;
+import usecases.accountsignup.SignupInputData;
 
 /**
  * The SignupController class is responsible for handling user input from the UI

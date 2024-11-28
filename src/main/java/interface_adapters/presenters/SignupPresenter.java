@@ -1,7 +1,7 @@
 package interface_adapters.presenters;
 
-import usecases.signup.SignupOutputBoundary;
-import usecases.signup.SignupOutputData;
+import usecases.accountsignup.SignupOutputBoundary;
+import usecases.accountsignup.SignupOutputData;
 
 /**
  * The SignupPresenter class is responsible for formatting the output data

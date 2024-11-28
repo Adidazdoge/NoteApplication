@@ -1,7 +1,7 @@
 package interface_adapters.controllers;
 
-import usecases.ranking.RankingInputBoundary;
-import usecases.ranking.RankingInputData;
+import usecases.accountranking.RankingInputBoundary;
+import usecases.accountranking.RankingInputData;
 
 /**
  * The RankingController class is responsible for handling user input from the UI

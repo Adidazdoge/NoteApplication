@@ -3,8 +3,8 @@ package interface_adapters.presenters;
 import java.util.List;
 
 import entities.PlayerRankingEntry;
-import usecases.ranking.RankingOutputBoundary;
-import usecases.ranking.RankingOutputData;
+import usecases.accountranking.RankingOutputBoundary;
+import usecases.accountranking.RankingOutputData;
 
 /**
  * The RankingPresenter class is responsible for formatting the output data

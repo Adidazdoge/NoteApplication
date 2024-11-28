@@ -1,7 +1,7 @@
 package interface_adapters.controllers;
 
-import usecases.login.LoginInputBoundary;
-import usecases.login.LoginInputData;
+import usecases.accountlogin.LoginInputBoundary;
+import usecases.accountlogin.LoginInputData;
 
 /**
  * The LoginController class is responsible for handling user input from the UI
