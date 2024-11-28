@@ -8,11 +8,11 @@ public class PlayerRankingEntry {
     // Player's username
     private final String name;
     // Player's score
-    private final int score;
+    private int score;
     // Number of days the player survived
-    private final int daysSurvived;
+    private int daysSurvived;
     // Whether the player won the game
-    private final boolean won;
+    private boolean won;
 
     /**
      * Constructs a new RankingEntry with the specified attributes.
@@ -43,5 +43,17 @@ public class PlayerRankingEntry {
 
     public boolean isWon() {
         return won;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setWon(boolean won) {
+        this.won = won;
+    }
+
+    public void setDaysSurvived(int daysSurvived) {
+        this.daysSurvived = daysSurvived;
     }
 }
