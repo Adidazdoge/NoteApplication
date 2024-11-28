@@ -119,6 +119,4 @@ public class EntityConstants {
     public static final int MAXNUMDAY = 60;
 
     public static final String NEWLINE = "\n";
-
->>>>>>> f2a2a8275faa0cc5e1e294e8fcb3832bbde8f194:src/main/java/entities/Entityconstants.java
 }
