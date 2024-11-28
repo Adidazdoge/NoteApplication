@@ -1,7 +1,9 @@
 package usecases.decideevent;
 
-import usecases.move.MoveOutputData;
-
+/**
+ * Deicde event, output boundary, though I can't really think of a way for it to fail, for people who are writing this,
+ * you can simply display "something went wrong" for fail view right now.
+ */
 public interface DecideEventOutputBoundary {
     /**
      * Outputs for a successful move.
