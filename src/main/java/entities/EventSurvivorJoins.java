@@ -25,9 +25,9 @@ public class EventSurvivorJoins implements Event {
     public EventSurvivorJoins() {
         this.isPositive = true;
         this.occuringlocation = new ArrayList<>();
-        occuringlocation.add("Plain");
-        occuringlocation.add("Wood");
-        occuringlocation.add("City");
+        occuringlocation.add(EntityConstants.PLAIN);
+        occuringlocation.add(EntityConstants.FOREST);
+        occuringlocation.add(EntityConstants.CITY);
         this.description = "You encounter a small group of survivors who ask to join your group. They appear skilled "
                 + "but wary. What will you do?";
         this.choices = new HashMap<>();
@@ -67,6 +67,7 @@ public class EventSurvivorJoins implements Event {
         return isPositive;
     }
 
+    @Override
     public ArrayList<String> getOccuringlocation() {
         return occuringlocation;
     }

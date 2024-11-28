@@ -91,4 +91,9 @@ public class LocationForest implements Location {
     public Double getthreatlevel() {
         return this.threat;
     }
+
+    @Override
+    public String toString() {
+        return EntityConstants.FOREST;
+    }
 }

@@ -25,11 +25,11 @@ public class EventAmbush implements Event {
     public EventAmbush() {
         this.isPositive = false;
         this.occuringlocation = new ArrayList<>();
-        occuringlocation.add("Plain");
-        occuringlocation.add("Iceland");
-        occuringlocation.add("Wood");
-        occuringlocation.add("City");
-        occuringlocation.add("Desert");
+        occuringlocation.add(EntityConstants.PLAIN);
+        occuringlocation.add(EntityConstants.ICELAND);
+        occuringlocation.add(EntityConstants.DESERT);
+        occuringlocation.add(EntityConstants.CITY);
+        occuringlocation.add(EntityConstants.FOREST);
         this.description = "Your group is ambushed by a small band of desperate bandits demanding your "
                 + "food supplies. Their ragged appearance suggests they're struggling to survive. What will you do?";
         this.choices = new HashMap<>();
@@ -71,6 +71,7 @@ public class EventAmbush implements Event {
         return isPositive;
     }
 
+    @Override
     public ArrayList<String> getOccuringlocation() {
         return occuringlocation;
     }

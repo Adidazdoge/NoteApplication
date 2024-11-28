@@ -22,18 +22,18 @@ public class EventFlood implements Event {
     public EventFlood() {
         this.isPositive = false;
         this.occuringlocation = new ArrayList<>();
-        occuringlocation.add("Plain");
-        occuringlocation.add("Wood");
-        occuringlocation.add("City");
+        occuringlocation.add(EntityConstants.PLAIN);
+        occuringlocation.add(EntityConstants.FOREST);
+        occuringlocation.add(EntityConstants.CITY);
 
         this.description = "Heavy rains have caused nearby rivers to overflow, threatening your group with a flood. "
                 + "You must act quickly to avoid losing supplies and people. What will you do?";
         this.choices = new HashMap<>();
-        choices.put(Entityconstants.FIRSTCHOICE, "Evacuate to higher ground");
-        choices.put(Entityconstants.SECONDCHOICE, "Secure supplies and hold position");
-        choices.put(Entityconstants.THIRDCHOICE, "Do nothing and hope the flood subsides");
+        choices.put(EntityConstants.FIRSTCHOICE, "Evacuate to higher ground");
+        choices.put(EntityConstants.SECONDCHOICE, "Secure supplies and hold position");
+        choices.put(EntityConstants.THIRDCHOICE, "Do nothing and hope the flood subsides");
 
-        this.probability = Entityconstants.RAREEVENTBASEPROB; 
+        this.probability = EntityConstants.RAREEVENTBASEPROB;
         this.evacuateOutcome = "You successfully evacuated, saving most of your group but losing some supplies.";
         this.secureSuppliesOutcome = "You secured your supplies but lost time and some members to the flood.";
         this.doNothingOutcome = "The flood devastated your group, causing heavy losses in supplies and morale.";
@@ -64,6 +64,7 @@ public class EventFlood implements Event {
         return isPositive;
     }
 
+    @Override
     public ArrayList<String> getOccuringlocation() {
         return occuringlocation;
     }

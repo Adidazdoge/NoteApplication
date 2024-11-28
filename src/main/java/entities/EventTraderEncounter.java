@@ -23,20 +23,20 @@ public class EventTraderEncounter implements Event {
     private final String robOutcomeFail;
 
     public EventTraderEncounter() {
-        this.isPositive = true; // Positive if trade succeeds, but actions can lead to negative results.
+        this.isPositive = true;
         this.occuringLocation = new ArrayList<>();
-        occuringLocation.add(Entityconstants.PLAIN);
-        occuringLocation.add(Entityconstants.CITY);
-        occuringLocation.add(Entityconstants.DESERT);
+        occuringLocation.add(EntityConstants.PLAIN);
+        occuringLocation.add(EntityConstants.CITY);
+        occuringLocation.add(EntityConstants.DESERT);
 
         this.description = "You encounter a wandering trader offering supplies in exchange for your resources. "
                 + "What will you do?";
         this.choices = new HashMap<>();
-        choices.put(Entityconstants.FIRSTCHOICE, "Trade with the trader");
-        choices.put(Entityconstants.SECONDCHOICE, "Ignore the trader");
-        choices.put(Entityconstants.THIRDCHOICE, "Attempt to rob the trader");
+        choices.put(EntityConstants.FIRSTCHOICE, "Trade with the trader");
+        choices.put(EntityConstants.SECONDCHOICE, "Ignore the trader");
+        choices.put(EntityConstants.THIRDCHOICE, "Attempt to rob the trader");
 
-        this.probability = Entityconstants.RAREEVENTBASEPROB;
+        this.probability = EntityConstants.RAREEVENTBASEPROB;
         this.tradeOutcomeSuccess = "You traded successfully and gained valuable supplies.";
         this.tradeOutcomeScam = "The trader scammed you, taking your resources and leaving you with nothing.";
         this.ignoreOutcome = "You ignored the trader and moved on.";
@@ -69,7 +69,8 @@ public class EventTraderEncounter implements Event {
         return isPositive;
     }
 
-    public ArrayList<String> getOccuringLocation() {
+    @Override
+    public ArrayList<String> getOccuringlocation() {
         return occuringLocation;
     }
 

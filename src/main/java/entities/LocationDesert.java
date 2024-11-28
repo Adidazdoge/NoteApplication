@@ -92,4 +92,9 @@ public class LocationDesert implements Location {
         return this.threat;
     }
 
+    @Override
+    public String toString() {
+        return EntityConstants.DESERT;
+    }
+
 }

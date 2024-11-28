@@ -22,7 +22,7 @@ public class EventBlizzard implements Event {
     public EventBlizzard() {
         this.isPositive = false;
         this.occuringlocation = new ArrayList<>();
-        occuringlocation.add("Iceland");
+        occuringlocation.add(EntityConstants.ICELAND);
 
         this.description = "A harsh blizzard strikes, blanketing the area in ice and snow. The biting cold "
                 + "and lack of visibility make travel dangerous, and hunger begins to take its toll";
@@ -56,6 +56,7 @@ public class EventBlizzard implements Event {
         return isPositive;
     }
 
+    @Override
     public ArrayList<String> getOccuringlocation() {
         return occuringlocation;
     }

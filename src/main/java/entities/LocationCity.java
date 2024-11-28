@@ -92,4 +92,9 @@ public class LocationCity implements Location {
     public Double getthreatlevel() {
         return this.threat;
     }
+
+    @Override
+    public String toString() {
+        return EntityConstants.CITY;
+    }
 }

@@ -107,4 +107,10 @@ public interface Location {
      * @return people threat scalar of that location.
      */
     Double getthreatlevel();
+
+    /**
+     * String representing this place, Iceland, City etc.
+     * @return String representation.
+     */
+    String toString();
 }
