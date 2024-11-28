@@ -97,4 +97,9 @@ public class LocationPlain implements Location {
         return EntityConstants.PLAIN;
     }
 
+    @Override
+    public String getDescription() {
+        return "The plains stretch endlessly in every direction, a sea of swaying grass under a pale, open sky. "
+                + "The emptiness is both calming and unsettling, offering little cover should danger arise.";
+    }
 }

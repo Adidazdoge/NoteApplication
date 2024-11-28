@@ -97,4 +97,36 @@ public class LocationDesert implements Location {
         return EntityConstants.DESERT;
     }
 
+    @Override
+    public String getDescription() {
+        final String baseDescription =
+                "The desert stretches endlessly, its golden dunes now marred by the occasional husk of a car "
+                        + "or the skeletal remains of travelers who did not make it. The relentless sun beats down, "
+                        + "offering no shelter from the horrors that might still wander here.";
+
+        // Add temperature-based phrasing
+        final String temperatureDescription;
+        if (this.temperature <= EntityConstants.DESERTHOTDEGREE) {
+            temperatureDescription =
+                    "Your group finds some relief near the desert's edge. The air is warm but bearable, and "
+                            + "a faint breeze carries a hint of moisture, suggesting you are not yet in the heart of "
+                            + "this wasteland.";
+        }
+        else if (this.temperature >= EntityConstants.DESERTUNBAREABLEDEGREE) {
+            temperatureDescription =
+                    "Your group struggles under the merciless heat, the sun blazing down like an open furnace. "
+                            + "The ground is too hot to touch, and every step feels like it could be your last. "
+                            + "Supplies will not last long in this heat.";
+        }
+        else {
+            temperatureDescription =
+                    "The heat is punishing, but not unbearable yet. The deeper your group ventures into this "
+                            + "wasteland, the more the sun saps your strength and the threat of "
+                            + "dehydration looms ever larger.";
+        }
+
+        // Combine base and dynamic temperature descriptions
+        return baseDescription + " " + temperatureDescription;
+    }
+
 }

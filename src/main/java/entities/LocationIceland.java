@@ -97,4 +97,34 @@ public class LocationIceland implements Location {
         return EntityConstants.ICELAND;
     }
 
+    @Override
+    public String getDescription() {
+        final String baseDescription =
+                "The icy tundra stretches endlessly, a barren landscape of snow and frost. "
+                        + "Jagged ice formations rise like silent sentinels, "
+                        + "and the wind howls across the open plains.";
+
+        // Add temperature-based phrasing
+        final String temperatureDescription;
+        if (this.temperature >= EntityConstants.ICELANDCOLD) {
+            temperatureDescription =
+                    "The cold is biting but manageable. Your group trudges carefully, keeping an eye out for shelter "
+                            + "as frost begins to settle on your gear.";
+        }
+        else if (this.temperature <= EntityConstants.ICELANDEXTREMECOLD) {
+            temperatureDescription =
+                    "The cold is deadly, cutting through even the thickest clothing. Frostbite threatens your group, "
+                            + "and every breath feels like shards of ice tearing through your lungs.";
+        }
+        else {
+            temperatureDescription =
+                    "The freezing air saps your strength as you march onward. "
+                            + "The snow is deep, and every step feels heavier, "
+                            + "but the group presses on, desperate to find refuge before the cold worsens.";
+        }
+
+        // Combine base and dynamic temperature descriptions
+        return baseDescription + " " + temperatureDescription;
+    }
+
 }

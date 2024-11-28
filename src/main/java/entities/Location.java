@@ -113,4 +113,10 @@ public interface Location {
      * @return String representation.
      */
     String toString();
+
+    /**
+     * String for a description of the biome.
+     * @return brief description.
+     */
+    String getDescription();
 }

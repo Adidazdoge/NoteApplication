@@ -21,9 +21,17 @@ public class EntityConstants {
 
     // Map information and calculation scalar settings.
     public static final String ICELAND = "Iceland";
+    public static final int ICELANDCOLD = 0;
+    public static final int ICELANDEXTREMECOLD = -20;
     public static final String DESERT = "Desert";
+    public static final int DESERTHOTDEGREE = 35;
+    public static final int DESERTUNBAREABLEDEGREE = 65;
     public static final String FOREST = "Forest";
+    public static final double FORESTRICH = 1.25;
+    public static final double FORESTEXTREMERICH = 1.75;
     public static final String CITY = "City";
+    public static final double CITYDANGER = 1.25;
+    public static final double CITYEXTREMEDANGER = 1.75;
     public static final String PLAIN = "Plain";
 
     // Name we gonna use.
