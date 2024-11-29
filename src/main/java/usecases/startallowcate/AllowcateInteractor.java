@@ -12,6 +12,8 @@ public class AllowcateInteractor implements AllowcateInputBoundary {
 
     public AllowcateInteractor(AllowcateDataAccessInterface allowcateDataAccessInterface,
                                AllowcateOutputBoundary allowcateOutputBoundary) {
+        this.allowcateDataAccessInterface = allowcateDataAccessInterface;
+        this.allowcateOutputBoundary = allowcateOutputBoundary;
 
     }
 

@@ -33,7 +33,13 @@ public interface NewdayDataAccessInterface {
      * Set the number of days player survived to new value. (+1)
      * @param days new days
      */
-    void getDaysSurvived(int days);
+    void setDaysSurvived(int days);
+
+    /**
+     * Set the score to new value.
+     * @param score new score.
+     */
+    void setScore(int score);
 
     /**
      * The amount of food change during new day process.

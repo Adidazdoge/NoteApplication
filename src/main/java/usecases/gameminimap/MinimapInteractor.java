@@ -31,7 +31,7 @@ public class MinimapInteractor implements MinimapInputBoundary {
         for (int y = minycoor; y <= maxycoor; y++) {
             final ArrayList<String> row = new ArrayList();
             for (int x = minxcoor; x <= maxxcoor; x++) {
-                if (EntityConstants.MAPWIDTH >= x + 1 && EntityConstants.MAPHEIGHT <= y + 1) {
+                if (EntityConstants.MAPWIDTH >= x + 1 && EntityConstants.MAPHEIGHT >= y + 1 && x >= 0 && y >= 0) {
                     row.add(grids.get(y).get(x).toString().substring(0, 1));
                     // get the first letter as representative of map grid.
                 }

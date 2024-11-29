@@ -20,7 +20,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final int thrift = newdayDataAccessObject.getPlayerAttributes().getThrift();
         final int people = newdayDataAccessObject.getInventory().getPeople();
         final double temp = newdayDataAccessObject.getLocation().gettemperature();
-
+        int score = newdayDataAccessObject.getPlayerinfo().getScore();
         // Message builder for day summary
         final StringBuilder messageBuilder = new StringBuilder("Another day has passed. Here's what happened:\n");
         boolean success = true;
@@ -31,7 +31,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         // Process resource changes and build the message
         if (success) {
             decrementresource(messageBuilder, thrift, people, temp);
-            incrementresouce(messageBuilder, people);
+            incrementresouce(messageBuilder, people, score);
             final NewdayOutputData outputdata = new NewdayOutputData(messageBuilder.toString(), success, failmessage);
             newdayOutputBoundary.prepareSuccessView(outputdata);
         }
@@ -41,11 +41,12 @@ public class NewdayInteractor implements NewdayInputBoundary {
         }
     }
 
-    private void incrementresouce(StringBuilder messageBuilder, int people) {
+    private void incrementresouce(StringBuilder messageBuilder, int people, int score) {
         // food gain
         final double foodscalar = newdayDataAccessObject.getLocation().getfoodresourceavailable();
         final double foodgain = people * EntityConstants.PEOPLEGAINPERFOOD * foodscalar;
         newdayDataAccessObject.changeFood((int) foodgain);
+        int newscore = score + (int) foodgain;
         messageBuilder.append("  - Food gained: ").append((int) foodgain).append(EntityConstants.NEWLINE);
 
         // water gain
@@ -53,18 +54,23 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final double watergain = people * EntityConstants.PEOPLEGAINPERWATER * waterscalar;
         newdayDataAccessObject.changeWater((int) watergain);
         messageBuilder.append("  - Water gained: ").append((int) watergain).append(EntityConstants.NEWLINE);
+        newscore = newscore + (int) watergain;
 
         // people gain
         final double peoplegain = people * (EntityConstants.PEOPLEBASEJOINRATE
                 * newdayDataAccessObject.getLocation().getpeopleresourceavailable());
         newdayDataAccessObject.changePeople((int) peoplegain);
         messageBuilder.append("  - New members joined: ").append((int) peoplegain).append(EntityConstants.NEWLINE);
+        newscore = newscore + (int) peoplegain;
 
         // weaponry gain
         double weapongain = peoplegain + people * EntityConstants.PEOPLEGAINPERWEAPON;
         weapongain = weapongain * newdayDataAccessObject.getLocation().getweaponresourceavailable();
         newdayDataAccessObject.changeWeapon((int) weapongain);
         messageBuilder.append("  - Weaponry gained: ").append((int) weapongain).append(EntityConstants.NEWLINE);
+        newscore = newscore + (int) weapongain;
+        newscore = newscore + EntityConstants.NEWDAYSCORE;
+        newdayDataAccessObject.setScore(newscore);
     }
 
     private void decrementresource(StringBuilder messageBuilder, int thrift, int people, double temp) {

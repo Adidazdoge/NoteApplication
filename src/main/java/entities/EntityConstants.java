@@ -6,6 +6,7 @@ package entities;
  * This could be used to achieve game balance as well as for difficulty setting implementation.
  */
 public class EntityConstants {
+    public static final int NEWDAYSCORE = 100;
     public static final int STARTERFOOD = 100;
     public static final int STARTERWATER = 100;
     public static final int STARTWEAPON = 5;
@@ -55,8 +56,13 @@ public class EntityConstants {
     public static final double RAREEVENTBASEPROB = 0.03;
 
     // Horde starter setting.
-    public static final int STARTERHORDEMAGNITUDE = 300;
+    public static final int STARTERHORDEMAGNITUDE = 3000;
+    public static final int HORDEMAGNITUDELARGE = 4000;
+    public static final int HORDEMAGNITUDEEXTREME = 5000;
     public static final int STARTERHORDEDURATION = 10;
+    public static final int HORDEDURATIONLONG = 8;
+    public static final int HORDEDURATIONSHORT = 6;
+    public static final double TEMPIMPACTHORDE = 0.5;
 
     // Player attribute impacts.
     public static final int MOBILIZATIONIMPACTSPEED = 10;
