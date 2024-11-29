@@ -35,7 +35,10 @@ public class EntityConstants {
     public static final String PLAIN = "Plain";
 
     // Name we gonna use.
+    public static final int MAPHEIGHT = 100;
+    public static final int MAPWIDTH = 100;
     public static final int BIOMERADIUS = 16;
+    public static final int MINIMAPRADIUS = 4;
     public static final int FIRSTCHOICE = 1;
     public static final int SECONDCHOICE = 2;
     public static final int THIRDCHOICE = 3;
@@ -101,21 +104,21 @@ public class EntityConstants {
 
     // Add these constants under the event-specific section
     // TraderEncounter thresholds
-    public static final int TRADERNEGOTIATE = 5; // Minimum social attribute for successful trading
-    public static final int TRADERROBBERYPOWER = 30; // Minimum firepower for successful robbery
+    public static final int TRADERNEGOTIATE = 5;
+    public static final int TRADERROBBERYPOWER = 30;
 
     // TraderEncounter resource changes
-    public static final int TRADERTRADEGAINFOOD = 15; // Resources gained from successful trade
+    public static final int TRADERTRADEGAINFOOD = 15;
     public static final int TRADERTRADEGAINWATER = 10;
-    public static final int TRADERTRADEFAILLOSSFOOD = -5; // Resources lost in trade scam
+    public static final int TRADERTRADEFAILLOSSFOOD = -5;
     public static final int TRADERTRADEFAILLOSSWATER = -3;
 
-    public static final int TRADERROBBERYGAINFOOD = 20; // Resources gained from successful robbery
+    public static final int TRADERROBBERYGAINFOOD = 20;
     public static final int TRADERROBBERYGAINSUPPLIES = 5;
-    public static final int TRADERROBBERYFAILLOSSFOOD = -10; // Resources lost in failed robbery
+    public static final int TRADERROBBERYFAILLOSSFOOD = -10;
     public static final int TRADERROBBERYFAILLOSSPEOPLE = -2;
 
-    public static final int TRADERIGNORELOSS = 0; // No resource changes for ignoring
+    public static final int TRADERIGNORELOSS = 0;
     public static final int MAXNUMDAY = 60;
 
     public static final String NEWLINE = "\n";

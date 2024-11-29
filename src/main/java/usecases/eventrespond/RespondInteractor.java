@@ -58,7 +58,6 @@ public class RespondInteractor implements RespondInputBoundary {
         String message;
         int foodChange = 0;
         boolean success = true;
-<<<<<<< HEAD
         final EventAmbush ambush = (EventAmbush) event;
         if (choice == EntityConstants.FIRSTCHOICE) {
             if (inventory.getfirepower() >= EntityConstants.AMBUSHPOWER) {
@@ -108,8 +107,6 @@ public class RespondInteractor implements RespondInputBoundary {
                 ),
                 success
         );
-=======
->>>>>>> f2a2a8275faa0cc5e1e294e8fcb3832bbde8f194
 
         EventFlood flood = (EventFlood) event;
         if (choice == Entityconstants.FIRSTCHOICE) {
