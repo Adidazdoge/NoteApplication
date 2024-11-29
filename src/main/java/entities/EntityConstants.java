@@ -35,6 +35,12 @@ public class EntityConstants {
     public static final String PLAIN = "Plain";
 
     // Name we gonna use.
+    public static final String SOCIAL = "Social";
+    public static final String LUCK = "Luck";
+    public static final String MOBILIZATION = "Mobilization";
+    public static final String THRIFT = "Thrift";
+    public static final String GENERALSHIP = "GeneralShip";
+
     public static final int MAPHEIGHT = 100;
     public static final int MAPWIDTH = 100;
     public static final int BIOMERADIUS = 16;
