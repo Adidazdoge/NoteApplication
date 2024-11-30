@@ -4,66 +4,61 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainView extends JFrame {
-    private JButton startGame = new JButton("Start Game");
-    private SpringLayout springLayout = new SpringLayout();
-    private JButton skill = new JButton("Skill");
-    private JButton info = new JButton("Information");
-    private JButton rank = new JButton("Ranking");
+    private JButton newGame = new JButton("New Game");
+    private JButton ranking = new JButton("Ranking");
     private JButton quit = new JButton("Quit");
+    private JButton logout = new JButton("Logout");
+    private SpringLayout springLayout = new SpringLayout();
     private JPanel mainPanel = new JPanel(springLayout);
-    private JLabel titleLabel = new JLabel("Group project", JLabel.CENTER);
+    private JLabel titleLabel = new JLabel("60 Days to Survive", JLabel.CENTER);
 
     public MainView() {
         super("Main Menu");
         final Container contentPane = getContentPane();
-        titleLabel.setFont(new Font("Serif", Font.PLAIN, Constants.THIRTY));
+        titleLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
         contentPane.add(titleLabel, BorderLayout.NORTH);
-        final Font centerFont = new Font("8", Font.PLAIN, 20);
-        startGame.setFont(centerFont);
-        skill.setFont(centerFont);
-        info.setFont(centerFont);
-        rank.setFont(centerFont);
-        quit.setFont(centerFont);
-        mainPanel.add(startGame);
-        mainPanel.add(skill);
-        mainPanel.add(info);
-        mainPanel.add(rank);
+
+        final Font buttonFont = new Font("Serif", Font.PLAIN, Constants.TWENTY);
+        newGame.setFont(buttonFont);
+        ranking.setFont(buttonFont);
+        quit.setFont(buttonFont);
+        logout.setFont(buttonFont);
+
+        mainPanel.add(newGame);
+        mainPanel.add(ranking);
         mainPanel.add(quit);
+        mainPanel.add(logout);
         contentPane.add(mainPanel, BorderLayout.CENTER);
 
+        // Adjust constraints for title
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0,
                 SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, titleLabel, 0, SpringLayout.NORTH, mainPanel);
 
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, startGame, 0,
+        // Button placement
+        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, newGame, 0,
                 SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, startGame, Constants.TWENTY, SpringLayout.SOUTH, titleLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, newGame, Constants.FIFTY, SpringLayout.NORTH, mainPanel);
 
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, skill, 0,
+        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, ranking, 0,
                 SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, skill, Constants.TWENTY, SpringLayout.SOUTH, startGame);
-
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, info, 0,
-                SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, info, Constants.TWENTY, SpringLayout.SOUTH, skill);
-
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, rank, 0,
-                SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, rank, Constants.TWENTY, SpringLayout.SOUTH, info);
+        springLayout.putConstraint(SpringLayout.NORTH, ranking, Constants.TWENTY, SpringLayout.SOUTH, newGame);
 
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, quit, 0,
                 SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, quit, Constants.TWENTY, SpringLayout.SOUTH, rank);
+        springLayout.putConstraint(SpringLayout.NORTH, quit, Constants.TWENTY, SpringLayout.SOUTH, ranking);
+
+        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logout, 0,
+                SpringLayout.HORIZONTAL_CENTER, mainPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, logout, Constants.TWENTY, SpringLayout.SOUTH, quit);
 
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
-
     }
 
     public static void main(String[] args) {
         new MainView();
     }
-
 }
+
