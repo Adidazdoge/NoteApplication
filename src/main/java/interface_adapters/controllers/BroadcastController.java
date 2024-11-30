@@ -25,7 +25,7 @@ public class BroadcastController {
      * @param broadcastType The type of broadcast action (e.g., "SOS", "Resources").
      */
     public void handleBroadcast(String broadcastType) {
-        BroadcastInputData inputData = new BroadcastInputData(broadcastType);
+        final BroadcastInputData inputData = new BroadcastInputData(broadcastType);
         inputBoundary.execute(inputData);
     }
 }

@@ -6,10 +6,10 @@ import usecases.dailymove.MoveOutputData;
 /**
  * Presentor of move.
  */
-public class DailyMovePresentor implements MoveOutputBoundary {
+public class DailyMovePresenter implements MoveOutputBoundary {
     private DailyMoveInterface view;
 
-    public DailyMovePresentor(DailyMoveInterface view) {
+    public DailyMovePresenter(DailyMoveInterface view) {
         this.view = view;
     }
 

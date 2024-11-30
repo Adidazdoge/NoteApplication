@@ -21,6 +21,10 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final int people = newdayDataAccessObject.getInventory().getPeople();
         final double temp = newdayDataAccessObject.getLocation().gettemperature();
         final int score = newdayDataAccessObject.getPlayerinfo().getScore();
+        int newfood = newdayDataAccessObject.getInventory().getFood();
+        int newwater = newdayDataAccessObject.getInventory().getWater();
+        int newpeople = newdayDataAccessObject.getInventory().getPeople();
+        int newweapon = newdayDataAccessObject.getInventory().getWeapon();
         // Message builder for day summary
         final StringBuilder messageBuilder = new StringBuilder("Another day has passed. Here's what happened:\n");
         boolean success = true;
@@ -30,8 +34,8 @@ public class NewdayInteractor implements NewdayInputBoundary {
         }
         // Process resource changes and build the message
         if (success && newdayDataAccessObject.getPlayerinfo().getDaysSurvived() < EntityConstants.MAXNUMDAY - 1) {
-            decrementresource(messageBuilder, thrift, people, temp);
             incrementresouce(messageBuilder, people, score);
+            decrementresource(messageBuilder, thrift, people, temp);
             final NewdayOutputData outputdata = new NewdayOutputData(messageBuilder.toString(), success, failmessage);
             newdayOutputBoundary.prepareSuccessView(outputdata);
         }
@@ -48,7 +52,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         }
     }
 
-    private void incrementresouce(StringBuilder messageBuilder, int people, int score) {
+    private int[] incrementresouce(StringBuilder messageBuilder, int people, int score) {
         // food gain
         final double foodscalar = newdayDataAccessObject.getLocation().getfoodresourceavailable();
         final double foodgain = people * EntityConstants.PEOPLEGAINPERFOOD * foodscalar;
@@ -81,7 +85,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         newdayDataAccessObject.setScore(newscore);
     }
 
-    private void decrementresource(StringBuilder messageBuilder, int thrift, int people, double temp) {
+    private int[] decrementresource(StringBuilder messageBuilder, int thrift, int people, double temp) {
         // food loss
         final double basetemp = EntityConstants.DEFAULTTEMP;
         final double tempdiff = temp - basetemp;

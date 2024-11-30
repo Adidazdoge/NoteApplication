@@ -8,10 +8,10 @@ import usecases.gameminimap.MinimapOutputData;
 /**
  * Minimap presentor.
  */
-public class MinimapPresentor implements MinimapOutputBoundary {
+public class MinimapPresenter implements MinimapOutputBoundary {
     private MinimapInterface view;
 
-    public MinimapPresentor(MinimapInterface view) {
+    public MinimapPresenter(MinimapInterface view) {
         this.view = view;
     }
 
