@@ -8,20 +8,11 @@ public class NewdayOutputData {
     private String message;
     private boolean success;
     private String failmessage;
-    private int food;
-    private int water;
-    private int people;
-    private int weapon;
 
-    public NewdayOutputData(String message, boolean success, String failmessage,
-                            int food, int water, int people, int weapon) {
+    public NewdayOutputData(String message, boolean success, String failmessage) {
         this.message = message;
         this.success = success;
         this.failmessage = failmessage;
-        this.food = food;
-        this.water = water;
-        this.people = people;
-        this.weapon = weapon;
     }
 
     public String getMessage() {
@@ -35,20 +26,5 @@ public class NewdayOutputData {
     public String getFailmessage() {
         return failmessage;
     }
-
-    public int getFood() {
-        return food;
-    }
-
-    public int getWater() {
-        return water;
-    }
-
-    public int getPeople() {
-        return people;
-    }
-
-    public int getWeapon() {
-        return weapon;
-    }
 }
+

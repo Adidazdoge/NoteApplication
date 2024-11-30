@@ -21,10 +21,6 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final int people = newdayDataAccessObject.getInventory().getPeople();
         final double temp = newdayDataAccessObject.getLocation().gettemperature();
         final int score = newdayDataAccessObject.getPlayerinfo().getScore();
-        int newfood = newdayDataAccessObject.getInventory().getFood();
-        int newwater = newdayDataAccessObject.getInventory().getWater();
-        int newpeople = newdayDataAccessObject.getInventory().getPeople();
-        int newweapon = newdayDataAccessObject.getInventory().getWeapon();
         // Message builder for day summary
         final StringBuilder messageBuilder = new StringBuilder("Another day has passed. Here's what happened:\n");
         boolean success = true;

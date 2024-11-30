@@ -11,8 +11,7 @@ public class DailyGatherPresenter implements GatherOutputBoundary {
 
     @Override
     public void prepareSuccessView(GatherOutputData outputdata) {
-        view.updateUiGather(outputdata.getSuccessmessage(),
-                outputdata.getUpdatedfood(), outputdata.getUpdatedwater(), outputdata.getUpdatedweapon());
+        view.updateUiGather(outputdata.getSuccessmessage());
     }
 
     @Override
