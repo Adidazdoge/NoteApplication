@@ -5,30 +5,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Event of a blizzard. This is a negative event that only occurs in Iceland.
- * The blizzard causes a loss of food due to hunger brought on by extreme cold.
- * Players must decide how to handle the situation, with each choice having specific outcomes.
+ * Event of a Blizzard. Represents a harsh blizzard that impacts resources and morale.
  */
-
 public class EventBlizzard implements Event {
 
     private final Boolean isPositive;
-    private final ArrayList<String> occuringlocation;
+    private final ArrayList<String> occurringLocation;
     private final String description;
     private final Map<Integer, String> choices;
     private double probability;
-    private String outcome;
+
+    private final String fightOutcome; // Try to "fight" the blizzard by securing shelter
+    private final String negotiateOutcome; // Attempt to negotiate (prepare supplies)
+    private final String fleeOutcome; // Do nothing and let the blizzard take its toll
 
     public EventBlizzard() {
-        this.isPositive = false;
-        this.occuringlocation = new ArrayList<>();
-        occuringlocation.add(EntityConstants.ICELAND);
+        this.isPositive = false; // Negative event
+        this.occurringLocation = new ArrayList<>();
+        occurringLocation.add(EntityConstants.ICELAND);
 
         this.description = "A harsh blizzard strikes, blanketing the area in ice and snow. The biting cold "
-                + "and lack of visibility make travel dangerous, and hunger begins to take its toll";
+                + "and lack of visibility make survival challenging. What will you do?";
         this.choices = new HashMap<>();
-        this.probability = EntityConstants.COMMONEVENTBASEPROB;
-        this.outcome = "Due to cold, your group had to consume more food";
+        this.choices.put(EntityConstants.FIRSTCHOICE, "Secure shelter");
+        this.choices.put(EntityConstants.SECONDCHOICE, "Prepare supplies");
+        this.choices.put(EntityConstants.THIRDCHOICE, "Do nothing");
+
+        this.probability = EntityConstants.RAREEVENTBASEPROB;
+
+        this.fightOutcome = "You secured shelter from the blizzard, minimizing resource loss.";
+        this.negotiateOutcome = "You prepared supplies, but the blizzard still consumed some resources.";
+        this.fleeOutcome = "You did nothing, and the blizzard wreaked havoc on your group.";
     }
 
     @Override
@@ -56,12 +63,19 @@ public class EventBlizzard implements Event {
         return isPositive;
     }
 
-    @Override
-    public ArrayList<String> getOccuringlocation() {
-        return occuringlocation;
+    public ArrayList<String> getOccurringLocation() {
+        return occurringLocation;
     }
 
-    public String getOutcome() {
-        return outcome;
+    public String getFightOutcome() {
+        return fightOutcome;
+    }
+
+    public String getNegotiateOutcome() {
+        return negotiateOutcome;
+    }
+
+    public String getFleeOutcome() {
+        return fleeOutcome;
     }
 }

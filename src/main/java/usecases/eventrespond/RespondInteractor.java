@@ -1,6 +1,6 @@
 package usecases.eventrespond;
 
-import entities.Entityconstants;
+import entities.EntityConstants;
 import entities.Event;
 import entities.EventAmbush;
 import entities.EventBlizzard;
