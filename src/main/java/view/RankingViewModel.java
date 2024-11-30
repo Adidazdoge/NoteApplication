@@ -1,4 +1,4 @@
-package frameworks.view;
+package view;
 
 /**
  * Represents a ViewModel for the ranking list.

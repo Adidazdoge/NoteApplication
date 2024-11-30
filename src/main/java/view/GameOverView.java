@@ -1,8 +1,10 @@
-package frameworks.view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Gameover view.
+ */
 public class GameOverView extends JFrame {
     public GameOverView() {
         super("Game Over");
@@ -19,7 +21,7 @@ public class GameOverView extends JFrame {
         scoreLabel.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
         container.add(scoreLabel);
 
-        final JTextArea descriptionArea = new JTextArea();
+        final JTextArea descriptionArea = new JTextArea("Game description goes here...");
         descriptionArea.setEditable(false);
         descriptionArea.setBackground(Color.LIGHT_GRAY);
         descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -29,6 +31,24 @@ public class GameOverView extends JFrame {
         mainMenuButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
         container.add(mainMenuButton);
 
+        // Layout constraints
+        extracted(layout, titleLabel, container, scoreLabel, descriptionArea, mainMenuButton);
+
+        // Add action listener to "Main Menu" button
+        mainMenuButton.addActionListener(e -> {
+            dispose();
+            new MainView();
+        });
+
+        // Window settings
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    private static void extracted(SpringLayout layout, JLabel titleLabel, Container container, JLabel scoreLabel,
+                                  JTextArea descriptionArea, JButton mainMenuButton) {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, titleLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
@@ -44,11 +64,6 @@ public class GameOverView extends JFrame {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, mainMenuButton, 0,
                 SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, mainMenuButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionArea);
-
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(true);
     }
 
     public static void main(String[] args) {

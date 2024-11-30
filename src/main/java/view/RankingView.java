@@ -1,9 +1,16 @@
-package frameworks.view;
+package view;
+
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+/**
+ * Ranking view.
+ */
 public class RankingView extends JFrame {
     public RankingView() {
         super("Ranking");
@@ -14,7 +21,7 @@ public class RankingView extends JFrame {
         titleLabel.setFont(new Font("Serif", Font.BOLD, Constants.THIRTY));
         container.add(titleLabel, BorderLayout.NORTH);
 
-        // jtable example
+        // JTable example
         final String[] columnNames = {"Rank", "Player", "Score"};
         final Object[][] data = new Object[Constants.ONE_HUNDRED][Constants.THREE];
         for (int i = 0; i < Constants.ONE_HUNDRED; i++) {
@@ -26,15 +33,11 @@ public class RankingView extends JFrame {
             data[i][2] = (int) (Math.random() * Constants.ONE_THOUSAND);
         }
 
-        final JTable rankingTable = new JTable(new DefaultTableModel(data, columnNames));
-        rankingTable.setEnabled(false);
-        final JScrollPane scrollPane = new JScrollPane(rankingTable);
-        container.add(scrollPane, BorderLayout.CENTER);
+        extracted(data, columnNames, container);
 
-        final JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(3, 1));
+        final JPanel bottomPanel = getjPanel();
 
-        // example rank
+        // Example rank
         final JLabel yourRankLabel = new JLabel("Your Rank: No. 10", JLabel.CENTER);
         yourRankLabel.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
         bottomPanel.add(yourRankLabel);
@@ -51,11 +54,41 @@ public class RankingView extends JFrame {
 
         container.add(bottomPanel, BorderLayout.SOUTH);
 
-        // 窗口设置
+        // Add ActionListeners to buttons
+        mainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new MainView();
+            }
+        });
+
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        // Window settings
         setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+    }
+
+    @NotNull
+    private static JPanel getjPanel() {
+        final JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new GridLayout(3, 1));
+        return bottomPanel;
+    }
+
+    private static void extracted(Object[][] data, String[] columnNames, Container container) {
+        final JTable rankingTable = new JTable(new DefaultTableModel(data, columnNames));
+        rankingTable.setEnabled(false);
+        final JScrollPane scrollPane = new JScrollPane(rankingTable);
+        container.add(scrollPane, BorderLayout.CENTER);
     }
 
     public static void main(String[] args) {

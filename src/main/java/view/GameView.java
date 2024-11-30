@@ -1,15 +1,22 @@
-package frameworks.view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+/**
+ * Game view.
+ */
 
 public class GameView extends JFrame {
+    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
+                       "checkstyle:ExecutableStatementCount", "checkstyle:JavaNCSS"})
     public GameView() {
         super("Game");
 
         final Container container = getContentPane();
         final SpringLayout layout = new SpringLayout();
         container.setLayout(layout);
+
         final JLabel dayLabel = new JLabel("Day: 50");
         dayLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
         container.add(dayLabel);
@@ -18,14 +25,16 @@ public class GameView extends JFrame {
         final JLabel waterLabel = new JLabel("Water: 30");
         final JLabel peopleLabel = new JLabel("People: 20");
         final JLabel weaponLabel = new JLabel("Weapon: 15");
+        final JLabel actionAvailableLabel = new JLabel("Action Available: 3");
         container.add(foodLabel);
         container.add(waterLabel);
         container.add(peopleLabel);
         container.add(weaponLabel);
+        container.add(actionAvailableLabel);
 
         final JPanel mapPanel = new JPanel();
         mapPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        mapPanel.setPreferredSize(new Dimension(200, 200));
+        mapPanel.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
         container.add(mapPanel);
         final JLabel mapLabel = new JLabel("Mini Map");
         mapPanel.add(mapLabel);
@@ -40,12 +49,22 @@ public class GameView extends JFrame {
 
         final JButton broadcastButton = new JButton("Broadcast");
         final JButton gatherButton = new JButton("Gather");
-        final JButton moveButton = new JButton("Move");
+        final JButton upButton = new JButton("Up");
+        final JButton downButton = new JButton("Down");
+        final JButton leftButton = new JButton("Left");
+        final JButton rightButton = new JButton("Right");
+        final JButton eventButton = new JButton("Event");
         final JButton nextDayButton = new JButton("Next Day");
+        final JButton infoButton = new JButton("information (only brief info)");
         container.add(broadcastButton);
         container.add(gatherButton);
-        container.add(moveButton);
+        container.add(upButton);
+        container.add(downButton);
+        container.add(leftButton);
+        container.add(rightButton);
+        container.add(eventButton);
         container.add(nextDayButton);
+        container.add(infoButton);
 
         layout.putConstraint(SpringLayout.WEST, dayLabel, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, dayLabel, Constants.TWENTY, SpringLayout.NORTH, container);
@@ -62,14 +81,15 @@ public class GameView extends JFrame {
         layout.putConstraint(SpringLayout.WEST, weaponLabel, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, weaponLabel, Constants.TWENTY, SpringLayout.SOUTH, peopleLabel);
 
+        layout.putConstraint(SpringLayout.WEST, actionAvailableLabel, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, actionAvailableLabel, Constants.TWENTY, SpringLayout.SOUTH, weaponLabel);
+
         layout.putConstraint(SpringLayout.EAST, mapPanel, -Constants.TWENTY, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, mapPanel, Constants.TWENTY, SpringLayout.NORTH, container);
 
         layout.putConstraint(SpringLayout.WEST, infoLabel, Constants.TWENTY, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, infoLabel, Constants.TWENTY, SpringLayout.SOUTH, weaponLabel);
+        layout.putConstraint(SpringLayout.NORTH, infoLabel, Constants.TWENTY, SpringLayout.SOUTH, actionAvailableLabel);
 
-        layout.putConstraint(SpringLayout.WEST, infoArea, Constants.TWENTY, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.EAST, infoArea, -Constants.TWENTY, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, infoArea, Constants.TEN, SpringLayout.SOUTH, infoLabel);
         layout.putConstraint(SpringLayout.SOUTH, infoArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH, container);
 
@@ -79,12 +99,47 @@ public class GameView extends JFrame {
         layout.putConstraint(SpringLayout.WEST, gatherButton, Constants.TWENTY, SpringLayout.EAST, broadcastButton);
         layout.putConstraint(SpringLayout.NORTH, gatherButton, 0, SpringLayout.NORTH, broadcastButton);
 
-        layout.putConstraint(SpringLayout.WEST, moveButton, Constants.TWENTY, SpringLayout.EAST, gatherButton);
-        layout.putConstraint(SpringLayout.NORTH, moveButton, 0, SpringLayout.NORTH, broadcastButton);
+        layout.putConstraint(SpringLayout.WEST, eventButton, Constants.TWENTY, SpringLayout.EAST, gatherButton);
+        layout.putConstraint(SpringLayout.NORTH, eventButton, 0, SpringLayout.NORTH, gatherButton);
 
-        layout.putConstraint(SpringLayout.EAST, nextDayButton, -Constants.TWENTY, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.WEST, nextDayButton, Constants.TWENTY, SpringLayout.EAST, eventButton);
         layout.putConstraint(SpringLayout.NORTH, nextDayButton, 0, SpringLayout.NORTH, broadcastButton);
 
+        layout.putConstraint(SpringLayout.NORTH, upButton, Constants.TWENTY, SpringLayout.SOUTH, broadcastButton);
+        layout.putConstraint(SpringLayout.WEST, upButton, Constants.TWENTY, SpringLayout.WEST, container);
+
+        layout.putConstraint(SpringLayout.WEST, downButton, Constants.TWENTY, SpringLayout.EAST, upButton);
+        layout.putConstraint(SpringLayout.NORTH, downButton, 0, SpringLayout.NORTH, upButton);
+
+        layout.putConstraint(SpringLayout.WEST, leftButton, Constants.TWENTY, SpringLayout.EAST, downButton);
+        layout.putConstraint(SpringLayout.NORTH, leftButton, 0, SpringLayout.NORTH, upButton);
+
+        layout.putConstraint(SpringLayout.WEST, rightButton, Constants.TWENTY, SpringLayout.EAST, leftButton);
+        layout.putConstraint(SpringLayout.NORTH, rightButton, 0, SpringLayout.NORTH, upButton);
+
+        layout.putConstraint(SpringLayout.WEST, infoButton, Constants.TWENTY, SpringLayout.EAST, rightButton);
+        layout.putConstraint(SpringLayout.NORTH, infoButton, 0, SpringLayout.NORTH, upButton);
+
+        // Add ActionListeners to Buttons
+        final ActionListener openGameViewListener = e -> {
+            dispose();
+            new GameView();
+        };
+
+        final ActionListener openEventViewListener = e -> {
+            dispose();
+            new EventView();
+        };
+        eventButton.addActionListener(openEventViewListener);
+        broadcastButton.addActionListener(openGameViewListener);
+        gatherButton.addActionListener(openGameViewListener);
+        nextDayButton.addActionListener(openGameViewListener);
+        upButton.addActionListener(openGameViewListener);
+        downButton.addActionListener(openGameViewListener);
+        leftButton.addActionListener(openGameViewListener);
+        rightButton.addActionListener(openGameViewListener);
+
+        // Window settings
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);

@@ -1,4 +1,4 @@
-package frameworks.view;
+package view;
 
 /**
  * Constants used in this program.

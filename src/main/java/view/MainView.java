@@ -1,7 +1,10 @@
-package frameworks.view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
+/**
+ * Main view.
+ */
 
 public class MainView extends JFrame {
     private JButton newGameButton = new JButton("New Game");

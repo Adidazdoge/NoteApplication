@@ -1,7 +1,11 @@
-package frameworks.view;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+/**
+ * Event view.
+ */
 
 public class EventView extends JFrame {
     public EventView() {
@@ -11,16 +15,19 @@ public class EventView extends JFrame {
         final SpringLayout layout = new SpringLayout();
         container.setLayout(layout);
 
+        // Event Label
         final JLabel eventLabel = new JLabel("Event:");
         eventLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
         container.add(eventLabel);
 
-        final JTextArea descriptionArea = new JTextArea();
+        // Description Area
+        final JTextArea descriptionArea = new JTextArea("Event description goes here...");
         descriptionArea.setEditable(false);
         descriptionArea.setBackground(Color.LIGHT_GRAY);
         descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         container.add(descriptionArea);
 
+        // Buttons
         final JButton fightButton = new JButton("Fight");
         final JButton negotiateButton = new JButton("Negotiate");
         final JButton fleeButton = new JButton("Flee");
@@ -30,6 +37,33 @@ public class EventView extends JFrame {
         container.add(fleeButton);
         container.add(backButton);
 
+        // Layout Constraints
+        extracted(layout, eventLabel, container, descriptionArea, fightButton, negotiateButton, fleeButton);
+
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.NORTH, backButton, Constants.TWENTY, SpringLayout.SOUTH, fightButton);
+
+        // Add ActionListeners to Buttons
+        final ActionListener returnToGameViewListener = e -> {
+            dispose();
+            new GameView();
+        };
+
+        fightButton.addActionListener(returnToGameViewListener);
+        negotiateButton.addActionListener(returnToGameViewListener);
+        fleeButton.addActionListener(returnToGameViewListener);
+        backButton.addActionListener(returnToGameViewListener);
+
+        // Window Settings
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    private static void extracted(SpringLayout layout, JLabel eventLabel, Container container,
+                                  JTextArea descriptionArea, JButton fightButton,
+                                  JButton negotiateButton, JButton fleeButton) {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, eventLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, eventLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
@@ -46,14 +80,6 @@ public class EventView extends JFrame {
 
         layout.putConstraint(SpringLayout.WEST, fleeButton, Constants.TWENTY, SpringLayout.EAST, negotiateButton);
         layout.putConstraint(SpringLayout.NORTH, fleeButton, 0, SpringLayout.NORTH, fightButton);
-
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
-        layout.putConstraint(SpringLayout.NORTH, backButton, Constants.TWENTY, SpringLayout.SOUTH, fightButton);
-
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(true);
     }
 
     public static void main(String[] args) {
