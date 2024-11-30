@@ -1,9 +1,9 @@
 package usecases.dailybroadcast;
 
+import java.util.Random;
+
 import entities.Inventory;
 import entities.PlayerAttributes;
-
-import java.util.Random;
 
 /**
  * Interactor for the broadcast use case.
