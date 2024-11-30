@@ -1,9 +1,6 @@
 package usecases.gamenewday;
 
-import entities.Inventory;
-import entities.Location;
-import entities.PlayerAttributes;
-import entities.PlayerInfo;
+import entities.*;
 
 /**
  * Newday data access, require player's info because we care and need to update days and score.
@@ -70,4 +67,10 @@ public interface NewdayDataAccessInterface {
      * @return return player attribute.
      */
     PlayerAttributes getPlayerAttributes();
+
+    /**
+     * Get description of the horde on day 59 before update, so horde description appear on day 60.
+     * @return return the description of the horde.
+     */
+    Horde getHorde();
 }

@@ -20,7 +20,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final int thrift = newdayDataAccessObject.getPlayerAttributes().getThrift();
         final int people = newdayDataAccessObject.getInventory().getPeople();
         final double temp = newdayDataAccessObject.getLocation().gettemperature();
-        int score = newdayDataAccessObject.getPlayerinfo().getScore();
+        final int score = newdayDataAccessObject.getPlayerinfo().getScore();
         // Message builder for day summary
         final StringBuilder messageBuilder = new StringBuilder("Another day has passed. Here's what happened:\n");
         boolean success = true;
@@ -29,9 +29,16 @@ public class NewdayInteractor implements NewdayInputBoundary {
             success = false;
         }
         // Process resource changes and build the message
-        if (success) {
+        if (success && newdayDataAccessObject.getPlayerinfo().getDaysSurvived() < EntityConstants.MAXNUMDAY - 1) {
             decrementresource(messageBuilder, thrift, people, temp);
             incrementresouce(messageBuilder, people, score);
+            final NewdayOutputData outputdata = new NewdayOutputData(messageBuilder.toString(), success, failmessage);
+            newdayOutputBoundary.prepareSuccessView(outputdata);
+        }
+        else if (success) {
+            final double temperature = newdayDataAccessObject.getLocation().gettemperature();
+            final double threat = newdayDataAccessObject.getLocation().getthreatlevel();
+            messageBuilder.append(newdayDataAccessObject.getHorde().getDescription(threat, temperature));
             final NewdayOutputData outputdata = new NewdayOutputData(messageBuilder.toString(), success, failmessage);
             newdayOutputBoundary.prepareSuccessView(outputdata);
         }
@@ -46,7 +53,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final double foodscalar = newdayDataAccessObject.getLocation().getfoodresourceavailable();
         final double foodgain = people * EntityConstants.PEOPLEGAINPERFOOD * foodscalar;
         newdayDataAccessObject.changeFood((int) foodgain);
-        int newscore = score + (int) foodgain;
+
         messageBuilder.append("  - Food gained: ").append((int) foodgain).append(EntityConstants.NEWLINE);
 
         // water gain
@@ -54,6 +61,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final double watergain = people * EntityConstants.PEOPLEGAINPERWATER * waterscalar;
         newdayDataAccessObject.changeWater((int) watergain);
         messageBuilder.append("  - Water gained: ").append((int) watergain).append(EntityConstants.NEWLINE);
+        int newscore = score + (int) foodgain;
         newscore = newscore + (int) watergain;
 
         // people gain
