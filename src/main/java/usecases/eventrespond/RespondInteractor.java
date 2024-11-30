@@ -67,32 +67,32 @@ public class RespondInteractor implements RespondInputBoundary {
         boolean success = true;
         final EventAmbush ambush = (EventAmbush) event;
 
-        if (choice == Entityconstants.FIRSTCHOICE) {
-            if (inventory.getfirepower() >= Entityconstants.AMBUSHPOWER) {
-                foodChange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEFOOD;
-                waterChange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEWATER;
-                weaponChange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEWEAPON;
-                peopleChange = Entityconstants.AMBUSHFIGHTSUCCESSRESOURCEPEOPLE;
+        if (choice == EntityConstants.FIRSTCHOICE) {
+            if (inventory.getfirepower() >= EntityConstants.AMBUSHPOWER) {
+                foodChange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEFOOD;
+                waterChange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEWATER;
+                weaponChange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEWEAPON;
+                peopleChange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEPEOPLE;
                 message = ambush.getFightoutcomesuccess();
             } else {
-                foodChange = Entityconstants.AMBUSHFAILRESOURCEFOOD;
-                waterChange = Entityconstants.AMBUSHFAILRESOURCEWATER;
-                weaponChange = Entityconstants.AMBUSHFAILRESOURCEWEAPON;
-                peopleChange = Entityconstants.AMBUSHFAILRESOURCEPEOPLE;
+                foodChange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+                waterChange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+                weaponChange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
+                peopleChange = EntityConstants.AMBUSHFAILRESOURCEPEOPLE;
                 message = ambush.getFightoutcomefailed();
             }
-        } else if (choice == Entityconstants.SECONDCHOICE) {
-            foodChange = Entityconstants.AMBUSHFAILRESOURCEFOOD;
-            waterChange = Entityconstants.AMBUSHFAILRESOURCEWATER;
-            weaponChange = Entityconstants.AMBUSHFAILRESOURCEWEAPON;
+        } else if (choice == EntityConstants.SECONDCHOICE) {
+            foodChange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+            waterChange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+            weaponChange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
             message = ambush.getPayoutcome();
-        } else if (choice == Entityconstants.THIRDCHOICE) {
-            if (attributes.getSocial() >= Entityconstants.AMBUSHNEGOTIATE) {
+        } else if (choice == EntityConstants.THIRDCHOICE) {
+            if (attributes.getSocial() >= EntityConstants.AMBUSHNEGOTIATE) {
                 message = ambush.getNegotiatesuccessoutcome();
             } else {
-                foodChange = Entityconstants.AMBUSHFAILRESOURCEFOOD;
-                waterChange = Entityconstants.AMBUSHFAILRESOURCEWATER;
-                weaponChange = Entityconstants.AMBUSHFAILRESOURCEWEAPON;
+                foodChange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
+                waterChange = EntityConstants.AMBUSHFAILRESOURCEWATER;
+                weaponChange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
                 message = ambush.getNegotiatefailedoutcome();
             }
         } else {
@@ -113,14 +113,14 @@ public class RespondInteractor implements RespondInputBoundary {
         boolean success = true;
 
         EventFlood flood = (EventFlood) event;
-        if (choice == Entityconstants.FIRSTCHOICE) {
-            foodChange = Entityconstants.FLOODRESOURCELOSS;
+        if (choice == EntityConstants.FIRSTCHOICE) {
+            foodChange = EntityConstants.FLOODRESOURCELOSS;
             message = flood.getEvacuateOutcome();
-        } else if (choice == Entityconstants.SECONDCHOICE) {
-            foodChange = Entityconstants.FLOODSECURELOSS;
+        } else if (choice == EntityConstants.SECONDCHOICE) {
+            foodChange = EntityConstants.FLOODSECURELOSS;
             message = flood.getSecureSuppliesOutcome();
-        } else if (choice == Entityconstants.THIRDCHOICE) {
-            foodChange = Entityconstants.FLOODDOINGNOTHINGLOSS;
+        } else if (choice == EntityConstants.THIRDCHOICE) {
+            foodChange = EntityConstants.FLOODDOINGNOTHINGLOSS;
             message = flood.getDoNothingOutcome();
         } else {
             success = false;
@@ -132,7 +132,7 @@ public class RespondInteractor implements RespondInputBoundary {
     }
 
     private Pair<RespondOutputData, Boolean> blizzardEvaluator(Inventory inventory, Event event) {
-        String message = ((EventBlizzard) event).getOutcome();
+        String message = ((EventBlizzard) event).getOutcome
         inventory.changeFood(Entityconstants.BLIZZARDRESOURCELOSSFOOD);
         inventory.changeWater(Entityconstants.BLIZZARDRESOURCELOSSWATER);
 

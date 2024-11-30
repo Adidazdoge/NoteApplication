@@ -21,6 +21,9 @@ public class GatherInteractor implements GatherInputBoundary {
         final int foodgathered = (int) Math.round(foodscalar * Math.sqrt((double) people));
         final int watergathered = (int) Math.round(waterscalar * Math.sqrt((double) people));
         final int weapongathered = (int) Math.round(weaponscalar * Math.sqrt((double) people));
+        final int updatedfood = dataAccessInterface.getInventory().getFood() + foodgathered;
+        final int updatedwater = dataAccessInterface.getInventory().getWater() + watergathered;
+        final int updatedweapon = dataAccessInterface.getInventory().getWeapon() + weapongathered;
         // not sure if this is a good way of calculation towards game balance, I'll need when game can fully run to
         // decide on the change.
         StringBuilder successoutputmessage = new StringBuilder("Your group found ");
@@ -43,8 +46,8 @@ public class GatherInteractor implements GatherInputBoundary {
         dataAccessInterface.changewater(watergathered);
         dataAccessInterface.changeweapon(weapongathered);
         if (isvaildgather()) {
-            outputBoundary.prepareSuccessView(new GatherOutputData(successoutputmessage.toString(),
-                    "Invalid Gather"));
+            outputBoundary.prepareSuccessView(new GatherOutputData(
+                    successoutputmessage.toString(), updatedfood, updatedwater, updatedweapon));
         }
         else {
             outputBoundary.prepareFailureView("Invalid Gather");

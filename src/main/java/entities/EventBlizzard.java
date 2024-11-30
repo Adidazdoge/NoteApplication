@@ -15,12 +15,12 @@ public class EventBlizzard implements Event {
     private final Map<Integer, String> choices;
     private double probability;
 
-    private final String fightOutcome; // Try to "fight" the blizzard by securing shelter
-    private final String negotiateOutcome; // Attempt to negotiate (prepare supplies)
-    private final String fleeOutcome; // Do nothing and let the blizzard take its toll
+    private final String fightOutcome;
+    private final String negotiateOutcome;
+    private final String fleeOutcome;
 
     public EventBlizzard() {
-        this.isPositive = false; // Negative event
+        this.isPositive = false;
         this.occurringLocation = new ArrayList<>();
         occurringLocation.add(EntityConstants.ICELAND);
 
@@ -61,6 +61,11 @@ public class EventBlizzard implements Event {
     @Override
     public boolean getispositive() {
         return isPositive;
+    }
+
+    @Override
+    public ArrayList<String> getOccuringlocation() {
+        return occurringLocation;
     }
 
     public ArrayList<String> getOccurringLocation() {

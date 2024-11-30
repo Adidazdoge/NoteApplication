@@ -7,18 +7,30 @@ package usecases.dailygather;
  */
 public class GatherOutputData {
     private String successmessage;
-    private String errormessage;
+    private int updatedfood;
+    private int updatedwater;
+    private int updatedweapon;
 
-    public GatherOutputData(String successmessage, String errormessage) {
+    public GatherOutputData(String successmessage, int updatedfood, int updatedwater, int updatedweapon) {
         this.successmessage = successmessage;
-        this.errormessage = errormessage;
+        this.updatedfood = updatedfood;
+        this.updatedwater = updatedwater;
+        this.updatedweapon = updatedweapon;
     }
 
     public String getSuccessmessage() {
         return successmessage;
     }
 
-    public String getErrorMessage() {
-        return errormessage;
+    public int getUpdatedfood() {
+        return updatedfood;
+    }
+
+    public int getUpdatedwater() {
+        return updatedwater;
+    }
+
+    public int getUpdatedweapon() {
+        return updatedweapon;
     }
 }
