@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48a9ee5b-3f01-4790-948e-3aa7a74afa6b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frameworks/view/EventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frameworks/view/EventView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frameworks/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frameworks/view/GameView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frameworks/view/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frameworks/view/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/MainMenu.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +55,7 @@
     &quot;last_opened_file_path&quot;: &quot;D:/csc236&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Login">
+  <component name="RunManager" selected="Application.GameView">
     <configuration name="GameOverView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="view.GameOverView" />
       <module name="note-application" />
@@ -136,8 +134,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Login" />
         <item itemvalue="Application.GameView" />
+        <item itemvalue="Application.Login" />
         <item itemvalue="Application.RankingView" />
         <item itemvalue="Application.GameOverView" />
         <item itemvalue="Application.MainView" />
@@ -147,6 +145,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="jdk-11.0.22-corretto-11.0.22-4caba194b151-868cef46" />
         <option value="jdk-22-openjdk-22-3183f394aec4-bad0321e" />
       </set>
     </attachedChunks>

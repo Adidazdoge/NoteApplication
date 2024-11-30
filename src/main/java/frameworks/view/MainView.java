@@ -4,76 +4,89 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainView extends JFrame {
-    private JButton newGame = new JButton("New Game");
-    private JButton ranking = new JButton("Ranking");
-    private JButton quit = new JButton("Quit");
-    private JButton logout = new JButton("Logout");
-    private SpringLayout springLayout = new SpringLayout();
-    private JPanel mainPanel = new JPanel(springLayout);
-    private JLabel titleLabel = new JLabel("60 Days to Survive", JLabel.CENTER);
+    private JButton newGameButton = new JButton("New Game");
+    private JButton rankingButton = new JButton("Ranking");
+    private JButton quitButton = new JButton("Quit");
+    private JButton logoutButton = new JButton("Logout");
 
     public MainView() {
         super("Main Menu");
-        final Container contentPane = getContentPane();
+
+        // Set layout and container
+        final Container container = getContentPane();
+        final SpringLayout layout = new SpringLayout();
+        container.setLayout(layout);
+
+        // Title
+        final JLabel titleLabel = new JLabel("Main Menu");
         titleLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
-        contentPane.add(titleLabel, BorderLayout.NORTH);
+        container.add(titleLabel);
 
-        final Font buttonFont = new Font("Serif", Font.PLAIN, Constants.TWENTY);
-        newGame.setFont(buttonFont);
-        ranking.setFont(buttonFont);
-        quit.setFont(buttonFont);
-        logout.setFont(buttonFont);
+        // Set button fonts
+        newGameButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
+        rankingButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
+        quitButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
+        logoutButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
 
-        mainPanel.add(newGame);
-        mainPanel.add(ranking);
-        mainPanel.add(quit);
-        mainPanel.add(logout);
-        contentPane.add(mainPanel, BorderLayout.CENTER);
+        // Add buttons to the container
+        container.add(newGameButton);
+        container.add(rankingButton);
+        container.add(quitButton);
+        container.add(logoutButton);
 
-        // Adjust constraints for title
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0,
-                SpringLayout.HORIZONTAL_CENTER, mainPanel);
+        // Layout constraints
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
-        // Button placement
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, newGame, 0,
-                SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, newGame, Constants.FIFTY, SpringLayout.NORTH, mainPanel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, newGameButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.NORTH, newGameButton, Constants.FORTY, SpringLayout.SOUTH, titleLabel);
 
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, ranking, 0,
-                SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, ranking, Constants.TWENTY, SpringLayout.SOUTH, newGame);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, rankingButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.NORTH, rankingButton, Constants.TWENTY, SpringLayout.SOUTH, newGameButton);
 
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, quit, 0,
-                SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, quit, Constants.TWENTY, SpringLayout.SOUTH, ranking);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, quitButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.NORTH, quitButton, Constants.TWENTY, SpringLayout.SOUTH, rankingButton);
 
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logout, 0,
-                SpringLayout.HORIZONTAL_CENTER, mainPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, logout, Constants.TWENTY, SpringLayout.SOUTH, quit);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logoutButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.NORTH, logoutButton, Constants.TWENTY, SpringLayout.SOUTH, quitButton);
 
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        // Add listeners for buttons
+        addListeners();
+
+        // Set window properties
+        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
     }
 
+    // Add ActionListener to buttons
+    private void addListeners() {
+        // Switch to GameView when "New Game" is clicked
+        newGameButton.addActionListener(e -> {
+            dispose();
+            new GameView();
+        });
+
+        // Switch to RankView when "Ranking" is clicked
+        rankingButton.addActionListener(e -> {
+            dispose();
+            new RankingView();
+        });
+
+        // Exit the game when "Quit" is clicked
+        quitButton.addActionListener(e -> {
+            System.exit(0);
+        });
+
+        // Switch to LoginView when "Logout" is clicked
+        logoutButton.addActionListener(e -> {
+            dispose();
+            new LoginView();
+        });
+    }
+
     public static void main(String[] args) {
         new MainView();
     }
-    public JButton getNewGameButton() {
-        return newGame;
-    }
-
-    public JButton getRankingButton() {
-        return ranking;
-    }
-
-    public JButton getQuitButton() {
-        return quit;
-    }
-
-    public JButton getLogoutButton() {
-        return logout;
-    }
 }
-
