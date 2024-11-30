@@ -105,10 +105,14 @@ public class EntityConstants {
     // for any general escape choice, the distance move randomly at max.
     public static final int LENGTHMESSAGECOMMA = 17;
 
-    // Flood constants.
-    public static final int FLOODRESOURCELOSS = -10;
-    public static final int FLOODSECURELOSS = -5;
-    public static final int FLOODDOINGNOTHINGLOSS = -20;
+    // Flood event constants
+    public static final int FLOODRESOURCELOSSFOOD = -10; 
+    public static final int FLOODRESOURCELOSSSECURE = -15; 
+    public static final int FLOODRESOURCELOSSHIGH = -20; 
+
+    public static final int FLOODPEOPLELOSSLOW = -1; 
+    public static final int FLOODPEOPLELOSSMODERATE = -3; 
+    public static final int FLOODPEOPLELOSSHIGH = -5;
 
     // Blizzard constants.
     public static final int BLIZZARDRESOURCELOSSFOOD = -15;
@@ -132,6 +136,14 @@ public class EntityConstants {
 
     public static final int TRADERIGNORELOSS = 0;
     public static final int MAXNUMDAY = 60;
+
+    // Survivor constants
+    public static final int SURVIVORACCEPTPEOPLEGAIN = 5; 
+    public static final int SURVIVORROBBERYPOWER = 20; 
+    public static final int SURVIVORROBBERYGAINFOOD = 10; 
+    public static final int SURVIVORROBBERYGAINSUPPLIES = 5;
+    public static final int SURVIVORROBBERYFAILLOSSFOOD = -10; 
+    public static final int SURVIVORROBBERYFAILLOSSPEOPLE = -2;
 
     public static final String NEWLINE = "\n";
 }

@@ -4,14 +4,10 @@ import entities.Event;
 import entities.EventAmbush;
 import entities.EventTraderEncounter;
 import entities.EventBlizzard;
-import usecases.eventrespond.RespondInputBoundary;
-import usecases.eventrespond.RespondInputData;
 import usecases.eventrespond.ambush.AmbushEventInteractor;
 import usecases.eventrespond.trader.TraderEventInteractor;
 import usecases.eventrespond.blizzard.BlizzardEventInteractor;
-import usecases.eventrespond.RespondDataAccessInterface;
-import usecases.eventrespond.RespondOutputBoundary;
-
+import usecases.eventrespond.shared.*;
 /**
  * Controller for handling event responses and delegating to the correct interactor.
  */
