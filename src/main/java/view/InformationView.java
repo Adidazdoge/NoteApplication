@@ -22,7 +22,7 @@ public class InformationView extends JFrame {
         infoArea.setLineWrap(true);
         infoArea.setWrapStyleWord(true);
         infoArea.setBackground(Color.LIGHT_GRAY);
-        infoArea.setFont(new Font("Serif", Font.PLAIN, 16));
+        infoArea.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
         infoArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Add a scroll pane for JTextArea

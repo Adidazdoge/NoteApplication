@@ -19,6 +19,8 @@ public class LoginView extends JFrame {
     private static JButton loginBotton = new JButton("log in");
     private static JButton registerButton = new JButton("sign up");
 
+    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
+                       "checkstyle:ExecutableStatementCount"})
     public LoginView() {
         super("Log in");
         final Container contentPane = getContentPane();
@@ -97,11 +99,10 @@ public class LoginView extends JFrame {
     }
 
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
      new LoginView();
      }
-
-    public static String getUser() {
+     public static String getUser() {
         return userText.getText();
     }
 

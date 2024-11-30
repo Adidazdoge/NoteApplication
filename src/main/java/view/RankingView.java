@@ -80,7 +80,7 @@ public class RankingView extends JFrame {
     @NotNull
     private static JPanel getjPanel() {
         final JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(3, 1));
+        bottomPanel.setLayout(new GridLayout(Constants.THREE, 1));
         return bottomPanel;
     }
 

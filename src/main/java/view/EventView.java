@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
  */
 
 public class EventView extends JFrame {
+    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public EventView() {
         super("Event");
 
@@ -49,16 +50,21 @@ public class EventView extends JFrame {
             new GameView();
         };
 
-        fightButton.addActionListener(returnToGameViewListener);
-        negotiateButton.addActionListener(returnToGameViewListener);
-        fleeButton.addActionListener(returnToGameViewListener);
-        backButton.addActionListener(returnToGameViewListener);
+        addListeners(fightButton, returnToGameViewListener, negotiateButton, fleeButton, backButton);
 
         // Window Settings
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+    }
+
+    private static void addListeners(JButton fightButton, ActionListener returnToGameViewListener,
+                                     JButton negotiateButton, JButton fleeButton, JButton backButton) {
+        fightButton.addActionListener(returnToGameViewListener);
+        negotiateButton.addActionListener(returnToGameViewListener);
+        fleeButton.addActionListener(returnToGameViewListener);
+        backButton.addActionListener(returnToGameViewListener);
     }
 
     private static void extracted(SpringLayout layout, JLabel eventLabel, Container container,
@@ -70,7 +76,8 @@ public class EventView extends JFrame {
         layout.putConstraint(SpringLayout.WEST, descriptionArea, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.EAST, descriptionArea, -Constants.TWENTY, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, descriptionArea, Constants.TWENTY, SpringLayout.SOUTH, eventLabel);
-        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH, container);
+        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH,
+                container);
 
         layout.putConstraint(SpringLayout.WEST, fightButton, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, fightButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionArea);

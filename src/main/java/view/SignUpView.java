@@ -20,6 +20,7 @@ public class SignUpView extends JFrame {
     private JLabel againLabel = new JLabel("again");
     private JTextField againText = new JTextField();
 
+    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public SignUpView() {
         super("sign up");
         final Container contentPane = getContentPane();
@@ -85,7 +86,8 @@ public class SignUpView extends JFrame {
 
     private void extracted(int offsetX) {
         springLayout.putConstraint(SpringLayout.WEST, userNameLabel, -offsetX, SpringLayout.HEIGHT, centerPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, userNameLabel, Constants.TWENTY, SpringLayout.NORTH, centerPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, userNameLabel, Constants.TWENTY, SpringLayout.NORTH,
+                centerPanel);
         // set userText location
         springLayout.putConstraint(SpringLayout.WEST, userText, Constants.TEN, SpringLayout.EAST, userNameLabel);
         springLayout.putConstraint(SpringLayout.NORTH, userText, 0, SpringLayout.NORTH, userNameLabel);
@@ -97,7 +99,8 @@ public class SignUpView extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, passwordText, 0, SpringLayout.NORTH, passwordLabel);
         // set loginButton location
         springLayout.putConstraint(SpringLayout.WEST, loginBotton, Constants.FIFTY, SpringLayout.WEST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, loginBotton, Constants.EIGHTY, SpringLayout.SOUTH, passwordLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, loginBotton, Constants.EIGHTY, SpringLayout.SOUTH,
+                passwordLabel);
         // set registerButton location
         springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.SIXTY, SpringLayout.EAST, loginBotton);
         springLayout.putConstraint(SpringLayout.NORTH, registerButton, 0, SpringLayout.NORTH, loginBotton);

@@ -12,6 +12,7 @@ public class MainView extends JFrame {
     private JButton quitButton = new JButton("Quit");
     private JButton logoutButton = new JButton("Logout");
 
+    @SuppressWarnings({"checkstyle:MultipleStringLiterals", "checkstyle:SuppressWarnings"})
     public MainView() {
         super("Main Menu");
 
@@ -38,19 +39,24 @@ public class MainView extends JFrame {
         container.add(logoutButton);
 
         // Layout constraints
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER,
+                container);
         layout.putConstraint(SpringLayout.NORTH, titleLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, newGameButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, newGameButton, 0, SpringLayout.HORIZONTAL_CENTER,
+                container);
         layout.putConstraint(SpringLayout.NORTH, newGameButton, Constants.FORTY, SpringLayout.SOUTH, titleLabel);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, rankingButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, rankingButton, 0, SpringLayout.HORIZONTAL_CENTER,
+                container);
         layout.putConstraint(SpringLayout.NORTH, rankingButton, Constants.TWENTY, SpringLayout.SOUTH, newGameButton);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, quitButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, quitButton, 0, SpringLayout.HORIZONTAL_CENTER,
+                container);
         layout.putConstraint(SpringLayout.NORTH, quitButton, Constants.TWENTY, SpringLayout.SOUTH, rankingButton);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logoutButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logoutButton, 0, SpringLayout.HORIZONTAL_CENTER,
+                container);
         layout.putConstraint(SpringLayout.NORTH, logoutButton, Constants.TWENTY, SpringLayout.SOUTH, quitButton);
 
         // Add listeners for buttons
@@ -64,6 +70,7 @@ public class MainView extends JFrame {
     }
 
     // Add ActionListener to buttons
+    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     private void addListeners() {
         // Switch to GameView when "New Game" is clicked
         newGameButton.addActionListener(e -> {

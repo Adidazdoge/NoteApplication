@@ -5,7 +5,9 @@ import java.awt.*;
 /**
  * Gameover view.
  */
+
 public class GameOverView extends JFrame {
+    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public GameOverView() {
         super("Game Over");
 
