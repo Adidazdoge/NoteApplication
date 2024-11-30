@@ -12,11 +12,11 @@ public interface DailyGatherInterface {
      * @param water new water amount.
      * @param weapon new weapon amount.
      */
-    void updateUi(String message, int food, int water, int weapon);
+    void updateUiGather(String message, int food, int water, int weapon);
 
     /**
      * No need to update resource, or anything except the error message telling play why this is invaild move.
      * @param message errormessage.
      */
-    void failure(String message);
+    void failureGather(String message);
 }
