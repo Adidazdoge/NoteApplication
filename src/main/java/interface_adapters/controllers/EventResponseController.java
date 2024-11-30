@@ -4,9 +4,13 @@ import entities.Event;
 import entities.EventAmbush;
 import entities.EventTraderEncounter;
 import entities.EventBlizzard;
+import entities.EventSurvivorJoins;
+import entities.EventFlood;
 import usecases.eventrespond.ambush.AmbushEventInteractor;
-import usecases.eventrespond.trader.TraderEventInteractor;
 import usecases.eventrespond.blizzard.BlizzardEventInteractor;
+import usecases.eventrespond.flood.FloodEventInteractor;
+import usecases.eventrespond.survivor.SurvivorEventInteractor;
+import usecases.eventrespond.trader.TraderEventInteractor;
 import usecases.eventrespond.shared.*;
 /**
  * Controller for handling event responses and delegating to the correct interactor.
@@ -34,6 +38,10 @@ public class EventResponseController {
             interactor = new TraderEventInteractor(dataAccess, outputBoundary);
         } else if (event instanceof EventBlizzard) {
             interactor = new BlizzardEventInteractor(dataAccess, outputBoundary);
+        } else if (event instanceof EventFlood) {
+            interactor = new FloodEventInteractor(dataAccess, outputBoundary);
+        } else if (event instanceof EventSurvivorJoins) {
+            interactor = new SurvivorEventInteractor(dataAccess, outputBoundary);
         } else {
             outputBoundary.prepareFailureView("Unknown event type.");
             return;
