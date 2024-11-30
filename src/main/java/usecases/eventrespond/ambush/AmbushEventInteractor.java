@@ -2,7 +2,7 @@ package usecases.eventrespond.ambush;
 
 import entities.EntityConstants;
 import entities.EventAmbush;
-import usecases.eventrespond.*;
+import usecases.eventrespond.shared.*;
 
 /**
  * Interactor for handling player responses to an Ambush event.

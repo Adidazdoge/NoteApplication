@@ -2,7 +2,7 @@ package usecases.eventrespond.blizzard;
 
 import entities.EntityConstants;
 import entities.EventBlizzard;
-import usecases.eventrespond.*;
+import usecases.eventrespond.shared.*;
 
 /**
  * Interactor for handling player responses to a Blizzard event.

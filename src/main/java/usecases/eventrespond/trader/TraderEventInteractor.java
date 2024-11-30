@@ -2,7 +2,7 @@ package usecases.eventrespond.trader;
 
 import entities.EntityConstants;
 import entities.EventTraderEncounter;
-import usecases.eventrespond.*;
+import usecases.eventrespond.shared.*;
 
 /**
  * Interactor for handling player responses to a Trader Encounter event.
