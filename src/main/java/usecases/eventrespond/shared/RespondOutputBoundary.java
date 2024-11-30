@@ -1,4 +1,4 @@
-package usecases.eventrespond;
+package usecases.eventrespond.shared;
 
 /**
  * Output boundary, responsible for passing output data to the controller.

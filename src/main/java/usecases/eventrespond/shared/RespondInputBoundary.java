@@ -1,4 +1,4 @@
-package usecases.eventrespond;
+package usecases.eventrespond.shared;
 
 /**
  * Input boundary of respond use case.

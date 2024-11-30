@@ -1,4 +1,4 @@
-package usecases.eventrespond;
+package usecases.eventrespond.shared;
 
 import entities.Event;
 import entities.Inventory;

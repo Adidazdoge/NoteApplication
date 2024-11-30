@@ -1,4 +1,4 @@
-package usecases.eventrespond;
+package usecases.eventrespond.shared;
 
 /**
  * Output data for the player's respond.

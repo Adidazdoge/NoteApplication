@@ -1,4 +1,4 @@
-package usecases.eventrespond;
+package usecases.eventrespond.shared;
 
 /**
  * Input data form the view/player side like the choice they choose in term os 12345...
