@@ -60,7 +60,6 @@ public class TraderEventInteractor implements RespondInputBoundary {
         dataAccess.changefood(foodChange);
         dataAccess.changewater(waterChange);
         dataAccess.changeweapon(suppliesChange);
-        dataAccess.changePeople(peopleChange);
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +
