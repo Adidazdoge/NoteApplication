@@ -26,7 +26,7 @@ public class PlayerAttributes {
     private int generalship;
 
     public PlayerAttributes() {
-        this.points = Entityconstants.STARTERATRIBUTEPOINT;
+        this.points = EntityConstants.STARTERATRIBUTEPOINT;
         this.social = 0;
         this.luck = 0;
         this.mobilization = 0;

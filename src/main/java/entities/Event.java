@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -37,5 +38,11 @@ public interface Event {
      * @return Return positive or not.
      */
     boolean getispositive();
+
+    /**
+     * Return the only possible locations for this event to happen.
+     * @return return the occuring locations.
+     */
+    ArrayList<String> getOccuringlocation();
 
 }

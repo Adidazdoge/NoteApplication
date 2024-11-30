@@ -34,7 +34,7 @@ public class MapFactory {
                     newCore = new AbstractMap.SimpleEntry<>(x, y);
                     validCore = true;
                     for (Map.Entry<Integer, Integer> existingCore : coreCoordinates) {
-                        if (calculateDistance(existingCore, newCore) < Entityconstants.CORERANGE) {
+                        if (calculateDistance(existingCore, newCore) < EntityConstants.CORERANGE) {
                             validCore = false;
                             break;
                         }
@@ -98,7 +98,7 @@ public class MapFactory {
     ) {
         final String environmentType = environmentEntry.getKey();
         final ArrayList<Map.Entry<Integer, Integer>> coordinates = environmentEntry.getValue();
-        final int radius = Entityconstants.BIOMERADIUS;
+        final int radius = EntityConstants.BIOMERADIUS;
         for (Map.Entry<Integer, Integer> coordinate : coordinates) {
             final int centerX = coordinate.getKey();
             final int centerY = coordinate.getValue();
@@ -130,15 +130,15 @@ public class MapFactory {
     // Helper method to create a Location
     private Location createLocationByTypeAndDistance(String environmentType, int distance) {
         switch (environmentType) {
-            case Entityconstants.CITY:
+            case EntityConstants.CITY:
                 return new LocationCity(distance);
-            case Entityconstants.FOREST:
+            case EntityConstants.FOREST:
                 return new LocationForest(distance);
-            case Entityconstants.PLAIN:
+            case EntityConstants.PLAIN:
                 return new LocationPlain();
-            case Entityconstants.ICELAND:
+            case EntityConstants.ICELAND:
                 return new LocationIceland(distance);
-            case Entityconstants.DESERT:
+            case EntityConstants.DESERT:
                 return new LocationDesert(distance);
             default:
                 return new LocationPlain();

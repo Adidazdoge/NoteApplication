@@ -55,4 +55,7 @@ public class Player {
     public boolean validatePassword(String inputPassword) {
         return this.password.equals(inputPassword);
     }
+
+    public String getPassword() {
+        return password; }
 }

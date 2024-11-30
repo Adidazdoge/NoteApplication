@@ -1,30 +1,35 @@
 package entities;
 
 /**
- * Player class of the program, could be used for scoreboard extension of the program, ranked by score & won.
- * This classes should only be responsible for keeping and updating the data, not score calculation process.
- * The class should only be updating any instance (player of it) once and which is after game ends, not termination!
- * The getter might be called multiple time for score board representation.
+ * Playerinfo during the game.
  */
 public class PlayerInfo {
-    private String name;
+    // Player's username
+    private final String name;
+    // Player's score
     private int score;
+    // Number of days the player survived
     private int daysSurvived;
+    // Whether the player won the game
     private boolean won;
 
-    public PlayerInfo(String name) {
+    /**
+     * Constructs a new RankingEntry with the specified attributes.
+     *
+     * @param name The player's username.
+     * @param score The player's score.
+     * @param daysSurvived The number of days the player survived.
+     * @param won Whether the player won the game.
+     */
+    public PlayerInfo(String name, int score, int daysSurvived, boolean won) {
         this.name = name;
-        this.score = 0;
-        this.daysSurvived = 0;
-        this.won = false;
+        this.score = score;
+        this.daysSurvived = daysSurvived;
+        this.won = won;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getScore() {
@@ -43,12 +48,11 @@ public class PlayerInfo {
         this.daysSurvived = daysSurvived;
     }
 
-    public boolean getWon() {
+    public boolean isWon() {
         return won;
     }
 
     public void setWon(boolean won) {
         this.won = won;
     }
-
 }

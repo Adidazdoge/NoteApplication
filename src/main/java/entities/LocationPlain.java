@@ -12,12 +12,12 @@ public class LocationPlain implements Location {
     private final double threat;
 
     public LocationPlain() {
-        this.foodResource = Entityconstants.STARTERRESOURCESCALAR;
-        this.waterResource = Entityconstants.STARTERRESOURCESCALAR;
-        this.weaponResource = Entityconstants.STARTERRESOURCESCALAR;
-        this.peopleResource = Entityconstants.STARTERRESOURCESCALAR;
-        this.temperature = Entityconstants.DEFAULTTEMP;
-        this.threat = Entityconstants.DEFAULTTHREAT;
+        this.foodResource = EntityConstants.STARTERRESOURCESCALAR;
+        this.waterResource = EntityConstants.STARTERRESOURCESCALAR;
+        this.weaponResource = EntityConstants.STARTERRESOURCESCALAR;
+        this.peopleResource = EntityConstants.STARTERRESOURCESCALAR;
+        this.temperature = EntityConstants.DEFAULTTEMP;
+        this.threat = EntityConstants.DEFAULTTHREAT;
     }
 
     @Override
@@ -72,14 +72,14 @@ public class LocationPlain implements Location {
 
     @Override
     public void decreaseresourceavailable() {
-        this.foodResource = this.foodResource * Entityconstants.RESOUCEDECREASERATIO;
-        this.waterResource = this.waterResource * Entityconstants.RESOUCEDECREASERATIO;
-        this.weaponResource = this.weaponResource * Entityconstants.RESOUCEDECREASERATIO;
+        this.foodResource = this.foodResource * EntityConstants.RESOUCEDECREASERATIO;
+        this.waterResource = this.waterResource * EntityConstants.RESOUCEDECREASERATIO;
+        this.weaponResource = this.weaponResource * EntityConstants.RESOUCEDECREASERATIO;
     }
 
     @Override
     public void decreaserepeopleavailable() {
-        this.peopleResource = this.peopleResource * Entityconstants.RESOUCEDECREASERATIO;
+        this.peopleResource = this.peopleResource * EntityConstants.RESOUCEDECREASERATIO;
     }
 
     @Override
@@ -92,4 +92,14 @@ public class LocationPlain implements Location {
         return this.threat;
     }
 
+    @Override
+    public String toString() {
+        return EntityConstants.PLAIN;
+    }
+
+    @Override
+    public String getDescription() {
+        return "The plains stretch endlessly in every direction, a sea of swaying grass under a pale, open sky. "
+                + "The emptiness is both calming and unsettling, offering little cover should danger arise.";
+    }
 }

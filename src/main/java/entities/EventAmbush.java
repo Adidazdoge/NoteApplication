@@ -25,18 +25,18 @@ public class EventAmbush implements Event {
     public EventAmbush() {
         this.isPositive = false;
         this.occuringlocation = new ArrayList<>();
-        occuringlocation.add("Plain");
-        occuringlocation.add("Iceland");
-        occuringlocation.add("Wood");
-        occuringlocation.add("City");
-        occuringlocation.add("Desert");
+        occuringlocation.add(EntityConstants.PLAIN);
+        occuringlocation.add(EntityConstants.ICELAND);
+        occuringlocation.add(EntityConstants.DESERT);
+        occuringlocation.add(EntityConstants.CITY);
+        occuringlocation.add(EntityConstants.FOREST);
         this.description = "Your group is ambushed by a small band of desperate bandits demanding your "
                 + "food supplies. Their ragged appearance suggests they're struggling to survive. What will you do?";
         this.choices = new HashMap<>();
-        choices.put(Entityconstants.FIRSTCHOICE, "Fight back");
-        choices.put(Entityconstants.SECONDCHOICE, "Pay the bandits");
-        choices.put(Entityconstants.THIRDCHOICE, "Negotiate");
-        this.probability = Entityconstants.COMMONEVENTBASEPROB;
+        choices.put(EntityConstants.FIRSTCHOICE, "Fight back");
+        choices.put(EntityConstants.SECONDCHOICE, "Pay the bandits");
+        choices.put(EntityConstants.THIRDCHOICE, "Negotiate");
+        this.probability = EntityConstants.COMMONEVENTBASEPROB;
         this.fightoutcomesuccess = "You successfully beat the bandits and secured their supplies.";
         this.fightoutcomefailed = "You fought hard but were overpowered, losing some supplies.";
         this.payoutcome = "You handed over some of your food to avoid conflict with the bandits.";
@@ -71,6 +71,7 @@ public class EventAmbush implements Event {
         return isPositive;
     }
 
+    @Override
     public ArrayList<String> getOccuringlocation() {
         return occuringlocation;
     }
