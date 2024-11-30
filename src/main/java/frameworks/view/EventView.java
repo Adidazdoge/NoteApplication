@@ -7,24 +7,20 @@ public class EventView extends JFrame {
     public EventView() {
         super("Event");
 
-        // 容器和布局
         final Container container = getContentPane();
         final SpringLayout layout = new SpringLayout();
         container.setLayout(layout);
 
-        // 标题部分
         final JLabel eventLabel = new JLabel("Event:");
         eventLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
         container.add(eventLabel);
 
-        // 描述区域
         final JTextArea descriptionArea = new JTextArea();
         descriptionArea.setEditable(false);
         descriptionArea.setBackground(Color.LIGHT_GRAY);
         descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         container.add(descriptionArea);
 
-        // 选项按钮
         final JButton fightButton = new JButton("Fight");
         final JButton negotiateButton = new JButton("Negotiate");
         final JButton fleeButton = new JButton("Flee");
@@ -34,7 +30,6 @@ public class EventView extends JFrame {
         container.add(fleeButton);
         container.add(backButton);
 
-        // 布局约束
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, eventLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, eventLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
@@ -55,7 +50,6 @@ public class EventView extends JFrame {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, backButton, Constants.TWENTY, SpringLayout.SOUTH, fightButton);
 
-        // 窗口设置
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);

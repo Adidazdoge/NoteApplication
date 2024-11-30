@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48a9ee5b-3f01-4790-948e-3aa7a74afa6b" name="Changes" comment="" />
+    <list default="true" id="48a9ee5b-3f01-4790-948e-3aa7a74afa6b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frameworks/view/EventView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frameworks/view/EventView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frameworks/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frameworks/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frameworks/view/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frameworks/view/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interface_adapters/presenters/MainMenu.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

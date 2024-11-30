@@ -60,5 +60,20 @@ public class MainView extends JFrame {
     public static void main(String[] args) {
         new MainView();
     }
+    public JButton getNewGameButton() {
+        return newGame;
+    }
+
+    public JButton getRankingButton() {
+        return ranking;
+    }
+
+    public JButton getQuitButton() {
+        return quit;
+    }
+
+    public JButton getLogoutButton() {
+        return logout;
+    }
 }
 

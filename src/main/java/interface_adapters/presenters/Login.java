@@ -37,7 +37,7 @@ public class Login implements ActionListener {
 
                 JOptionPane.showMessageDialog(loginView, "Login successful! Welcome to the Main Menu.");
                 loginView.dispose();
-                new MainMenu(mainView);
+                new MainMenu();
             }
             else {
                 // If doesn't match
