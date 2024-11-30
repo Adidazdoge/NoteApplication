@@ -12,36 +12,40 @@ public class GameOverView extends JFrame {
         container.setLayout(layout);
 
         final JLabel titleLabel = new JLabel("Game Over");
-        titleLabel.setFont(new Font("Serif", Font.BOLD, Constants.THIRTY));
+        titleLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
         container.add(titleLabel);
 
         final JLabel scoreLabel = new JLabel("Score: 0");
         scoreLabel.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
         container.add(scoreLabel);
 
-        final JButton rankingButton = new JButton("Ranking");
-        rankingButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        container.add(rankingButton);
+        final JTextArea descriptionArea = new JTextArea();
+        descriptionArea.setEditable(false);
+        descriptionArea.setBackground(Color.LIGHT_GRAY);
+        descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        container.add(descriptionArea);
 
-        final JButton startNewGameButton = new JButton("Start New Game");
-        startNewGameButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        container.add(startNewGameButton);
+        final JButton mainMenuButton = new JButton("Main Menu");
+        mainMenuButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        container.add(mainMenuButton);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, titleLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, scoreLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
-        layout.putConstraint(SpringLayout.NORTH, scoreLabel, Constants.FORTY, SpringLayout.SOUTH, titleLabel);
+        layout.putConstraint(SpringLayout.NORTH, scoreLabel, Constants.TWENTY, SpringLayout.SOUTH, titleLabel);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, rankingButton, 0,
+        layout.putConstraint(SpringLayout.WEST, descriptionArea, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.EAST, descriptionArea, -Constants.TWENTY, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.NORTH, descriptionArea, Constants.TWENTY, SpringLayout.SOUTH, scoreLabel);
+        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED,
+                SpringLayout.SOUTH, container);
+
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, mainMenuButton, 0,
                 SpringLayout.HORIZONTAL_CENTER, container);
-        layout.putConstraint(SpringLayout.NORTH, rankingButton, Constants.FIFTY, SpringLayout.SOUTH, scoreLabel);
+        layout.putConstraint(SpringLayout.NORTH, mainMenuButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionArea);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, startNewGameButton, 0,
-                SpringLayout.HORIZONTAL_CENTER, container);
-        layout.putConstraint(SpringLayout.NORTH, startNewGameButton, Constants.THIRTY, SpringLayout.SOUTH, rankingButton);
-
-        setSize(Constants.SIX_HUNDRED, Constants.SIX_HUNDRED);
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
