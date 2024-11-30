@@ -5,13 +5,13 @@ public class MoveOutputData {
     private final int newx;
     private final int newy;
     private final boolean usecasesuccess;
-    private final String failmessage;
+    private final String message;
 
-    public MoveOutputData(int newx, int newy, boolean usecasesuccess, String failmessage) {
+    public MoveOutputData(int newx, int newy, boolean usecasesuccess, String message) {
         this.newx = newx;
         this.newy = newy;
         this.usecasesuccess = usecasesuccess;
-        this.failmessage = failmessage;
+        this.message = message;
     }
 
     public int getNewx() {
@@ -26,7 +26,11 @@ public class MoveOutputData {
         return usecasesuccess;
     }
 
-    public String getFailmessage() {
-        return failmessage;
+    /**
+     * Return the success message description to player.
+     * @return message
+     */
+    public String getmessage() {
+        return message;
     }
 }
