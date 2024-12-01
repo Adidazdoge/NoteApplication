@@ -15,6 +15,11 @@ public class Horde {
         this.duration = EntityConstants.STARTERHORDEDURATION;
     }
 
+    public Horde(int magnitude, double duration) {
+        this.magnitude = magnitude;
+        this.duration = duration;
+    }
+
     public double getDuration() {
         return duration;
     }

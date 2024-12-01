@@ -9,7 +9,6 @@ public class GameView extends JFrame {
     private final JTextArea infoBox;
     private boolean isMapVisible = true;
 
-    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public GameView() {
         super("Game");
 
