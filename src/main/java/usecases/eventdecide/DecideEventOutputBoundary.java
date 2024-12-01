@@ -12,7 +12,7 @@ public interface DecideEventOutputBoundary {
     void prepareSuccessView(DecideEventOutputData outputData);
 
     /**
-     * If the decide event is invaild, example: is on day 61? did player already lose?
+     * If the decide event is invaild, example: is on day 61? did player already lose?.
      * @param errorMessage message of why is invaild, for the player.
      */
     void prepareFailureView(String errorMessage);

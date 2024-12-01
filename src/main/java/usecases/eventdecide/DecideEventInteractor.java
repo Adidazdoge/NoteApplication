@@ -10,8 +10,8 @@ import entities.Location;
  * though the day.
  */
 public class DecideEventInteractor implements DecideEventInputBoundary {
-    private DecideEventDataAccessInterface dataaccessobject;
-    private DecideEventOutputBoundary outputboundary;
+    private final DecideEventDataAccessInterface dataaccessobject;
+    private final DecideEventOutputBoundary outputboundary;
 
     public DecideEventInteractor(DecideEventDataAccessInterface dataaccessobject,
                                  DecideEventOutputBoundary outputboundary) {
@@ -25,6 +25,7 @@ public class DecideEventInteractor implements DecideEventInputBoundary {
         final ArrayList<Event> decidedEvents = new ArrayList<>();
         final Location location = dataaccessobject.getLocation();
         final String locationName = location.toString();
+        final ArrayList<String> decidedEventNames = new ArrayList<>();
         for (Event event : events) {
             final ArrayList<String> occuringlocations = event.getOccuringlocation();
             final double probability = event.getprobability();
@@ -33,11 +34,13 @@ public class DecideEventInteractor implements DecideEventInputBoundary {
             if (randomValue < probability) {
                 if (occuringlocations.contains(locationName)) {
                     decidedEvents.add(event);
+                    decidedEventNames.add(event.toString());
                     // will only add if probability hits, and is one of the possible location which player is at.
                 }
             }
         }
-        final DecideEventOutputData outputdata = new DecideEventOutputData(decidedEvents);
+        dataaccessobject.setEvents(decidedEvents);
+        final DecideEventOutputData outputdata = new DecideEventOutputData(decidedEventNames);
         outputboundary.prepareSuccessView(outputdata);
     }
 

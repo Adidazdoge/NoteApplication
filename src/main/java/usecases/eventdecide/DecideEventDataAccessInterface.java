@@ -19,6 +19,12 @@ public interface DecideEventDataAccessInterface {
     ArrayList<Event> getEvents();
 
     /**
+     * This method will set the decided events for that day.
+     * @param events events decided.
+     */
+    void setEvents(ArrayList<Event> events);
+
+    /**
      * Get the player's current location, because certain event will only happen in certain location, Iceland
      * blizzard etc.
      * @return Location of the player.

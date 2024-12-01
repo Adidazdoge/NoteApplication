@@ -93,4 +93,12 @@ public class EventTraderEncounter implements Event {
     public String getRobOutcomeFail() {
         return robOutcomeFail;
     }
+
+    /**
+     * Return the name of this event.
+     * @return the event name.
+     */
+    public String toString() {
+        return "TradeEncounter";
+    }
 }

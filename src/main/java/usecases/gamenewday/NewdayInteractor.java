@@ -48,7 +48,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         }
     }
 
-    private int[] incrementresouce(StringBuilder messageBuilder, int people, int score) {
+    private void incrementresouce(StringBuilder messageBuilder, int people, int score) {
         // food gain
         final double foodscalar = newdayDataAccessObject.getLocation().getfoodresourceavailable();
         final double foodgain = people * EntityConstants.PEOPLEGAINPERFOOD * foodscalar;
@@ -81,7 +81,7 @@ public class NewdayInteractor implements NewdayInputBoundary {
         newdayDataAccessObject.setScore(newscore);
     }
 
-    private int[] decrementresource(StringBuilder messageBuilder, int thrift, int people, double temp) {
+    private void decrementresource(StringBuilder messageBuilder, int thrift, int people, double temp) {
         // food loss
         final double basetemp = EntityConstants.DEFAULTTEMP;
         final double tempdiff = temp - basetemp;
