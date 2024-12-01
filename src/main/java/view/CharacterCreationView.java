@@ -27,6 +27,7 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
     private int mobilization;
     private int thrift;
     private int generalship;
+    private AllowcateController allowcateController;
 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
                        "checkstyle:ExecutableStatementCount"})
@@ -87,7 +88,7 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         });
 
         startGameButton.addActionListener(e -> {
-
+            allowcateController.execute(points, social, luck, mobilization, thrift, generalship);
         });
 
         // Window settings
@@ -95,6 +96,10 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(false);
+    }
+
+    public void setAllowcateController(AllowcateController allowcateController) {
+        this.allowcateController = allowcateController;
     }
 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
@@ -199,13 +204,13 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
     }
 
     @Override
-    public void updateUiAllowcate(int newpoint, int newsocial,
-                                  int newluck, int newmobilization, int newthrift, int newgeneralship) {
-        // Since this view already captured the update component logic, we won't use it here.
-    }
-
-    @Override
     public void failureAllowcate(String message) {
-        // also got covered.
+        // Display the failure message in a dialog box
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "Allocation Failed",
+                JOptionPane.ERROR_MESSAGE
+        );
     }
 }

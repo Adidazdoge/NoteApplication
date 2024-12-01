@@ -9,8 +9,10 @@ import frameworks.database.InMemoryUnifiedDataAccess;
 import interface_adapters.NavigationManager;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcatePresenter;
+import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcatePresenter;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
+import usecases.startallowcate.AllowcateInteractor;
 import view.*;
 
 /**
@@ -69,6 +71,11 @@ public class GameMainApplication {
                 new NevagateAllowcateController(nevagateAllowcateInteractor);
         mainView.setNevagateAllowcateController(nevagateAllowcateController);
         mainView.render();
+        // Allowcate points ussecase.
+        final AllowcatePresenter allowcatePresenter = new AllowcatePresenter(attributeview, navigationManager);
+        final AllowcateInteractor allowcateInteractor = new AllowcateInteractor(gamedatabase, allowcatePresenter);
+        final AllowcateController allowcateController = new AllowcateController(allowcateInteractor);
+        attributeview.setAllowcateController(allowcateController);
 
     }
 }

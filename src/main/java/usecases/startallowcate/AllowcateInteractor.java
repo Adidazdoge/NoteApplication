@@ -20,21 +20,23 @@ public class AllowcateInteractor implements AllowcateInputBoundary {
         String failmessage = " ";
 
         // Check if points are available
-        if (inputdata.getPoint() < 0) {
-            failmessage = "Not enough Attribute points.";
+        if (inputdata.getPoint() > 0) {
+            failmessage = "Not all attribute points used!";
             allowcateOutputBoundary.preparefailureview(failmessage);
         }
-        else {
+        else if (inputdata.getPoint() == 0) {
             allowcateDataAccessInterface.setPoint(inputdata.getPoint());
             allowcateDataAccessInterface.setSocial(inputdata.getSocial());
             allowcateDataAccessInterface.setLuck(inputdata.getLuck());
             allowcateDataAccessInterface.setMobilization(inputdata.getMobilization());
             allowcateDataAccessInterface.setThrift(inputdata.getThrift());
             allowcateDataAccessInterface.setGeneralship(inputdata.getGeneralship());
-            final AllowcateOutputData outputData = new AllowcateOutputData(inputdata.getPoint(), inputdata.getSocial(),
-                    inputdata.getLuck(), inputdata.getMobilization(), inputdata.getThrift(),
-                    inputdata.getGeneralship());
-            allowcateOutputBoundary.preparesuccessview(outputData);
+            final AllowcateOutputData outputData = new AllowcateOutputData();
+            allowcateOutputBoundary.NevagateStartGame(outputData);
+        }
+        else {
+            failmessage = "Insufficient points!";
+            allowcateOutputBoundary.preparefailureview(failmessage);
         }
     }
 }
