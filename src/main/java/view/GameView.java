@@ -3,9 +3,10 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class GameView extends JFrame {
-    private final JPanel mapPanel;
+    private final JTextArea mapPanel;
     private final JTextArea infoBox;
     private boolean isMapVisible = true;
 
@@ -38,11 +39,13 @@ public class GameView extends JFrame {
         container.add(actionAvailableLabel);
 
         // MiniMap Panel
-        mapPanel = new JPanel();
+        mapPanel = new JTextArea("Mini Map\nabcdefghijklm\nnuvwxyz");
+        mapPanel.setEditable(false); // Set to non-editable
+        mapPanel.setLineWrap(true); // Enable line wrap
+        mapPanel.setWrapStyleWord(true); // Wrap by words
         mapPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        mapPanel.setBackground(Color.LIGHT_GRAY);
         mapPanel.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
-        final JLabel mapLabel = new JLabel("Mini Map");
-        mapPanel.add(mapLabel);
         container.add(mapPanel);
 
         // InfoBox TextArea
