@@ -14,7 +14,7 @@ public interface RespondDataAccessInterface {
      * The event which we are working on to respond, assuming already happened.
      * @return Event, contains description, choices, and such.
      */
-    Event getevent();
+    Event getEvent();
 
     /**
      * Return the player attributes as alot of event outcome are determine by competence and attribute of player.
@@ -41,25 +41,25 @@ public interface RespondDataAccessInterface {
      * inventory.
      * @param peoplechange change of people quantity.
      */
-    void changepeople(int peoplechange);
+    void changePeople(int peoplechange);
 
     /**
      * How the amount of food changes after the event, for that choice player provide. call change method in inventory.
      * @param foodchange change of people quantity.
      */
-    void changefood(int foodchange);
+    void changeFood(int foodchange);
 
     /**
      * How the amount of people changes after the event, for that choice player provide. call change method in inventory
      * @param waterchange change of people quantity.
      */
-    void changewater(int waterchange);
+    void changeWater(int waterchange);
 
     /**
      * How the amount of weapon changes after the event, for that choice player provide. call change method in inventory
      * @param weaponchange change of people quantity.
      */
-    void changeweapon(int weaponchange);
+    void changeWeapon(int weaponchange);
 
     /**
      * If for an event's responds alter the location, call this method which calls player location setxcoordinate

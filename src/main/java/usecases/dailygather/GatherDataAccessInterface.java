@@ -28,17 +28,17 @@ public interface GatherDataAccessInterface {
      * Change player's inventory food by the amount they gathered after successful gather use case.
      * @param foodgathered foodgathered for this gather.
      */
-    void changefood(int foodgathered);
+    void changeFood(int foodgathered);
 
     /**
      * Change player's inventory water.
      * @param watergathered water found in this gather.
      */
-    void changewater(int watergathered);
+    void changeWater(int watergathered);
 
     /**
      * Change player's inventory weapon.
      * @param weapongathered  weapons found in this gather, in this location, by the player.
      */
-    void changeweapon(int weapongathered);
+    void changeWeapon(int weapongathered);
 }

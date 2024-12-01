@@ -19,7 +19,7 @@ public class TraderEventInteractor implements RespondInputBoundary {
 
     @Override
     public void execute(RespondInputData inputData) {
-        EventTraderEncounter traderEvent = (EventTraderEncounter) dataAccess.getevent();
+        EventTraderEncounter traderEvent = (EventTraderEncounter) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
         int foodChange = 0, waterChange = 0, suppliesChange = 0, peopleChange = 0;
@@ -57,9 +57,9 @@ public class TraderEventInteractor implements RespondInputBoundary {
         }
 
         // Apply changes to the inventory
-        dataAccess.changefood(foodChange);
-        dataAccess.changewater(waterChange);
-        dataAccess.changeweapon(suppliesChange);
+        dataAccess.changeFood(foodChange);
+        dataAccess.changeWater(waterChange);
+        dataAccess.changeWeapon(suppliesChange);
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +

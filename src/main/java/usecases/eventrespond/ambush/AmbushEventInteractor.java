@@ -19,7 +19,7 @@ public class AmbushEventInteractor implements RespondInputBoundary {
 
     @Override
     public void execute(RespondInputData inputData) {
-        EventAmbush ambushEvent = (EventAmbush) dataAccess.getevent();
+        EventAmbush ambushEvent = (EventAmbush) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
         int foodChange = 0;
@@ -66,10 +66,10 @@ public class AmbushEventInteractor implements RespondInputBoundary {
         }
 
         // Apply changes to inventory
-        dataAccess.changefood(foodChange);
-        dataAccess.changewater(waterChange);
-        dataAccess.changeweapon(weaponChange);
-        dataAccess.changepeople(peopleChange);
+        dataAccess.changeFood(foodChange);
+        dataAccess.changeWater(waterChange);
+        dataAccess.changeWeapon(weaponChange);
+        dataAccess.changePeople(peopleChange);
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +

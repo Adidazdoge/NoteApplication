@@ -39,9 +39,9 @@ public class GatherInteractor implements GatherInputBoundary {
         else {
             successoutputmessage.append(".");
         }
-        dataAccessInterface.changefood(foodgathered);
-        dataAccessInterface.changewater(watergathered);
-        dataAccessInterface.changeweapon(weapongathered);
+        dataAccessInterface.changeFood(foodgathered);
+        dataAccessInterface.changeWater(watergathered);
+        dataAccessInterface.changeWeapon(weapongathered);
         if (isvaildgather()) {
             outputBoundary.prepareSuccessView(new GatherOutputData(
                     successoutputmessage.toString()));

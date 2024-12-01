@@ -24,7 +24,7 @@ public class InMemoryRespondDataAccess implements RespondDataAccessInterface {
     }
 
     @Override
-    public Event getevent() {
+    public Event getEvent() {
         return event;
     }
 
@@ -44,22 +44,22 @@ public class InMemoryRespondDataAccess implements RespondDataAccessInterface {
     }
 
     @Override
-    public void changepeople(int peoplechange) {
+    public void changePeople(int peoplechange) {
         inventory.changePeople(peoplechange);
     }
 
     @Override
-    public void changefood(int foodchange) {
+    public void changeFood(int foodchange) {
         inventory.changeFood(foodchange);
     }
 
     @Override
-    public void changewater(int waterchange) {
+    public void changeWater(int waterchange) {
         inventory.changeWater(waterchange);
     }
 
     @Override
-    public void changeweapon(int weaponchange) {
+    public void changeWeapon(int weaponchange) {
         inventory.changeweapon(weaponchange);
     }
 

@@ -19,7 +19,7 @@ public class SurvivorEventInteractor implements RespondInputBoundary {
 
     @Override
     public void execute(RespondInputData inputData) {
-        EventSurvivorJoins survivorEvent = (EventSurvivorJoins) dataAccess.getevent();
+        EventSurvivorJoins survivorEvent = (EventSurvivorJoins) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
         int foodChange = 0, waterChange = 0, suppliesChange = 0, peopleChange = 0;
@@ -50,10 +50,10 @@ public class SurvivorEventInteractor implements RespondInputBoundary {
         }
 
         // Apply changes to inventory
-        dataAccess.changefood(foodChange);
-        dataAccess.changewater(waterChange);
-        dataAccess.changeweapon(suppliesChange);
-        dataAccess.changepeople(peopleChange);
+        dataAccess.changeFood(foodChange);
+        dataAccess.changeWater(waterChange);
+        dataAccess.changeWeapon(suppliesChange);
+        dataAccess.changePeople(peopleChange);
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +

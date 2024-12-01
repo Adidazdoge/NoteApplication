@@ -25,6 +25,11 @@ public class InMemoryDecideEventDataAccess implements DecideEventDataAccessInter
     }
 
     @Override
+    public void setEvents(ArrayList<Event> events) {
+
+    }
+
+    @Override
     public Location getLocation() {
         return currentLocation;
     }
