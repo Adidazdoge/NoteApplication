@@ -75,7 +75,7 @@ public class MainView extends JFrame {
         // Switch to GameView when "New Game" is clicked
         newGameButton.addActionListener(e -> {
             dispose();
-            new GameView();
+            new CharacterCreationView();
         });
 
         // Switch to RankView when "Ranking" is clicked

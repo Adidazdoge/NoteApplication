@@ -3,13 +3,13 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-/**
- * Game view.
- */
 
 public class GameView extends JFrame {
-    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
-                       "checkstyle:ExecutableStatementCount", "checkstyle:JavaNCSS"})
+    private final JPanel mapPanel;
+    private final JTextArea infoBox;
+    private boolean isMapVisible = true;
+
+    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public GameView() {
         super("Game");
 
@@ -32,12 +32,21 @@ public class GameView extends JFrame {
         container.add(weaponLabel);
         container.add(actionAvailableLabel);
 
-        final JPanel mapPanel = new JPanel();
+        // MiniMap Panel
+        mapPanel = new JPanel();
         mapPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mapPanel.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
-        container.add(mapPanel);
         final JLabel mapLabel = new JLabel("Mini Map");
         mapPanel.add(mapLabel);
+        container.add(mapPanel);
+
+        // InfoBox TextArea
+        infoBox = new JTextArea("Information Box");
+        infoBox.setEditable(false);
+        infoBox.setBackground(Color.LIGHT_GRAY);
+        infoBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        infoBox.setVisible(false);
+        container.add(infoBox);
 
         final JLabel infoLabel = new JLabel("Information:");
         final JTextArea infoArea = new JTextArea();
@@ -55,7 +64,7 @@ public class GameView extends JFrame {
         final JButton rightButton = new JButton("Right");
         final JButton eventButton = new JButton("Event");
         final JButton nextDayButton = new JButton("Next Day");
-        final JButton infoButton = new JButton("information (only brief info)");
+        final JButton infoButton = new JButton("log");
         container.add(broadcastButton);
         container.add(gatherButton);
         container.add(upButton);
@@ -66,6 +75,26 @@ public class GameView extends JFrame {
         container.add(nextDayButton);
         container.add(infoButton);
 
+        // Layout Constraints
+        extracted(layout, dayLabel, container, foodLabel, waterLabel, peopleLabel, weaponLabel, actionAvailableLabel,
+                infoLabel, infoArea, broadcastButton, gatherButton, eventButton, nextDayButton, upButton, downButton,
+                leftButton, rightButton, infoButton);
+
+        // Add ActionListeners
+        infoButton.addActionListener(e -> toggleInfoBox());
+
+        // Window settings
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    private void extracted(SpringLayout layout, JLabel dayLabel, Container container, JLabel foodLabel,
+                           JLabel waterLabel, JLabel peopleLabel, JLabel weaponLabel, JLabel actionAvailableLabel,
+                           JLabel infoLabel, JTextArea infoArea, JButton broadcastButton, JButton gatherButton,
+                           JButton eventButton, JButton nextDayButton, JButton upButton, JButton downButton,
+                           JButton leftButton, JButton rightButton, JButton infoButton) {
         layout.putConstraint(SpringLayout.WEST, dayLabel, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, dayLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
@@ -85,8 +114,14 @@ public class GameView extends JFrame {
         layout.putConstraint(SpringLayout.NORTH, actionAvailableLabel, Constants.TWENTY, SpringLayout.SOUTH,
                 weaponLabel);
 
+        // MiniMap and InfoBox Layout
         layout.putConstraint(SpringLayout.EAST, mapPanel, -Constants.TWENTY, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, mapPanel, Constants.TWENTY, SpringLayout.NORTH, container);
+
+        layout.putConstraint(SpringLayout.EAST, infoBox, -Constants.TWENTY, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.NORTH, infoBox, Constants.TWENTY, SpringLayout.NORTH, container);
+        layout.putConstraint(SpringLayout.SOUTH, infoBox, 0, SpringLayout.SOUTH, mapPanel);
+        layout.putConstraint(SpringLayout.WEST, infoBox, 0, SpringLayout.WEST, mapPanel);
 
         layout.putConstraint(SpringLayout.WEST, infoLabel, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, infoLabel, Constants.TWENTY, SpringLayout.SOUTH, actionAvailableLabel);
@@ -120,31 +155,12 @@ public class GameView extends JFrame {
 
         layout.putConstraint(SpringLayout.WEST, infoButton, Constants.TWENTY, SpringLayout.EAST, rightButton);
         layout.putConstraint(SpringLayout.NORTH, infoButton, 0, SpringLayout.NORTH, upButton);
+    }
 
-        // Add ActionListeners to Buttons
-        final ActionListener openGameViewListener = e -> {
-            dispose();
-            new GameView();
-        };
-
-        final ActionListener openEventViewListener = e -> {
-            dispose();
-            new EventView();
-        };
-        eventButton.addActionListener(openEventViewListener);
-        broadcastButton.addActionListener(openGameViewListener);
-        gatherButton.addActionListener(openGameViewListener);
-        nextDayButton.addActionListener(openGameViewListener);
-        upButton.addActionListener(openGameViewListener);
-        downButton.addActionListener(openGameViewListener);
-        leftButton.addActionListener(openGameViewListener);
-        rightButton.addActionListener(openGameViewListener);
-
-        // Window settings
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(true);
+    private void toggleInfoBox() {
+        isMapVisible = !isMapVisible;
+        mapPanel.setVisible(isMapVisible);
+        infoBox.setVisible(!isMapVisible);
     }
 
     public static void main(String[] args) {
