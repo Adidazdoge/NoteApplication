@@ -3,14 +3,20 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import interface_adapters.eventrespond.EventResponseController;
+import interface_adapters.eventrespond.EventResponseInterface;
+
 /**
  * Event view.
  */
 
-public class EventView extends JFrame {
-    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
-    public EventView() {
+public class EventView extends JFrame implements EventResponseInterface {
+    private final JTextArea descriptionArea;
+    private final EventResponseController controller;
+
+    public EventView(EventResponseController controller) {
         super("Event");
+        this.controller = controller;
 
         final Container container = getContentPane();
         final SpringLayout layout = new SpringLayout();
@@ -22,7 +28,7 @@ public class EventView extends JFrame {
         container.add(eventLabel);
 
         // Description Area
-        final JTextArea descriptionArea = new JTextArea("Event description goes here...");
+        descriptionArea = new JTextArea("Event description goes here...");
         descriptionArea.setEditable(false);
         descriptionArea.setBackground(Color.LIGHT_GRAY);
         descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -39,18 +45,13 @@ public class EventView extends JFrame {
         container.add(backButton);
 
         // Layout Constraints
-        extracted(layout, eventLabel, container, descriptionArea, fightButton, negotiateButton, fleeButton);
-
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
-        layout.putConstraint(SpringLayout.NORTH, backButton, Constants.TWENTY, SpringLayout.SOUTH, fightButton);
+        layoutComponents(layout, container, eventLabel, descriptionArea, fightButton, negotiateButton, fleeButton, backButton);
 
         // Add ActionListeners to Buttons
-        final ActionListener returnToGameViewListener = e -> {
-            dispose();
-            new GameView();
-        };
-
-        addListeners(fightButton, returnToGameViewListener, negotiateButton, fleeButton, backButton);
+        fightButton.addActionListener(e -> controller.execute(1)); // Choice 1
+        negotiateButton.addActionListener(e -> controller.execute(2)); // Choice 2
+        fleeButton.addActionListener(e -> controller.execute(3)); // Choice 3
+        backButton.addActionListener(e -> dispose());
 
         // Window Settings
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
@@ -59,25 +60,15 @@ public class EventView extends JFrame {
         setVisible(true);
     }
 
-    private static void addListeners(JButton fightButton, ActionListener returnToGameViewListener,
-                                     JButton negotiateButton, JButton fleeButton, JButton backButton) {
-        fightButton.addActionListener(returnToGameViewListener);
-        negotiateButton.addActionListener(returnToGameViewListener);
-        fleeButton.addActionListener(returnToGameViewListener);
-        backButton.addActionListener(returnToGameViewListener);
-    }
-
-    private static void extracted(SpringLayout layout, JLabel eventLabel, Container container,
-                                  JTextArea descriptionArea, JButton fightButton,
-                                  JButton negotiateButton, JButton fleeButton) {
+    private void layoutComponents(SpringLayout layout, Container container, JLabel eventLabel, JTextArea descriptionArea,
+                                  JButton fightButton, JButton negotiateButton, JButton fleeButton, JButton backButton) {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, eventLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, eventLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
         layout.putConstraint(SpringLayout.WEST, descriptionArea, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.EAST, descriptionArea, -Constants.TWENTY, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, descriptionArea, Constants.TWENTY, SpringLayout.SOUTH, eventLabel);
-        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH,
-                container);
+        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH, container);
 
         layout.putConstraint(SpringLayout.WEST, fightButton, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, fightButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionArea);
@@ -87,9 +78,23 @@ public class EventView extends JFrame {
 
         layout.putConstraint(SpringLayout.WEST, fleeButton, Constants.TWENTY, SpringLayout.EAST, negotiateButton);
         layout.putConstraint(SpringLayout.NORTH, fleeButton, 0, SpringLayout.NORTH, fightButton);
+
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.NORTH, backButton, Constants.TWENTY, SpringLayout.SOUTH, fightButton);
     }
 
-    public static void main(String[] args) {
-        new EventView();
+    @Override
+    public void updateEventDescription(String description) {
+        descriptionArea.setText(description);
+    }
+
+    @Override
+    public void updateUiResponse(String message) {
+        JOptionPane.showMessageDialog(this, "Success: " + message);
+    }
+
+    @Override
+    public void failureResponse(String errorMessage) {
+        JOptionPane.showMessageDialog(this, "Error: " + errorMessage);
     }
 }

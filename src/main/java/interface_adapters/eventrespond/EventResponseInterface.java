@@ -6,8 +6,14 @@ package interface_adapters.eventrespond;
 public interface EventResponseInterface {
 
     /**
-     * Update the UI after a successful response to an event.
-     * @param message The success message to display.
+     * Update the event description in the UI.
+     * @param description The event description to display.
+     */
+    void updateEventDescription(String description);
+
+    /**
+     * Update the UI with the success message from the interactor.
+     * @param message The success message.
      */
     void updateUiResponse(String message);
 
