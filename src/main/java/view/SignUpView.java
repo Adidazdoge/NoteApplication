@@ -111,6 +111,11 @@ public class SignUpView extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, againText, 0, SpringLayout.NORTH, againLabel);
     }
 
+    public void render() {
+        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
+        setVisible(true);
+    }
+
     public static void main(String[] args) {
         new SignUpView();
     }

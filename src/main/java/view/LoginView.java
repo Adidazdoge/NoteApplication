@@ -98,6 +98,10 @@ public class LoginView extends JFrame {
 
     }
 
+    public void render() {
+        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
+        setVisible(true);
+    }
 
     public static void main(String[] args) {
      new LoginView();

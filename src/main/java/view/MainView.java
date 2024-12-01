@@ -1,5 +1,8 @@
 package view;
 
+import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
+import interface_adapters.startallowcatepoint.AllowcateController;
+
 import javax.swing.*;
 import java.awt.*;
 /**
@@ -11,11 +14,11 @@ public class MainView extends JFrame {
     private JButton rankingButton = new JButton("Ranking");
     private JButton quitButton = new JButton("Quit");
     private JButton logoutButton = new JButton("Logout");
+    private NevagateAllowcateController nevagateAllowcateController;
 
     @SuppressWarnings({"checkstyle:MultipleStringLiterals", "checkstyle:SuppressWarnings"})
     public MainView() {
         super("Main Menu");
-
         // Set layout and container
         final Container container = getContentPane();
         final SpringLayout layout = new SpringLayout();
@@ -62,11 +65,13 @@ public class MainView extends JFrame {
         // Add listeners for buttons
         addListeners();
 
-        // Set window properties
-        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        // Set window properties (moved to render())
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+    }
+
+    public void setNevagateAllowcateController(NevagateAllowcateController nevagateAllowcateController) {
+        this.nevagateAllowcateController = nevagateAllowcateController;
     }
 
     // Add ActionListener to buttons
@@ -74,14 +79,12 @@ public class MainView extends JFrame {
     private void addListeners() {
         // Switch to GameView when "New Game" is clicked
         newGameButton.addActionListener(e -> {
-            dispose();
-            new CharacterCreationView();
+            nevagateAllowcateController.execute();
         });
 
         // Switch to RankView when "Ranking" is clicked
         rankingButton.addActionListener(e -> {
-            dispose();
-            new RankingView();
+
         });
 
         // Exit the game when "Quit" is clicked
@@ -91,12 +94,22 @@ public class MainView extends JFrame {
 
         // Switch to LoginView when "Logout" is clicked
         logoutButton.addActionListener(e -> {
-            dispose();
-            new LoginView();
+
         });
     }
 
-    public static void main(String[] args) {
-        new MainView();
+    // Add render method
+    public void render() {
+        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        setVisible(true);
     }
+
+    public void disrender() {
+        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        setVisible(false);
+    }
+
+    // public static void main(String[] args) {
+    //    new MainView().render(); // Call render() to display the view
+    // }
 }

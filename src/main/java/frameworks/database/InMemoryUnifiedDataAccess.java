@@ -14,6 +14,7 @@ import usecases.fetchresource.FetchDataAccessInterface;
 import usecases.gameminimap.MinimapDataAccessInterface;
 import usecases.gamenewday.NewdayDataAccessInterface;
 import usecases.gameplacedescription.PlaceDescriptionDataAccessInterface;
+import usecases.nevagateAllowcatePage.NevagateAllowcateDataAccessInterface;
 import usecases.startallowcate.AllowcateDataAccessInterface;
 
 /**
@@ -31,7 +32,8 @@ public class InMemoryUnifiedDataAccess implements
         MoveDataAccessInterface,
         NewdayDataAccessInterface,
         PlaceDescriptionDataAccessInterface,
-        RespondDataAccessInterface {
+        RespondDataAccessInterface,
+        NevagateAllowcateDataAccessInterface {
     // Shared game data
     private PlayerAttributes playerAttributes;
     private Inventory inventory;

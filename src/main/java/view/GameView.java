@@ -87,7 +87,7 @@ public class GameView extends JFrame {
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
     }
 
     private void extracted(SpringLayout layout, JLabel dayLabel, Container container, JLabel foodLabel,
@@ -156,6 +156,16 @@ public class GameView extends JFrame {
         isMapVisible = !isMapVisible;
         mapPanel.setVisible(isMapVisible);
         infoBox.setVisible(!isMapVisible);
+    }
+
+    public void render() {
+        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
+        setVisible(true);
+    }
+
+    public void disrender() {
+        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        setVisible(false);
     }
 
     public static void main(String[] args) {
