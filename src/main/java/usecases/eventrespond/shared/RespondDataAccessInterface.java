@@ -60,18 +60,4 @@ public interface RespondDataAccessInterface {
      * @param weaponchange change of people quantity.
      */
     void changeWeapon(int weaponchange);
-
-    /**
-     * If for an event's responds alter the location, call this method which calls player location setxcoordinate
-     * method.
-     * @param newx new x coordination of the player after the event.
-     */
-    void setplayerxcoor(int newx);
-
-    /**
-     * If for an event's responds alter the location, call this method which calls player location setycoordinate
-     * method.
-     * @param newy new y coordination of the player after the event.
-     */
-    void setplayerycoor(int newy);
 }

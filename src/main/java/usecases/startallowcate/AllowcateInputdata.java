@@ -6,13 +6,43 @@ package usecases.startallowcate;
  * (all lowercase except first letter format as in entityconstant)
  */
 public class AllowcateInputdata {
-    private String attribute;
+    private int point;
+    private int social;
+    private int luck;
+    private int thrift;
+    private int mobilization;
+    private int generalship;
 
-    public AllowcateInputdata(String attribute) {
-        this.attribute = attribute;
+    public AllowcateInputdata(int point, int social, int luck, int thrift, int mobilization, int generalship) {
+        this.point = point;
+        this.social = social;
+        this.luck = luck;
+        this.thrift = thrift;
+        this.mobilization = mobilization;
+        this.generalship = generalship;
     }
 
-    public String getAttribute() {
-        return attribute;
+    public int getPoint() {
+        return point;
+    }
+
+    public int getSocial() {
+        return social;
+    }
+
+    public int getLuck() {
+        return luck;
+    }
+
+    public int getThrift() {
+        return thrift;
+    }
+
+    public int getMobilization() {
+        return mobilization;
+    }
+
+    public int getGeneralship() {
+        return generalship;
     }
 }

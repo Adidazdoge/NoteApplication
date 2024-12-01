@@ -37,28 +37,36 @@ public class InMemoryUnifiedDataAccess implements
     private Inventory inventory;
     private ArrayList<Event> events;
     private Location currentLocation;
-    private Event currentEvent;
     private Horde horde;
     private PlayerInfo playerInfo;
-    private boolean won;
     private PlayerLocation playerLocation;
     private Maps gameMap;
+    private EventAmbush ambush;
+    private EventBlizzard blizzard;
+    private EventFlood flood;
+    private EventSurvivorJoins survivorJoins;
+    private EventTraderEncounter traderEncounter;
 
     // Constructor to initialize shared objects
     public InMemoryUnifiedDataAccess(PlayerAttributes playerAttributes, Inventory inventory,
-                                     ArrayList<Event> events, Location currentLocation, Event currentEvent,
-                                     Horde horde, PlayerInfo playerInfo, boolean won,
-                                     PlayerLocation playerLocation, Maps gameMap) {
+                                     ArrayList<Event> events, Location currentLocation,
+                                     Horde horde, PlayerInfo playerInfo,
+                                     PlayerLocation playerLocation, Maps gameMap, EventAmbush ambush,
+                                     EventBlizzard blizzard, EventFlood flood, EventSurvivorJoins survivorJoins,
+                                     EventTraderEncounter traderEncounter) {
         this.playerAttributes = playerAttributes;
         this.inventory = inventory;
         this.events = events;
         this.currentLocation = currentLocation;
-        this.currentEvent = currentEvent;
         this.horde = horde;
         this.playerInfo = playerInfo;
-        this.won = false;
         this.playerLocation = playerLocation;
         this.gameMap = gameMap;
+        this.ambush = ambush;
+        this.blizzard = blizzard;
+        this.flood = flood;
+        this.survivorJoins = survivorJoins;
+        this.traderEncounter = traderEncounter;
     }
 
     // Implementation of AllowcateDataAccessInterface
@@ -112,7 +120,13 @@ public class InMemoryUnifiedDataAccess implements
     @Override
     public ArrayList<Event> getEvents() {
         // Return a copy to ensure immutability
-        return new ArrayList<>(events);
+        final ArrayList<Event> allevents = new ArrayList();
+        allevents.add(ambush);
+        allevents.add(blizzard);
+        allevents.add(flood);
+        allevents.add(survivorJoins);
+        allevents.add(traderEncounter);
+        return allevents;
     }
 
     @Override
@@ -128,7 +142,7 @@ public class InMemoryUnifiedDataAccess implements
     // Implement of the EventInitiallizeInterface
     @Override
     public Event getEvent() {
-        return currentEvent;
+        return events.get(0);
     }
 
     // Implement of the FetchDataAccessInterface
@@ -162,7 +176,7 @@ public class InMemoryUnifiedDataAccess implements
 
     @Override
     public void setWon(boolean won) {
-        this.won = won;
+        this.playerInfo.setWon(won);
     }
 
     @Override
@@ -187,6 +201,7 @@ public class InMemoryUnifiedDataAccess implements
     public void updatePlayerLocation(int newx, int newy) {
         playerLocation.setXcoordinate(newx);
         playerLocation.setYcoordinate(newy);
+        currentLocation = gameMap.getGrid().get(newy).get(newx);
     }
 
     // Implement of the NewdayInterface
@@ -203,18 +218,5 @@ public class InMemoryUnifiedDataAccess implements
     @Override
     public void changePeople(int people) {
         inventory.changePeople(people);
-    }
-
-    // Implement of the PlaceDescriptionInterface
-
-    // Implement of the RespondInterface
-    @Override
-    public void setplayerxcoor(int newx) {
-        playerLocation.setXcoordinate(newx);
-    }
-
-    @Override
-    public void setplayerycoor(int newy) {
-        playerLocation.setYcoordinate(newy);
     }
 }

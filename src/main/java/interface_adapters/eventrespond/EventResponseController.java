@@ -29,24 +29,24 @@ public class EventResponseController {
      * @param choice The player's input data (choice).
      */
     public void execute(int choice) {
-        Event event = dataAccess.getevent();
+        //Event event = dataAccess.getevent();
 
-        RespondInputBoundary interactor;
-        if (event instanceof EventAmbush) {
-            interactor = new AmbushEventInteractor(dataAccess, outputBoundary);
-        } else if (event instanceof EventFlood) {
-            interactor = new FloodEventInteractor(dataAccess, outputBoundary);
-        } else if (event instanceof EventBlizzard) {
-            interactor = new BlizzardEventInteractor(dataAccess, outputBoundary);
-        } else if (event instanceof EventTraderEncounter) {
-            interactor = new TraderEventInteractor(dataAccess, outputBoundary);
-        } else if (event instanceof EventSurvivorJoins) {
-            interactor = new SurvivorEventInteractor(dataAccess, outputBoundary);
-        } else {
-            outputBoundary.prepareFailureView("Unknown event type.");
-            return;
-        }
-        RespondInputData inputData = new RespondInputData(choice);
-        interactor.execute(inputData);
+        //RespondInputBoundary interactor;
+        //if (event instanceof EventAmbush) {
+        //    interactor = new AmbushEventInteractor(dataAccess, outputBoundary);
+        //} else if (event instanceof EventFlood) {
+        //    interactor = new FloodEventInteractor(dataAccess, outputBoundary);
+        //} else if (event instanceof EventBlizzard) {
+        //    interactor = new BlizzardEventInteractor(dataAccess, outputBoundary);
+        //} else if (event instanceof EventTraderEncounter) {
+        //    interactor = new TraderEventInteractor(dataAccess, outputBoundary);
+        //} else if (event instanceof EventSurvivorJoins) {
+        //    interactor = new SurvivorEventInteractor(dataAccess, outputBoundary);
+        //} else {
+        //    outputBoundary.prepareFailureView("Unknown event type.");
+        //    return;
+        //}
+        //RespondInputData inputData = new RespondInputData(choice);
+        //interactor.execute(inputData);
     }
 }

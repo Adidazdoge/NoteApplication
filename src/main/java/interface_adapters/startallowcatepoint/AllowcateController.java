@@ -15,10 +15,16 @@ public class AllowcateController {
 
     /**
      * Execute based on player's selected attribute.
-     * @param attribute string fromat of which selected.
+     * @param generalship generalship player choosed.
+     * @param mobilization mobilization player choosed.
+     * @param thrift thrfit player choosed.
+     * @param luck luck.
+     * @param social social.
+     * @param point point.
      */
-    public void execute(String attribute) {
-        final AllowcateInputdata inputdata = new AllowcateInputdata(attribute);
+    public void execute(int point, int social, int luck, int thrift, int mobilization, int generalship) {
+        final AllowcateInputdata inputdata = new AllowcateInputdata(point, social,
+                luck, thrift, mobilization, generalship);
         interactor.execute(inputdata);
     }
 }
