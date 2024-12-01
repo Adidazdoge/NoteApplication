@@ -19,6 +19,7 @@ public class CharacterCreationView extends JFrame {
     private int mobilization = 0;
     private int thrift = 0;
     private int generalship = 0;
+
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
                        "checkstyle:ExecutableStatementCount"})
     public CharacterCreationView() {

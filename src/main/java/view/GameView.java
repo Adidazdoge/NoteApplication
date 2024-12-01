@@ -3,29 +3,35 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class GameView extends JFrame {
-    private final JPanel mapPanel;
+    private final JTextArea mapPanel;
     private final JTextArea infoBox;
     private boolean isMapVisible = true;
 
-    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public GameView() {
         super("Game");
+        final int day = 60;
+        final int food = 50;
+        final int water = 30;
+        final int people = 20;
+        final int weapon = 15;
+        final int action = 3;
 
         final Container container = getContentPane();
         final SpringLayout layout = new SpringLayout();
         container.setLayout(layout);
 
-        final JLabel dayLabel = new JLabel("Day: 50");
+        final JLabel dayLabel = new JLabel("Day: " + day);
         dayLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
         container.add(dayLabel);
 
-        final JLabel foodLabel = new JLabel("Food: 50");
-        final JLabel waterLabel = new JLabel("Water: 30");
-        final JLabel peopleLabel = new JLabel("People: 20");
-        final JLabel weaponLabel = new JLabel("Weapon: 15");
-        final JLabel actionAvailableLabel = new JLabel("Action Available: 3");
+        final JLabel foodLabel = new JLabel("Food:" + food);
+        final JLabel waterLabel = new JLabel("Water: " + water);
+        final JLabel peopleLabel = new JLabel("People: " + people);
+        final JLabel weaponLabel = new JLabel("Weapon:" + weapon);
+        final JLabel actionAvailableLabel = new JLabel("Action Available:" + action);
         container.add(foodLabel);
         container.add(waterLabel);
         container.add(peopleLabel);
@@ -33,11 +39,13 @@ public class GameView extends JFrame {
         container.add(actionAvailableLabel);
 
         // MiniMap Panel
-        mapPanel = new JPanel();
+        mapPanel = new JTextArea("Mini Map\nabcdefghijklm\nnuvwxyz");
+        mapPanel.setEditable(false); // Set to non-editable
+        mapPanel.setLineWrap(true); // Enable line wrap
+        mapPanel.setWrapStyleWord(true); // Wrap by words
         mapPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        mapPanel.setBackground(Color.LIGHT_GRAY);
         mapPanel.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
-        final JLabel mapLabel = new JLabel("Mini Map");
-        mapPanel.add(mapLabel);
         container.add(mapPanel);
 
         // InfoBox TextArea
@@ -47,14 +55,6 @@ public class GameView extends JFrame {
         infoBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         infoBox.setVisible(false);
         container.add(infoBox);
-
-        final JLabel infoLabel = new JLabel("Information:");
-        final JTextArea infoArea = new JTextArea();
-        infoArea.setEditable(false);
-        infoArea.setBackground(Color.LIGHT_GRAY);
-        infoArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        container.add(infoLabel);
-        container.add(infoArea);
 
         final JButton broadcastButton = new JButton("Broadcast");
         final JButton gatherButton = new JButton("Gather");
@@ -76,8 +76,8 @@ public class GameView extends JFrame {
         container.add(infoButton);
 
         // Layout Constraints
-        extracted(layout, dayLabel, container, foodLabel, waterLabel, peopleLabel, weaponLabel, actionAvailableLabel,
-                infoLabel, infoArea, broadcastButton, gatherButton, eventButton, nextDayButton, upButton, downButton,
+        extracted(layout, dayLabel, container, foodLabel, waterLabel, peopleLabel, weaponLabel, actionAvailableLabel
+                , broadcastButton, gatherButton, eventButton, nextDayButton, upButton, downButton,
                 leftButton, rightButton, infoButton);
 
         // Add ActionListeners
@@ -92,7 +92,7 @@ public class GameView extends JFrame {
 
     private void extracted(SpringLayout layout, JLabel dayLabel, Container container, JLabel foodLabel,
                            JLabel waterLabel, JLabel peopleLabel, JLabel weaponLabel, JLabel actionAvailableLabel,
-                           JLabel infoLabel, JTextArea infoArea, JButton broadcastButton, JButton gatherButton,
+                           JButton broadcastButton, JButton gatherButton,
                            JButton eventButton, JButton nextDayButton, JButton upButton, JButton downButton,
                            JButton leftButton, JButton rightButton, JButton infoButton) {
         layout.putConstraint(SpringLayout.WEST, dayLabel, Constants.TWENTY, SpringLayout.WEST, container);
@@ -123,14 +123,9 @@ public class GameView extends JFrame {
         layout.putConstraint(SpringLayout.SOUTH, infoBox, 0, SpringLayout.SOUTH, mapPanel);
         layout.putConstraint(SpringLayout.WEST, infoBox, 0, SpringLayout.WEST, mapPanel);
 
-        layout.putConstraint(SpringLayout.WEST, infoLabel, Constants.TWENTY, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, infoLabel, Constants.TWENTY, SpringLayout.SOUTH, actionAvailableLabel);
-
-        layout.putConstraint(SpringLayout.NORTH, infoArea, Constants.TEN, SpringLayout.SOUTH, infoLabel);
-        layout.putConstraint(SpringLayout.SOUTH, infoArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH, container);
-
         layout.putConstraint(SpringLayout.WEST, broadcastButton, Constants.TWENTY, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, broadcastButton, Constants.TWENTY, SpringLayout.SOUTH, infoArea);
+        layout.putConstraint(SpringLayout.NORTH, broadcastButton, Constants.TWENTY, SpringLayout.SOUTH,
+                actionAvailableLabel);
 
         layout.putConstraint(SpringLayout.WEST, gatherButton, Constants.TWENTY, SpringLayout.EAST, broadcastButton);
         layout.putConstraint(SpringLayout.NORTH, gatherButton, 0, SpringLayout.NORTH, broadcastButton);

@@ -31,6 +31,16 @@ public class PlayerAttributes {
         this.luck = 0;
         this.mobilization = 0;
         this.thrift = 0;
+        this.generalship = 0;
+    }
+
+    public PlayerAttributes(int points, int social, int luck, int mobilization, int thrift, int generalship) {
+        this.points = points;
+        this.social = social;
+        this.luck = luck;
+        this.mobilization = mobilization;
+        this.thrift = thrift;
+        this.generalship = generalship;
     }
 
     public int getPoints() {
