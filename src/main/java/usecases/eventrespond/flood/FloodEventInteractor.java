@@ -19,7 +19,7 @@ public class FloodEventInteractor implements RespondInputBoundary {
 
     @Override
     public void execute(RespondInputData inputData) {
-        EventFlood floodEvent = (EventFlood) dataAccess.getevent();
+        EventFlood floodEvent = (EventFlood) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
         int foodChange = 0, waterChange = 0, peopleChange = 0;
@@ -47,9 +47,9 @@ public class FloodEventInteractor implements RespondInputBoundary {
         }
 
         // Apply changes to inventory
-        dataAccess.changefood(foodChange);
-        dataAccess.changewater(waterChange);
-        dataAccess.changepeople(peopleChange);
+        dataAccess.changeFood(foodChange);
+        dataAccess.changeWater(waterChange);
+        dataAccess.changePeople(peopleChange);
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +

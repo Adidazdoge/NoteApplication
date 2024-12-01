@@ -34,17 +34,17 @@ public class InMemoryGatherDataAccess implements GatherDataAccessInterface {
     }
 
     @Override
-    public void changefood(int foodgathered) {
+    public void changeFood(int foodgathered) {
         inventory.changeFood(foodgathered);
     }
 
     @Override
-    public void changewater(int watergathered) {
+    public void changeWater(int watergathered) {
         inventory.changeWater(watergathered);
     }
 
     @Override
-    public void changeweapon(int weapongathered) {
+    public void changeWeapon(int weapongathered) {
         inventory.changeweapon(weapongathered);
     }
 }

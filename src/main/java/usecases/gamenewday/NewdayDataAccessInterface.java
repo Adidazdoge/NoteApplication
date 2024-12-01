@@ -12,7 +12,7 @@ public interface NewdayDataAccessInterface {
      * Get the player info we needed, score and days.
      * @return playerinfo datatype.
      */
-    PlayerInfo getPlayerinfo();
+    PlayerInfo getPlayerInfo();
 
     /**
      * Get location of there player is at, because we need temperature to calculate resource loss as well.

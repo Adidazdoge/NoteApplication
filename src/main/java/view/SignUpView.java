@@ -20,10 +20,6 @@ public class SignUpView extends JFrame {
     private JLabel againLabel = new JLabel("again");
     private JTextField againText = new JTextField();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> c6f02b0e109eacae538b8290636e8e1da0eff73c
     public SignUpView() {
         super("sign up");
         final Container contentPane = getContentPane();

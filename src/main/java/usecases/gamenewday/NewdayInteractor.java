@@ -20,16 +20,16 @@ public class NewdayInteractor implements NewdayInputBoundary {
         final int thrift = newdayDataAccessObject.getPlayerAttributes().getThrift();
         final int people = newdayDataAccessObject.getInventory().getPeople();
         final double temp = newdayDataAccessObject.getLocation().gettemperature();
-        final int score = newdayDataAccessObject.getPlayerinfo().getScore();
+        final int score = newdayDataAccessObject.getPlayerInfo().getScore();
         // Message builder for day summary
         final StringBuilder messageBuilder = new StringBuilder("Another day has passed. Here's what happened:\n");
         boolean success = true;
         String failmessage = "";
-        if (newdayDataAccessObject.getPlayerinfo().getDaysSurvived() >= EntityConstants.MAXNUMDAY) {
+        if (newdayDataAccessObject.getPlayerInfo().getDaysSurvived() >= EntityConstants.MAXNUMDAY) {
             success = false;
         }
         // Process resource changes and build the message
-        if (success && newdayDataAccessObject.getPlayerinfo().getDaysSurvived() < EntityConstants.MAXNUMDAY - 1) {
+        if (success && newdayDataAccessObject.getPlayerInfo().getDaysSurvived() < EntityConstants.MAXNUMDAY - 1) {
             incrementresouce(messageBuilder, people, score);
             decrementresource(messageBuilder, thrift, people, temp);
             final NewdayOutputData outputdata = new NewdayOutputData(messageBuilder.toString(), success, failmessage);

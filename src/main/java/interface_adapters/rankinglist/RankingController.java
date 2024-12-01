@@ -1,4 +1,4 @@
-package interface_adapters.controllers;
+package interface_adapters.rankinglist;
 
 import usecases.accountranking.RankingInputBoundary;
 import usecases.accountranking.RankingInputData;

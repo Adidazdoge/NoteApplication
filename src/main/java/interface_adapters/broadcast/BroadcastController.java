@@ -1,4 +1,4 @@
-package interface_adapters.controllers;
+package interface_adapters.broadcast;
 
 import usecases.dailybroadcast.BroadcastInputBoundary;
 import usecases.dailybroadcast.BroadcastInputData;

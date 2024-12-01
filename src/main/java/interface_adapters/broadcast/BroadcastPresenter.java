@@ -1,4 +1,4 @@
-package interface_adapters.presenters;
+package interface_adapters.broadcast;
 
 import usecases.dailybroadcast.BroadcastOutputBoundary;
 import usecases.dailybroadcast.BroadcastOutputData;
@@ -8,6 +8,12 @@ import usecases.dailybroadcast.BroadcastOutputData;
  * and converts it into a format suitable for the UI.
  */
 public class BroadcastPresenter implements BroadcastOutputBoundary {
+    private final BroadcastInterface view;
+
+    public BroadcastPresenter(BroadcastInterface view) {
+        this.view = view;
+    }
+
     /**
      * Prepares the success view for the broadcast.
      *
@@ -15,12 +21,12 @@ public class BroadcastPresenter implements BroadcastOutputBoundary {
      */
     @Override
     public void prepareSuccessView(BroadcastOutputData outputData) {
-        System.out.println("Broadcast Result: " + outputData.getResultMessage());
-        System.out.println("Survivors Found: " + outputData.getSurvivorsFound());
-        System.out.println("Resources Found: " + outputData.getResourcesFound());
-        if (outputData.isAttractedZombies()) {
-            System.out.println("Warning: Zombies were attracted!");
-        }
+        view.updateUiBroadcast(
+                outputData.getResultMessage(),
+                outputData.getSurvivorsFound(),
+                outputData.getResourcesFound(),
+                outputData.isAttractedZombies()
+        );
     }
 
     /**
@@ -30,6 +36,6 @@ public class BroadcastPresenter implements BroadcastOutputBoundary {
      */
     @Override
     public void prepareFailureView(String errorMessage) {
-        System.out.println("Broadcast Failed: " + errorMessage);
+        view.failureBroadcast(errorMessage);
     }
 }

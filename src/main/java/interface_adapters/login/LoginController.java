@@ -1,4 +1,4 @@
-package interface_adapters.controllers;
+package interface_adapters.login;
 
 import usecases.accountlogin.LoginInputBoundary;
 import usecases.accountlogin.LoginInputData;

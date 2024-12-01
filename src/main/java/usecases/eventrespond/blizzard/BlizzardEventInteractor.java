@@ -19,7 +19,7 @@ public class BlizzardEventInteractor implements RespondInputBoundary {
 
     @Override
     public void execute(RespondInputData inputData) {
-        EventBlizzard blizzardEvent = (EventBlizzard) dataAccess.getevent();
+        EventBlizzard blizzardEvent = (EventBlizzard) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
         int foodChange = 0, waterChange = 0;
@@ -47,8 +47,8 @@ public class BlizzardEventInteractor implements RespondInputBoundary {
         }
 
         // Apply resource changes to the inventory
-        dataAccess.changefood(foodChange);
-        dataAccess.changewater(waterChange);
+        dataAccess.changeFood(foodChange);
+        dataAccess.changeWater(waterChange);
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange + ".";

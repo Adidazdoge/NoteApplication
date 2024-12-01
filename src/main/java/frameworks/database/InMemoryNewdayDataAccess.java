@@ -20,7 +20,7 @@ public class InMemoryNewdayDataAccess implements NewdayDataAccessInterface {
     }
 
     @Override
-    public PlayerInfo getPlayerinfo() {
+    public PlayerInfo getPlayerInfo() {
         return playerInfo;
     }
 
