@@ -10,11 +10,20 @@ public class Inventory {
     private int weapon;
     private int people;
 
+    // Default constructor (no parameters)
     public Inventory() {
-        this.food = EntityConstants.STARTERFOOD;
-        this.water = EntityConstants.STARTERWATER;
-        this.weapon = EntityConstants.STARTWEAPON;
-        this.people = EntityConstants.STARTERPEOPLE;
+        this(EntityConstants.STARTERFOOD,
+                EntityConstants.STARTERWATER,
+                EntityConstants.STARTWEAPON,
+                EntityConstants.STARTERPEOPLE);
+    }
+
+    // Constructor with parameters
+    public Inventory(int food, int water, int weapon, int people) {
+        this.food = food;
+        this.water = water;
+        this.weapon = weapon;
+        this.people = people;
     }
 
     public int getFood() {

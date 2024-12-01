@@ -44,6 +44,8 @@ public class EntityConstants {
 
     public static final int MAPHEIGHT = 100;
     public static final int MAPWIDTH = 100;
+    public static final int SPAWNXCOOR = MAPWIDTH / 2;
+    public static final int SPAWNYCOOR = MAPHEIGHT / 2;
     public static final int BIOMERADIUS = 16;
     public static final int MINIMAPRADIUS = 4;
     public static final int FIRSTCHOICE = 1;

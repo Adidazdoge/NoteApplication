@@ -7,6 +7,11 @@ public class PlayerLocation {
     private int xcoordinate;
     private int ycoordinate;
 
+    public PlayerLocation() {
+        this.xcoordinate = EntityConstants.SPAWNXCOOR;
+        this.ycoordinate = EntityConstants.SPAWNYCOOR;
+    }
+
     public PlayerLocation(int xcoordinate, int ycoordinate) {
         this.xcoordinate = xcoordinate;
         this.ycoordinate = ycoordinate;

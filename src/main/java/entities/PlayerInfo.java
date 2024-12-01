@@ -17,10 +17,15 @@ public class PlayerInfo {
      * Constructs a new RankingEntry with the specified attributes.
      *
      * @param name The player's username.
-     * @param score The player's score.
-     * @param daysSurvived The number of days the player survived.
-     * @param won Whether the player won the game.
      */
+
+    public PlayerInfo(String name) {
+        this.name = name;
+        this.score = 0;
+        this.daysSurvived = 0;
+        this.won = false;
+    }
+
     public PlayerInfo(String name, int score, int daysSurvived, boolean won) {
         this.name = name;
         this.score = score;

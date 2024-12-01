@@ -9,7 +9,7 @@ import usecases.eventdecide.DecideEventOutputData;
  * Event decider presenter.
  */
 public class EventDecidePresenter implements DecideEventOutputBoundary {
-    private EventDecideInterface view;
+    private final EventDecideInterface view;
 
     public EventDecidePresenter(EventDecideInterface view) {
         this.view = view;
@@ -23,6 +23,6 @@ public class EventDecidePresenter implements DecideEventOutputBoundary {
 
     @Override
     public void prepareFailureView(String errorMessage) {
-        prepareFailureView(errorMessage);
+        view.failureEventDecide(errorMessage);
     }
 }
