@@ -18,19 +18,17 @@ import usecases.eventrespond.survivor.SurvivorEventInteractor;
  * Determines the correct interactor based on the event type.
  */
 public class EventResponseController {
-    private final RespondDataAccessInterface dataAccess;
-    private final RespondOutputBoundary outputBoundary;
+    private final RespondInputBoundary interactor;
 
-    public EventResponseController(RespondDataAccessInterface dataAccess, RespondOutputBoundary outputBoundary) {
-        this.dataAccess = dataAccess;
-        this.outputBoundary = outputBoundary;
+    public EventResponseController(RespondInputBoundary interactor) {
+        this.interactor = interactor;
     }
 
     /**
      * Handles the response to a given event by selecting the appropriate interactor.
-     * @param inputData The player's input data (choice).
+     * @param choice The player's input data (choice).
      */
-    public void execute(RespondInputData inputData) {
+    public void execute(int choice) {
         Event event = dataAccess.getevent();
 
         RespondInputBoundary interactor;
@@ -48,7 +46,7 @@ public class EventResponseController {
             outputBoundary.prepareFailureView("Unknown event type.");
             return;
         }
-
+        RespondInputData inputData = new RespondInputData(choice);
         interactor.execute(inputData);
     }
 }

@@ -7,7 +7,7 @@ import interface_adapters.eventrespond.EventResponseController;
 import interface_adapters.eventrespond.EventResponseInterface;
 
 /**
- * Event view.
+// * Event view.
  */
 
 public class EventView extends JFrame implements EventResponseInterface {
