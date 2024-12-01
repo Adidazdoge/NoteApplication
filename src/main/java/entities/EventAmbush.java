@@ -95,4 +95,12 @@ public class EventAmbush implements Event {
     public String getNegotiatefailedoutcome() {
         return negotiatefailedoutcome;
     }
+
+    /**
+     * Return the name of this event.
+     * @return the event name.
+     */
+    public String toString() {
+        return "Ambush";
+    }
 }

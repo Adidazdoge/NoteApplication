@@ -83,4 +83,12 @@ public class EventBlizzard implements Event {
     public String getFleeOutcome() {
         return fleeOutcome;
     }
+
+    /**
+     * Return the name of this event.
+     * @return the event name.
+     */
+    public String toString() {
+        return "Blizzard";
+    }
 }

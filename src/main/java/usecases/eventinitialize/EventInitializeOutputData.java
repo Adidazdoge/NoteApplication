@@ -9,20 +9,25 @@ public class EventInitializeOutputData {
     private String description;
     private Map<Integer, String> choices;
 
-    EventInitializeOutputData(String description, Map<Integer, String> choices) {
+    public EventInitializeOutputData(String description, Map<Integer, String> choices) {
         this.description = description;
         this.choices = choices;
     }
 
-    private String getChoice(int key) {
+    /**
+     * Get the choice for key input.
+     * @param key key, in number
+     * @return String of the choice representation.
+     */
+    public String getChoice(int key) {
         return choices.get(key);
     }
 
-    private String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    private Map<Integer, String> getChoices() {
+    public Map<Integer, String> getChoices() {
         return choices;
     }
 }

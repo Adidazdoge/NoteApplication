@@ -80,4 +80,12 @@ public class EventFlood implements Event {
     public String getDoNothingOutcome() {
         return doNothingOutcome;
     }
+
+    /**
+     * Return the name of this event.
+     * @return the event name.
+     */
+    public String toString() {
+        return "Flood";
+    }
 }

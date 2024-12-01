@@ -87,4 +87,12 @@ public class EventSurvivorJoins implements Event {
     public String getRoboutcomefail() {
         return roboutcomefail;
     }
+
+    /**
+     * Return the name of this event.
+     * @return the event name.
+     */
+    public String toString() {
+        return "SurvivorsJoins";
+    }
 }
