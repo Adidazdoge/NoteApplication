@@ -1,12 +1,20 @@
 package view;
 
+import interface_adapters.startallowcatepoint.AllowcateController;
+import interface_adapters.startallowcatepoint.AllowcateInterface;
+
 import javax.swing.*;
 import java.awt.*;
 /**
  * Character creation view.
  */
 
-public class CharacterCreationView extends JFrame {
+public class CharacterCreationView extends JFrame implements AllowcateInterface {
+    public static final String textSocial = "Social";
+    public static final String textLuck = "Luck";
+    public static final String textThrift = "Thrift";
+    public static final String textMobilization = "Mobilization";
+    public static final String textGeneralship = "Generalship";
     private int points = Constants.TWENTY;
     private final JLabel pointsLabel;
     private final JLabel socialLabel;
@@ -14,11 +22,12 @@ public class CharacterCreationView extends JFrame {
     private final JLabel mobilizationLabel;
     private final JLabel thriftLabel;
     private final JLabel generalshipLabel;
-    private int social = 0;
-    private int luck = 0;
-    private int mobilization = 0;
-    private int thrift = 0;
-    private int generalship = 0;
+    private int social;
+    private int luck;
+    private int mobilization;
+    private int thrift;
+    private int generalship;
+    private AllowcateController allowcateController;
 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
                        "checkstyle:ExecutableStatementCount"})
@@ -37,27 +46,27 @@ public class CharacterCreationView extends JFrame {
 
         // Attribute Labels and Buttons
         socialLabel = new JLabel("Social: " + social);
-        final JButton socialButton = createButton("Social");
+        final JButton socialButton = createButton(textSocial);
         container.add(socialLabel);
         container.add(socialButton);
 
         luckLabel = new JLabel("Luck: " + luck);
-        final JButton luckButton = createButton("Luck");
+        final JButton luckButton = createButton(textLuck);
         container.add(luckLabel);
         container.add(luckButton);
 
         mobilizationLabel = new JLabel("Mobilization: " + mobilization);
-        final JButton mobilizationButton = createButton("Mobilization");
+        final JButton mobilizationButton = createButton(textMobilization);
         container.add(mobilizationLabel);
         container.add(mobilizationButton);
 
         thriftLabel = new JLabel("Thrift: " + thrift);
-        final JButton thriftButton = createButton("Thrift");
+        final JButton thriftButton = createButton(textThrift);
         container.add(thriftLabel);
         container.add(thriftButton);
 
         generalshipLabel = new JLabel("Generalship: " + generalship);
-        final JButton generalshipButton = createButton("Generalship");
+        final JButton generalshipButton = createButton(textGeneralship);
         container.add(generalshipLabel);
         container.add(generalshipButton);
 
@@ -75,29 +84,32 @@ public class CharacterCreationView extends JFrame {
         addListeners(socialButton, luckButton, mobilizationButton, thriftButton, generalshipButton);
 
         backButton.addActionListener(e -> {
-            dispose();
-            new MainView();
+
         });
 
         startGameButton.addActionListener(e -> {
-            dispose();
-            new GameView();
+            allowcateController.execute(points, social, luck, mobilization, thrift, generalship);
         });
 
         // Window settings
         setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
+    }
+
+    public void setAllowcateController(AllowcateController allowcateController) {
+        this.allowcateController = allowcateController;
     }
 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
-    private void addListeners(JButton socialButton, JButton luckButton, JButton mobilizationButton, JButton thriftButton, JButton generalshipButton) {
-        socialButton.addActionListener(e -> updatePoints("Social"));
-        luckButton.addActionListener(e -> updatePoints("Luck"));
-        mobilizationButton.addActionListener(e -> updatePoints("Mobilization"));
-        thriftButton.addActionListener(e -> updatePoints("Thrift"));
-        generalshipButton.addActionListener(e -> updatePoints("Generalship"));
+    private void addListeners(JButton socialButton, JButton luckButton, JButton mobilizationButton,
+                              JButton thriftButton, JButton generalshipButton) {
+        socialButton.addActionListener(e -> updatePoints(textSocial));
+        luckButton.addActionListener(e -> updatePoints(textLuck));
+        mobilizationButton.addActionListener(e -> updatePoints(textMobilization));
+        thriftButton.addActionListener(e -> updatePoints(textThrift));
+        generalshipButton.addActionListener(e -> updatePoints(textGeneralship));
     }
 
     private void extracted(SpringLayout layout, Container container, JButton socialButton, JButton luckButton,
@@ -178,7 +190,27 @@ public class CharacterCreationView extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new CharacterCreationView();
+    // public static void main(String[] args) {
+    //    new CharacterCreationView();
+    // }
+    public void render() {
+        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
+        setVisible(true);
+    }
+
+    public void disrender() {
+        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        setVisible(false);
+    }
+
+    @Override
+    public void failureAllowcate(String message) {
+        // Display the failure message in a dialog box
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "Allocation Failed",
+                JOptionPane.ERROR_MESSAGE
+        );
     }
 }

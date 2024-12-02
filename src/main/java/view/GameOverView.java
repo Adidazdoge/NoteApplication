@@ -46,7 +46,7 @@ public class GameOverView extends JFrame {
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
     }
 
     private static void extracted(SpringLayout layout, JLabel titleLabel, Container container, JLabel scoreLabel,
@@ -66,6 +66,15 @@ public class GameOverView extends JFrame {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, mainMenuButton, 0,
                 SpringLayout.HORIZONTAL_CENTER, container);
         layout.putConstraint(SpringLayout.NORTH, mainMenuButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionArea);
+    }
+    public void render() {
+        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
+        setVisible(true);
+    }
+
+    public void disrender() {
+        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        setVisible(false);
     }
 
     public static void main(String[] args) {

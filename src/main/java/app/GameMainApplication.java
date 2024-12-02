@@ -6,7 +6,14 @@ import java.util.Map;
 
 import entities.*;
 import frameworks.database.InMemoryUnifiedDataAccess;
-import view.MainView;
+import interface_adapters.NavigationManager;
+import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
+import interface_adapters.nevagateallowcatepage.NevagateAllowcatePresenter;
+import interface_adapters.startallowcatepoint.AllowcateController;
+import interface_adapters.startallowcatepoint.AllowcatePresenter;
+import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
+import usecases.startallowcate.AllowcateInteractor;
+import view.*;
 
 /**
  * Main of the game applicaition, initialize inmemory database for the game.
@@ -45,6 +52,30 @@ public class GameMainApplication {
         final InMemoryUnifiedDataAccess gamedatabase =
                 new InMemoryUnifiedDataAccess(playerAttributes, playerInventory, new ArrayList<>(), currentlocation,
                         horde, playerInfo, playerLocation, gameMap, ambush, blizzard, flood, survivor, traderEncounter);
-        new MainView();
+        // initialize each gameing view.
+        final MainView mainView = new MainView();
+        final CharacterCreationView attributeview = new CharacterCreationView();
+        final GameView gameView = new GameView();
+        final EventView eventView = new EventView();
+        final GameOverView gameOverView = new GameOverView();
+        final InformationView informationView = new InformationView("Daily log");
+        // initialize nevagation manager
+        final NavigationManager navigationManager =
+                new NavigationManager(mainView, attributeview, gameView, eventView, informationView, gameOverView);
+        // initialize each usecase.
+        // Nevagate to allowcate page usecase.
+        final NevagateAllowcatePresenter nevagateallowcatepresener = new NevagateAllowcatePresenter(navigationManager);
+        final NevagateAllowcateInteractor nevagateAllowcateInteractor =
+                new NevagateAllowcateInteractor(gamedatabase, nevagateallowcatepresener);
+        final NevagateAllowcateController nevagateAllowcateController =
+                new NevagateAllowcateController(nevagateAllowcateInteractor);
+        mainView.setNevagateAllowcateController(nevagateAllowcateController);
+        mainView.render();
+        // Allowcate points ussecase.
+        final AllowcatePresenter allowcatePresenter = new AllowcatePresenter(attributeview, navigationManager);
+        final AllowcateInteractor allowcateInteractor = new AllowcateInteractor(gamedatabase, allowcatePresenter);
+        final AllowcateController allowcateController = new AllowcateController(allowcateInteractor);
+        attributeview.setAllowcateController(allowcateController);
+
     }
 }

@@ -1,5 +1,6 @@
 package interface_adapters.startallowcatepoint;
 
+import interface_adapters.NavigationManager;
 import usecases.startallowcate.AllowcateOutputBoundary;
 import usecases.startallowcate.AllowcateOutputData;
 
@@ -7,17 +8,17 @@ import usecases.startallowcate.AllowcateOutputData;
  * Allowcate presenter.
  */
 public class AllowcatePresenter implements AllowcateOutputBoundary {
+    private final NavigationManager navigationManager;
     private final AllowcateInterface view;
 
-    public AllowcatePresenter(AllowcateInterface view) {
+    public AllowcatePresenter(AllowcateInterface view, NavigationManager navigationManager) {
         this.view = view;
+        this.navigationManager = navigationManager;
     }
 
     @Override
-    public void preparesuccessview(AllowcateOutputData outputData) {
-        view.updateUiAllowcate(outputData.getPoint(),
-                outputData.getSocial(), outputData.getLuck(),
-                outputData.getMobilization(), outputData.getThrift(), outputData.getGeneralship());
+    public void NevagateStartGame(AllowcateOutputData outputData) {
+        navigationManager.showGameView();
     }
 
     @Override
