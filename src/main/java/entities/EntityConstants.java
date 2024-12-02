@@ -11,6 +11,9 @@ public class EntityConstants {
     public static final int STARTERWATER = 100;
     public static final int STARTWEAPON = 5;
     public static final int STARTERPEOPLE = 10;
+    public static final int STARTERACTIONPOINT = 3;
+    public static final int BROADCASTGAIN = 7;
+    public static final double SOCIALIMPACTBROADCAST = 0.05;
     public static final int STARTERATRIBUTEPOINT = 20;
     public static final double STARTERRESOURCESCALAR = 1;
     public static final double RESOUCEDECREASERATIO = 0.7;

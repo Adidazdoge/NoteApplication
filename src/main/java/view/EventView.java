@@ -1,11 +1,5 @@
 package view;
 
-import interface_adapters.eventrespond.EventResponseController;
-import interface_adapters.eventrespond.EventResponseInterface;
-import interface_adapters.eventrespond.EventResponsePresenter;
-import usecases.eventrespond.shared.RespondDataAccessInterface;
-import usecases.eventrespond.shared.RespondInputData;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;

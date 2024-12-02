@@ -17,6 +17,7 @@ public class GatherInteractor implements GatherInputBoundary {
         final double foodscalar = dataAccessInterface.getLocation().getfoodresourceavailable();
         final double waterscalar = dataAccessInterface.getLocation().getwaterresourceavailable();
         final double weaponscalar = dataAccessInterface.getLocation().getweaponresourceavailable();
+        final int actionpoint = dataAccessInterface.getActionPoint();
         final int people = dataAccessInterface.getInventory().getPeople();
         final int foodgathered = (int) Math.round(foodscalar * Math.sqrt((double) people));
         final int watergathered = (int) Math.round(waterscalar * Math.sqrt((double) people));
@@ -39,23 +40,26 @@ public class GatherInteractor implements GatherInputBoundary {
         else {
             successoutputmessage.append(".");
         }
-        dataAccessInterface.changeFood(foodgathered);
-        dataAccessInterface.changeWater(watergathered);
-        dataAccessInterface.changeWeapon(weapongathered);
-        if (isvaildgather()) {
+
+        if (isvaildgather(actionpoint)) {
+            dataAccessInterface.changeFood(foodgathered);
+            dataAccessInterface.changeWater(watergathered);
+            dataAccessInterface.changeWeapon(weapongathered);
+            dataAccessInterface.setActionPoint(actionpoint - 1);
             outputBoundary.prepareSuccessView(new GatherOutputData(
                     successoutputmessage.toString()));
         }
         else {
-            outputBoundary.prepareFailureView("Invalid Gather");
+            outputBoundary.prepareFailureView("Can not gather! your people are tired!");
         }
     }
 
     /**
      * Helper function to determine validity of this gather, right now I can't think of a way of failing.
+     * @param actionpoint player have.
      * @return vaild gather or not.
      */
-    public boolean isvaildgather() {
-        return true;
+    public boolean isvaildgather(int actionpoint) {
+        return actionpoint > 0;
     }
 }

@@ -22,10 +22,7 @@ public class BroadcastPresenter implements BroadcastOutputBoundary {
     @Override
     public void prepareSuccessView(BroadcastOutputData outputData) {
         view.updateUiBroadcast(
-                outputData.getResultMessage(),
-                outputData.getSurvivorsFound(),
-                outputData.getResourcesFound(),
-                outputData.isAttractedZombies()
+                outputData.getResultMessage()
         );
     }
 

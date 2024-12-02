@@ -34,4 +34,16 @@ public interface MoveDataAccessInterface {
      * @param newy newy of player
      */
     void updatePlayerLocation(int newx, int newy);
+
+    /**
+     * Get action point they have.
+     * @return action point.
+     */
+    int getActionPoint();
+
+    /**
+     * Setter for updated action point.
+     * @param point action point.
+     */
+    void setActionPoint(int point);
 }

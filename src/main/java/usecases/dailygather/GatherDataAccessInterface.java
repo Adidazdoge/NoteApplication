@@ -41,4 +41,16 @@ public interface GatherDataAccessInterface {
      * @param weapongathered  weapons found in this gather, in this location, by the player.
      */
     void changeWeapon(int weapongathered);
+
+    /**
+     * Get action point.
+     * @return actionpoint.
+     */
+    int getActionPoint();
+
+    /**
+     * Set action point ot new value.
+     * @param actionPoint new action point.
+     */
+    void setActionPoint(int actionPoint);
 }

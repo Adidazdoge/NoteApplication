@@ -12,6 +12,7 @@ public class PlayerInfo {
     private int daysSurvived;
     // Whether the player won the game
     private boolean won;
+    private int actionPoint;
 
     /**
      * Constructs a new RankingEntry with the specified attributes.
@@ -24,13 +25,15 @@ public class PlayerInfo {
         this.score = 0;
         this.daysSurvived = 0;
         this.won = false;
+        this.actionPoint = EntityConstants.STARTERACTIONPOINT;
     }
 
-    public PlayerInfo(String name, int score, int daysSurvived, boolean won) {
+    public PlayerInfo(String name, int score, int daysSurvived, boolean won, int actionPoint) {
         this.name = name;
         this.score = score;
         this.daysSurvived = daysSurvived;
         this.won = won;
+        this.actionPoint = actionPoint;
     }
 
     public String getName() {
@@ -59,5 +62,13 @@ public class PlayerInfo {
 
     public void setWon(boolean won) {
         this.won = won;
+    }
+
+    public int getActionPoint() {
+        return actionPoint;
+    }
+
+    public void setActionPoint(int actionPoint) {
+        this.actionPoint = actionPoint;
     }
 }

@@ -26,6 +26,7 @@ public class MoveInteractor implements MoveInputBoundary {
         final int y = currentLocation.getYcoordinate();
         final int mapWidth = moveDataAccessObject.getMaps().getGrid().size();
         final int mapHeight = moveDataAccessObject.getMaps().getGrid().get(1).size();
+        final int actionpoint = moveDataAccessObject.getActionPoint();
 
         // Variables for new coordinates
         int newX = x;
@@ -54,10 +55,15 @@ public class MoveInteractor implements MoveInputBoundary {
             moveOutputBoundary.prepareFailureView(
                     "You can't move further in the " + direction + " direction; you're at the edge.");
         }
-        else {
+        else if (actionpoint > 0) {
             moveDataAccessObject.updatePlayerLocation(newX, newY);
+            moveDataAccessObject.setActionPoint(actionpoint - 1);
             final String successMessage = "You moved to position (" + newX + ", " + newY + ").";
             moveOutputBoundary.prepareSuccessView(new MoveOutputData(newX, newY, true, successMessage));
+        }
+        else {
+            final String failmessage = "You can't move, your group is too tired!";
+            moveOutputBoundary.prepareFailureView(failmessage);
         }
     }
 

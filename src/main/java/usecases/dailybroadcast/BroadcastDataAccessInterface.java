@@ -1,6 +1,7 @@
 package usecases.dailybroadcast;
 
 import entities.Inventory;
+import entities.Location;
 import entities.PlayerAttributes;
 
 /**
@@ -24,7 +25,25 @@ public interface BroadcastDataAccessInterface {
     /**
      * Updates the player's inventory.
      *
-     * @param resourceChange The change in resources.
+     * @param peopleChange The change in resources.
      */
-    void updateInventory(int resourceChange);
+    void changePeople(int peopleChange);
+
+    /**
+     * Get player's current location.
+     * @return location.
+     */
+    Location getLocation();
+
+    /**
+     * Get player's action point left.
+     * @return action point.
+     */
+    int getActionPoint();
+
+    /**
+     * Set player's action point.
+     * @param actionPoint action point.
+     */
+    void setActionPoint(int actionPoint);
 }

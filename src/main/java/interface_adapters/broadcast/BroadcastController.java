@@ -21,11 +21,9 @@ public class BroadcastController {
 
     /**
      * Handles the broadcast action by invoking the use case with the provided type.
-     *
-     * @param broadcastType The type of broadcast action (e.g., "SOS", "Resources").
      */
-    public void handleBroadcast(String broadcastType) {
-        final BroadcastInputData inputData = new BroadcastInputData(broadcastType);
+    public void execute() {
+        final BroadcastInputData inputData = new BroadcastInputData();
         inputBoundary.execute(inputData);
     }
 }

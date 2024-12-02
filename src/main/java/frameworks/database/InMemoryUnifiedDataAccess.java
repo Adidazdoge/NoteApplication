@@ -9,7 +9,11 @@ import usecases.dailymove.MoveDataAccessInterface;
 import usecases.endprocesshorde.HordeDataAccessInterface;
 import usecases.eventdecide.DecideEventDataAccessInterface;
 import usecases.eventinitialize.EventInitializeDataAccessInterface;
-import usecases.eventrespond.shared.RespondDataAccessInterface;
+import usecases.eventrespond.ambush.AmbushDataAccessInterface;
+import usecases.eventrespond.blizzard.BlizzardDataAccessInterface;
+import usecases.eventrespond.flood.FloodDataAccessInterface;
+import usecases.eventrespond.survivor.SurvivorDataAccessInterface;
+import usecases.eventrespond.trader.TraderDataAccessInterface;
 import usecases.fetchresource.FetchDataAccessInterface;
 import usecases.gameminimap.MinimapDataAccessInterface;
 import usecases.gamenewday.NewdayDataAccessInterface;
@@ -32,8 +36,12 @@ public class InMemoryUnifiedDataAccess implements
         MoveDataAccessInterface,
         NewdayDataAccessInterface,
         PlaceDescriptionDataAccessInterface,
-        RespondDataAccessInterface,
-        NevagateAllowcateDataAccessInterface {
+        NevagateAllowcateDataAccessInterface,
+        FloodDataAccessInterface,
+        SurvivorDataAccessInterface,
+        TraderDataAccessInterface,
+        BlizzardDataAccessInterface,
+        AmbushDataAccessInterface {
     // Shared game data
     private PlayerAttributes playerAttributes;
     private Inventory inventory;
@@ -113,11 +121,6 @@ public class InMemoryUnifiedDataAccess implements
         return inventory;
     }
 
-    @Override
-    public void updateInventory(int resourceChange) {
-        inventory.changeWater(resourceChange);
-    }
-
     // Implement of the DecideEventDataAccessInterface
     @Override
     public ArrayList<Event> getEvents() {
@@ -139,6 +142,16 @@ public class InMemoryUnifiedDataAccess implements
     @Override
     public Location getLocation() {
         return currentLocation;
+    }
+
+    @Override
+    public int getActionPoint() {
+        return playerInfo.getActionPoint();
+    }
+
+    @Override
+    public void setActionPoint(int actionPoint) {
+        playerInfo.setActionPoint(actionPoint);
     }
 
     // Implement of the EventInitiallizeInterface

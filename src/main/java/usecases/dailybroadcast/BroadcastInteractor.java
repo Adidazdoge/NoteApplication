@@ -1,8 +1,7 @@
 package usecases.dailybroadcast;
 
-import java.util.Random;
-
-import entities.Inventory;
+import entities.EntityConstants;
+import entities.Location;
 import entities.PlayerAttributes;
 
 /**
@@ -20,40 +19,20 @@ public class BroadcastInteractor implements usecases.dailybroadcast.BroadcastInp
 
     @Override
     public void execute(usecases.dailybroadcast.BroadcastInputData inputData) {
-        PlayerAttributes attributes = dataAccessInterface.getPlayerAttributes();
-        Inventory inventory = dataAccessInterface.getInventory();
+        final PlayerAttributes attributes = dataAccessInterface.getPlayerAttributes();
+        final int actionpoint = dataAccessInterface.getActionPoint();
+        final Location location = dataAccessInterface.getLocation();
 
-        // Check if the player has enough resources for a broadcast
-        int resourceCost = 5;
-        if (inventory.getWater() < resourceCost) {
-            outputBoundary.prepareFailureView("Not enough resources to broadcast.");
-            return;
+        if (actionpoint > 0) {
+            final int peoplegain = (int) Math.round(EntityConstants.BROADCASTGAIN
+                    * (1 + attributes.getSocial() * EntityConstants.SOCIALIMPACTBROADCAST)
+                    * location.getpeopleresourceavailable());
+            final String successmessage = "Though Broadcast, " + peoplegain + " decided to join your group!";
+            dataAccessInterface.setActionPoint(actionpoint - 1);
+            dataAccessInterface.changePeople(peoplegain);
+            final BroadcastOutputData outputData = new BroadcastOutputData(successmessage);
+            outputBoundary.prepareSuccessView(outputData);
         }
 
-        // Deduct the resources
-        dataAccessInterface.updateInventory(-resourceCost);
-
-        // Simulate outcomes based on attributes
-        Random random = new Random();
-        boolean success = random.nextDouble() < (0.5 + attributes.getSocial() * 0.05);
-        boolean attractedZombies = random.nextDouble() < (0.2 - attributes.getLuck() * 0.03);
-
-        int survivorsFound = 0;
-        int resourcesFound = 0;
-
-        String resultMessage = "Your broadcast did not produce any results.";
-
-        if (success) {
-            survivorsFound = random.nextInt(3) + 1;
-            resourcesFound = random.nextInt(10) + 5;
-            resultMessage = "Your broadcast was successful!";
-        }
-
-        if (attractedZombies) {
-            resultMessage += " However, it attracted zombies!";
-        }
-
-        BroadcastOutputData outputData = new BroadcastOutputData(resultMessage, survivorsFound, resourcesFound, attractedZombies);
-        outputBoundary.prepareSuccessView(outputData);
     }
 }
