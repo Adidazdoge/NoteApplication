@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapters.broadcast.BroadcastController;
+import interface_adapters.broadcast.BroadcastInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
 
@@ -9,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class GameView extends JFrame implements PropertyChangeListener, FetchInterface {
+public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface {
     private int day;
     private int food;
     private int water;
@@ -29,6 +31,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     private boolean isMapVisible = true;
 
     private FetchController fetchController;
+    private BroadcastController broadcastController;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -98,6 +101,11 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         container.add(nextDayButton);
         container.add(infoButton);
 
+        broadcastButton.addActionListener(e -> {
+            broadcastController.execute();
+            fetchController.execute();
+        });
+
         // Add ActionListeners
         infoButton.addActionListener(e -> toggleInfoBox());
         nextDayButton.addActionListener(e -> {
@@ -120,8 +128,9 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         propertyChangeSupport.addPropertyChangeListener(this);
     }
 
-    public void setFetchController(FetchController fetchController) {
+    public void setFetchController(FetchController fetchController, BroadcastController broadcastController) {
         this.fetchController = fetchController;
+        this.broadcastController = broadcastController;
     }
 
     public void render() {
@@ -268,11 +277,30 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     }
 
     @Override
-    public void updateUiResource(int food, int water, int people, int weapon) {
+    public void updateUiResource(int food, int water, int people, int weapon, int day, int actionpoint) {
         setFood(food);
         setWater(water);
         setPeople(people);
         setWeapon(weapon);
+        setDay(day);
+        setAction(actionpoint);
     }
 
+    @Override
+    public void updateUiBroadcast(String message) {
+        if (infoBox != null) {
+            infoBox.append(message + "\n");
+            infoBox.setCaretPosition(infoBox.getDocument().getLength());
+        }
+    }
+
+    @Override
+    public void failureBroadcast(String errorMessage) {
+        JOptionPane.showMessageDialog(
+                this,
+                errorMessage,
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
 }

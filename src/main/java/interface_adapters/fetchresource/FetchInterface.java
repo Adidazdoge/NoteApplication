@@ -11,6 +11,8 @@ public interface FetchInterface {
      * @param water water
      * @param people people
      * @param weapon weapon
+     * @param actionpoint actionpoint left.
+     * @param day day.
      */
-    void updateUiResource(int food, int water, int people, int weapon);
+    void updateUiResource(int food, int water, int people, int weapon, int day, int actionpoint);
 }

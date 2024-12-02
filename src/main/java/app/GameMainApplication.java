@@ -8,6 +8,8 @@ import java.util.Map;
 import entities.*;
 import frameworks.database.InMemoryUnifiedDataAccess;
 import interface_adapters.NavigationManager;
+import interface_adapters.broadcast.BroadcastController;
+import interface_adapters.broadcast.BroadcastPresenter;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchPresenter;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
@@ -17,6 +19,7 @@ import interface_adapters.nevagatemainview.NevagateMainInterface;
 import interface_adapters.nevagatemainview.NevagateMainPresenter;
 import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcatePresenter;
+import usecases.dailybroadcast.BroadcastInteractor;
 import usecases.fetchresource.FetchInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.nevagatemain.NevagateMainInteractor;
@@ -112,8 +115,11 @@ public class GameMainApplication {
         final FetchPresenter fetchPresenter = new FetchPresenter(gameView);
         final FetchInteractor fetchInteractor = new FetchInteractor(gamedatabase, fetchPresenter);
         final FetchController fetchController = new FetchController(fetchInteractor);
-
-        gameView.setFetchController(fetchController);
+        // Broadcast Usecase
+        final BroadcastPresenter broadcastPresenter = new BroadcastPresenter(gameView);
+        final BroadcastInteractor broadcastInteractor = new BroadcastInteractor(gamedatabase, broadcastPresenter);
+        final BroadcastController broadcastController = new BroadcastController(broadcastInteractor);
+        gameView.setFetchController(fetchController, broadcastController);
         attributeview.setAllowcateController(allowcateController, nevagateMainController);
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);

@@ -17,7 +17,8 @@ public class FetchInteractor implements FetchInputBoundary {
     public void execute(FetchInputData inputData) {
         final FetchOutputData outputdata = new FetchOutputData(dataaccess.getInventory().getFood(),
                 dataaccess.getInventory().getWater(), dataaccess.getInventory().getPeople(),
-                dataaccess.getInventory().getWeapon());
+                dataaccess.getInventory().getWeapon(), dataaccess.getPlayerInfo().getDaysSurvived(),
+                dataaccess.getPlayerInfo().getActionPoint());
         outputBoundary.prepareSuccessview(outputdata);
     }
 }

@@ -8,12 +8,16 @@ public class FetchOutputData {
     private int water;
     private int people;
     private int weapon;
+    private int day;
+    private int actionpoint;
 
-    public FetchOutputData(int food, int water, int people, int weapon) {
+    public FetchOutputData(int food, int water, int people, int weapon, int day, int actionpoint) {
         this.food = food;
         this.water = water;
         this.people = people;
         this.weapon = weapon;
+        this.day = day;
+        this.actionpoint = actionpoint;
     }
 
     public int getFood() {
@@ -30,5 +34,13 @@ public class FetchOutputData {
 
     public int getWeapon() {
         return weapon;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getActionpoint() {
+        return actionpoint;
     }
 }
