@@ -12,11 +12,4 @@ public interface SignupInterface {
      * @param message The success message to display.
      */
     void displaySignupResult(String message);
-
-    /**
-     * Updates the UI to display an error message if the signup operation fails.
-     *
-     * @param errorMessage The error message to display.
-     */
-    void displaySignupError(String errorMessage);
 }

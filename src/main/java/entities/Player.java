@@ -1,5 +1,8 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a player in the game.
  * This entity contains information about the player, such as their ID, username, and password.
@@ -22,7 +25,10 @@ public class Player {
      * @param username  The username chosen by the player for logging into the game.
      * @param password  The player's password for authentication.
      */
-    public Player(String id, String username, String password) {
+    @JsonCreator
+    public Player(@JsonProperty("id") String id,
+                  @JsonProperty("username") String username,
+                  @JsonProperty("password") String password) {
         this.id = id;
         this.username = username;
         this.password = password;

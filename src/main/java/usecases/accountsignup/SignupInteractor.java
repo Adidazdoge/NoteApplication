@@ -31,22 +31,19 @@ public class SignupInteractor implements SignupInputBoundary {
         final String username = inputData.getUsername();
         final String password = inputData.getPassword();
 
-        // Check if username is already taken
         if (dataAccessInterface.isUsernameTaken(username)) {
             outputBoundary.prepareFailureView(new SignupOutputData(
                     false,
-                    "Signup failed: Username '" + username + "' is already taken."
+                    "Signup failed. The username is already taken!"
             ));
             return;
         }
 
-        // Add the new user
         dataAccessInterface.addUser(username, password);
 
-        // Prepare success view
         outputBoundary.prepareSuccessView(new SignupOutputData(
                 true,
-                "Signup successful! Welcome, " + username + "."
+                "Signup successful!"
         ));
     }
 }

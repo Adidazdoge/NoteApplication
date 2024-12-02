@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,9 +18,17 @@ public class JsonSignupDataAccess implements SignupDataAccessInterface {
     private final FileDatabase<Player> database;
     private List<Player> players;
 
+    /**
+     * Constructs a JsonSignupDataAccess instance and loads the players from the specified file.
+     *
+     * @param filePath The file path for the player database.
+     * @throws IOException If an I/O error occurs while loading the file.
+     */
     public JsonSignupDataAccess(String filePath) throws IOException {
         this.database = new FileDatabase<>(filePath, new TypeReference<List<Player>>() {});
-        this.players = database.load();
+        // Ensure players is mutable
+        this.players = new ArrayList<>(database.load());
+        System.out.println("Loaded players: " + players);
     }
 
     /**
@@ -37,7 +46,8 @@ public class JsonSignupDataAccess implements SignupDataAccessInterface {
 
     @Override
     public boolean isUsernameTaken(String username) {
-        return findByUsername(username) != null;
+        final Player found = findByUsername(username);
+        return found != null;
     }
 
     /**
@@ -79,12 +89,17 @@ public class JsonSignupDataAccess implements SignupDataAccessInterface {
 
     @Override
     public void addUser(String username, String password) {
+        if (isUsernameTaken(username)) {
+            throw new IllegalArgumentException("The username is already taken.");
+        }
+
         players.add(new Player(generatePlayerID(username, password), username, password));
+
         try {
             database.save(players);
-        }
-        catch (IOException ioException) {
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
+
 }

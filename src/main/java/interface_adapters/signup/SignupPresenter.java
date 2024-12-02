@@ -37,6 +37,6 @@ public class SignupPresenter implements SignupOutputBoundary {
      */
     @Override
     public void prepareFailureView(SignupOutputData outputData) {
-        view.displaySignupError(outputData.getMessage());
+        view.displaySignupResult(outputData.getMessage());
     }
 }
