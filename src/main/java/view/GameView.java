@@ -10,6 +10,8 @@ import interface_adapters.eventdecide.EventDecideController;
 import interface_adapters.eventdecide.EventDecideInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
+import interface_adapters.gameminimap.MinimapController;
+import interface_adapters.gameminimap.MinimapInterface;
 import interface_adapters.gamenewday.NewdayController;
 import interface_adapters.gamenewday.NewdayInterface;
 import interface_adapters.gameplacedescription.PlaceDescriptionController;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 
 public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface,
         PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface,
-        EventDecideInterface, NevagateEventInterface, NewdayInterface {
+        EventDecideInterface, NevagateEventInterface, NewdayInterface, MinimapInterface {
     private int day;
     private int food;
     private int water;
@@ -53,6 +55,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     private EventDecideController eventDecideController;
     private NevagateEventController nevagateEventController;
     private NewdayController newdayController;
+    private MinimapController minimapController;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -146,21 +149,25 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         upButton.addActionListener(e -> {
             dailyMoveController.execute("up");
             fetchController.execute();
+            minimapController.execute();
         });
 
         downButton.addActionListener(e -> {
             dailyMoveController.execute("down");
             fetchController.execute();
+            minimapController.execute();
         });
 
         leftButton.addActionListener(e -> {
             dailyMoveController.execute("left");
             fetchController.execute();
+            minimapController.execute();
         });
 
         rightButton.addActionListener(e -> {
             dailyMoveController.execute("right");
             fetchController.execute();
+            minimapController.execute();
         });
 
         eventButton.addActionListener(e -> {
@@ -198,7 +205,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                               PlaceDescriptionController placeDescriptionController,
                               DailyGatherController dailyGatherController, DailyMoveController dailyMoveController,
                               NevagateEventController nevagateEventController,
-                              EventDecideController eventDecideController, NewdayController newdayController) {
+                              EventDecideController eventDecideController, NewdayController newdayController,
+                              MinimapController minimapController) {
         this.fetchController = fetchController;
         this.broadcastController = broadcastController;
         this.placeDescriptionController = placeDescriptionController;
@@ -207,11 +215,13 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         this.nevagateEventController = nevagateEventController;
         this.eventDecideController = eventDecideController;
         this.newdayController = newdayController;
+        this.minimapController = minimapController;
     }
 
     public void render() {
         placeDescriptionController.execute();
         fetchController.execute();
+        minimapController.execute();
         setVisible(true);
     }
 
@@ -323,6 +333,41 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         layout.putConstraint(SpringLayout.WEST, infoButton, 20, SpringLayout.EAST, rightButton);
         layout.putConstraint(SpringLayout.NORTH, infoButton, 0, SpringLayout.NORTH, upButton);
     }
+
+    @Override
+    public void updateUiMinimap(ArrayList<ArrayList<String>> grid) {
+        // Validate input
+        if (grid == null || grid.isEmpty() || grid.get(0).isEmpty()) {
+            mapPanel.setText("Invalid map data.");
+            return;
+        }
+
+        final int rows = grid.size();
+        final int cols = grid.get(0).size();
+
+        // Find the center and set a marker (e.g., @) for the player's position
+        final int centerRow = rows / 2;
+        final int centerCol = cols / 2;
+
+        StringBuilder mapBuilder = new StringBuilder();
+
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (r == centerRow && c == centerCol) {
+                    mapBuilder.append("@  ");
+                } else {
+                    mapBuilder.append(grid.get(r).get(c)).append("  ");
+                }
+            }
+            mapBuilder.append("\n");
+        }
+
+        // Set text to mapPanel with fixed font and centered scroll
+        mapPanel.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        mapPanel.setText(mapBuilder.toString());
+        mapPanel.setCaretPosition(0);
+    }
+
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
