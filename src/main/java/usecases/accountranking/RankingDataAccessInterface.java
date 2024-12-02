@@ -23,4 +23,16 @@ public interface RankingDataAccessInterface {
      * @param score The new score to assign.
      */
     void updateScore(String username, int score);
+
+    /**
+     * Updates the ranking data for a specific player.
+     * If the player already exists in the ranking, their data is updated.
+     * If not, a new entry is created for the player.
+     *
+     * @param username     The username of the player.
+     * @param score        The final score of the player.
+     * @param daysSurvived The number of days the player survived in the game.
+     * @param won          Whether the player won the game.
+     */
+    void updateRankingData(String username, int score, int daysSurvived, boolean won);
 }
