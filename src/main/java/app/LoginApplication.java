@@ -16,7 +16,7 @@ import usecases.accountlogin.LoginOutputBoundary;
  * and navigation manager.
  */
 public class LoginApplication {
-    private static String filePath;
+    private static String filePath = "PlayerFile";
 
     /**
      * Sets up the Login feature and returns the configured LoginController.

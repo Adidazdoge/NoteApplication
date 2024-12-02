@@ -15,7 +15,7 @@ import usecases.accountranking.RankingOutputBoundary;
  * Responsible for assembling and initializing the components for the ranking feature.
  */
 public class RankingApplication {
-    private static String filePath;
+    private static String filePath = "RankingFile";
 
     /**
      * Initializes and assembles the components for the Ranking use case.

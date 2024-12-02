@@ -16,7 +16,7 @@ import usecases.accountsignup.SignupOutputBoundary;
  * Responsible for assembling and initializing the components for the signup feature.
  */
 public class SignupApplication {
-    private static String filePath;
+    private static String filePath = "PlayerFile";
 
     /**
      * Initializes and assembles the components for the Signup use case.
