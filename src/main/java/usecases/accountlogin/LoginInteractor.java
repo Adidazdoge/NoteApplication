@@ -6,17 +6,17 @@ package usecases.accountlogin;
  * including credential validation and user existence checks.
  */
 public class LoginInteractor implements LoginInputBoundary {
-    private final LoginDataAccessInterface dataAccessInterface;
+    private final LoginDataAccessInterface dataAccess;
     private final LoginOutputBoundary outputBoundary;
 
     /**
      * Constructs a LoginInteractor with the specified data access interface and output boundary.
      *
-     * @param dataAccessInterface The interface for accessing user data for login.
+     * @param dataAccess The interface for accessing user data for login.
      * @param outputBoundary The output boundary for presenting login results.
      */
-    public LoginInteractor(LoginDataAccessInterface dataAccessInterface, LoginOutputBoundary outputBoundary) {
-        this.dataAccessInterface = dataAccessInterface;
+    public LoginInteractor(LoginDataAccessInterface dataAccess, LoginOutputBoundary outputBoundary) {
+        this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
     }
 
@@ -31,12 +31,12 @@ public class LoginInteractor implements LoginInputBoundary {
         final String username = inputData.getUsername();
         final String password = inputData.getPassword();
 
-        if (!dataAccessInterface.doesUserExist(username)) {
+        if (!dataAccess.doesUserExist(username)) {
             outputBoundary.prepareFailureView(new LoginOutputData(false, "User does not exist."));
             return;
         }
 
-        if (!dataAccessInterface.validateCredentials(username, password)) {
+        if (!dataAccess.validateCredentials(username, password)) {
             outputBoundary.prepareFailureView(new LoginOutputData(false, "Invalid credentials."));
             return;
         }
