@@ -8,6 +8,8 @@ import java.util.Map;
 import entities.*;
 import frameworks.database.InMemoryUnifiedDataAccess;
 import interface_adapters.NavigationManager;
+import interface_adapters.fetchresource.FetchController;
+import interface_adapters.fetchresource.FetchPresenter;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcatePresenter;
 import interface_adapters.nevagatemainview.NevagateMainController;
@@ -15,6 +17,7 @@ import interface_adapters.nevagatemainview.NevagateMainInterface;
 import interface_adapters.nevagatemainview.NevagateMainPresenter;
 import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcatePresenter;
+import usecases.fetchresource.FetchInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.nevagatemain.NevagateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
@@ -100,11 +103,17 @@ public class GameMainApplication {
         final AllowcatePresenter allowcatePresenter = new AllowcatePresenter(attributeview, navigationManager);
         final AllowcateInteractor allowcateInteractor = new AllowcateInteractor(gamedatabase, allowcatePresenter);
         final AllowcateController allowcateController = new AllowcateController(allowcateInteractor);
-        // Nevagate Mian usecase.
+        // Nevagate Main usecase.
         final NevagateMainPresenter nevagateMainPresenter = new NevagateMainPresenter(navigationManager);
         final NevagateMainInteractor nevagateMainInteractor =
                 new NevagateMainInteractor(gamedatabase, nevagateMainPresenter);
         final NevagateMainController nevagateMainController = new NevagateMainController(nevagateMainInteractor);
+        // Fetch Usecase
+        final FetchPresenter fetchPresenter = new FetchPresenter(gameView);
+        final FetchInteractor fetchInteractor = new FetchInteractor(gamedatabase, fetchPresenter);
+        final FetchController fetchController = new FetchController(fetchInteractor);
+
+        gameView.setFetchController(fetchController);
         attributeview.setAllowcateController(allowcateController, nevagateMainController);
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
