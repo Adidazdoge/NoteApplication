@@ -109,7 +109,8 @@ public class MainView extends JFrame {
         setVisible(false);
     }
 
-    // public static void main(String[] args) {
-    //    new MainView().render(); // Call render() to display the view
-    // }
+     public static void main(String[] args) {
+        // Call render() to display the view
+        new MainView().render();
+     }
 }
