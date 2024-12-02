@@ -122,7 +122,8 @@ public class LoginView extends JFrame implements LoginInterface {
             // Close login window
             dispose();
             // Navigate to the game view
-            new GameView();
+            MainView mainView = new MainView();
+            mainView.render();
         }
     }
 
