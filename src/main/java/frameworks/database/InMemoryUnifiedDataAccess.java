@@ -149,6 +149,11 @@ public class InMemoryUnifiedDataAccess implements
     }
 
     @Override
+    public ArrayList<Event> getUnprocessedEvents() {
+        return unprocessedevents;
+    }
+
+    @Override
     public Location getLocation() {
         return currentLocation;
     }

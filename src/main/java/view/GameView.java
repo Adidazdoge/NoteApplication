@@ -10,6 +10,8 @@ import interface_adapters.eventdecide.EventDecideController;
 import interface_adapters.eventdecide.EventDecideInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
+import interface_adapters.gamenewday.NewdayController;
+import interface_adapters.gamenewday.NewdayInterface;
 import interface_adapters.gameplacedescription.PlaceDescriptionController;
 import interface_adapters.gameplacedescription.PlaceDescriptionInterface;
 import interface_adapters.nevagateevent.NevagateEventController;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 
 public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface,
         PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface,
-        EventDecideInterface, NevagateEventInterface {
+        EventDecideInterface, NevagateEventInterface, NewdayInterface {
     private int day;
     private int food;
     private int water;
@@ -50,6 +52,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     private DailyMoveController dailyMoveController;
     private EventDecideController eventDecideController;
     private NevagateEventController nevagateEventController;
+    private NewdayController newdayController;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -165,7 +168,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         });
 
         nextDayButton.addActionListener(e -> {
-            eventDecideController.execute();
+            newdayController.execute();
+            fetchController.execute();
         });
 
         // Add ActionListeners
@@ -194,7 +198,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                               PlaceDescriptionController placeDescriptionController,
                               DailyGatherController dailyGatherController, DailyMoveController dailyMoveController,
                               NevagateEventController nevagateEventController,
-                              EventDecideController eventDecideController) {
+                              EventDecideController eventDecideController, NewdayController newdayController) {
         this.fetchController = fetchController;
         this.broadcastController = broadcastController;
         this.placeDescriptionController = placeDescriptionController;
@@ -202,6 +206,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         this.dailyMoveController = dailyMoveController;
         this.nevagateEventController = nevagateEventController;
         this.eventDecideController = eventDecideController;
+        this.newdayController = newdayController;
     }
 
     public void render() {
@@ -361,7 +366,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiBroadcast(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n");
+            infoBox.append(message + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -379,7 +384,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiGather(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n");
+            infoBox.append(message + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -397,7 +402,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiMove(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n");
+            infoBox.append(message + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -415,7 +420,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiPlaceDescription(String placeDescription) {
         if (infoBox != null) {
-            infoBox.append(placeDescription + "\n");
+            infoBox.append(placeDescription + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -435,7 +440,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         if (infoBox != null) {
             if (eventNames.isEmpty()) {
                 // No events
-                infoBox.append("No events happened today.\n");
+                infoBox.append("No events happened today.\n\n");
             }
             else {
                 // Display the events
@@ -464,6 +469,27 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                 this,
                 message,
                 "Unable to go to event page!",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public void updateUiNewday(String message) {
+        // only message is needed.
+        if (infoBox != null) {
+            infoBox.append(message + "\n\n");
+            System.out.println("newday message prointed");
+            infoBox.setCaretPosition(infoBox.getDocument().getLength());
+        }
+        eventDecideController.execute();
+    }
+
+    @Override
+    public void failureNewday(String message) {
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "Unable to go to next day!",
                 JOptionPane.ERROR_MESSAGE
         );
     }

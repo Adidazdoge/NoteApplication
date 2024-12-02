@@ -33,6 +33,8 @@ import interface_adapters.fetchcurrentevent.FetchEventController;
 import interface_adapters.fetchcurrentevent.FetchEventPresenter;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchPresenter;
+import interface_adapters.gamenewday.NewdayController;
+import interface_adapters.gamenewday.NewdayPresenter;
 import interface_adapters.gameplacedescription.PlaceDescriptionController;
 import interface_adapters.gameplacedescription.PlaceDescriptionPresenter;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
@@ -58,6 +60,7 @@ import usecases.eventrespond.survivor.SurvivorEventInteractor;
 import usecases.eventrespond.trader.TraderEventInteractor;
 import usecases.fetchcurrentevent.CurrentEventInteractor;
 import usecases.fetchresource.FetchInteractor;
+import usecases.gamenewday.NewdayInteractor;
 import usecases.gameplacedescription.PlaceDescriptionInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.nevagategame.NevagateGameInteractor;
@@ -241,12 +244,17 @@ public class GameMainApplication {
         final NevagateGameInteractor nevagateGameInteractor =
                 new NevagateGameInteractor(gamedatabase, nevagateGamePresenter);
         final NevagateGameController nevagateGameController = new NevagateGameController(nevagateGameInteractor);
+
+        // Newday Game usecase
+        final NewdayPresenter newdayPresenter = new NewdayPresenter(gameView);
+        final NewdayInteractor newdayInteractor = new NewdayInteractor(gamedatabase, newdayPresenter);
+        final NewdayController newdayController = new NewdayController(newdayInteractor);
         // Event respond usecase
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
         gameView.setController(fetchController, broadcastController,
                 placeDescriptionController, dailyGatherController, dailyMoveController,
-                nevagateEventController, eventDecideController);
+                nevagateEventController, eventDecideController, newdayController);
         attributeview.setAllowcateController(allowcateController, nevagateMainController);
         eventView.setController(eventInitializerController, fetchEventController, nevagateGameController);
         eventView.setManager(eventManager);

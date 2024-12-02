@@ -15,11 +15,11 @@ public class NewdayPresenter implements NewdayOutputBoundary {
 
     @Override
     public void prepareSuccessView(NewdayOutputData outputData) {
-
+        view.updateUiNewday(outputData.getMessage());
     }
 
     @Override
     public void prepareFailureView(String errorMessage) {
-
+        view.failureNewday(errorMessage);
     }
 }

@@ -57,8 +57,8 @@ public class EntityConstants {
     public static final int FOURTHCHOICE = 4;
 
     // Base event probability (probability at default at start).
-    public static final double COMMONEVENTBASEPROB = 1;
-    public static final double RAREEVENTBASEPROB = 1;
+    public static final double COMMONEVENTBASEPROB = 0.1;
+    public static final double RAREEVENTBASEPROB = 0.05;
 
     // Horde starter setting.
     public static final int STARTERHORDEMAGNITUDE = 3000;
@@ -79,9 +79,9 @@ public class EntityConstants {
     public static final double PEOPLEBASEDEATHRATE = 0.05;
 
     // Newday resource gain module
-    public static final double PEOPLEGAINPERFOOD = 0.9;
+    public static final double PEOPLEGAINPERFOOD = 0.4;
     public static final double PEOPLEGAINPERWEAPON = 0.04;
-    public static final double PEOPLEGAINPERWATER = 0.9;
+    public static final double PEOPLEGAINPERWATER = 0.4;
     public static final double PEOPLEBASEJOINRATE = 0.04;
     public static final double WEAPONBASELOSERATE = 0.04;
 
