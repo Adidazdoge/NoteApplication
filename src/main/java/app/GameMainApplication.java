@@ -10,17 +10,25 @@ import frameworks.database.InMemoryUnifiedDataAccess;
 import interface_adapters.NavigationManager;
 import interface_adapters.broadcast.BroadcastController;
 import interface_adapters.broadcast.BroadcastPresenter;
+import interface_adapters.dailygather.DailyGatherController;
+import interface_adapters.dailygather.DailyGatherPresenter;
+import interface_adapters.dailymove.DailyMoveController;
+import interface_adapters.dailymove.DailyMovePresenter;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchPresenter;
+import interface_adapters.gameplacedescription.PlaceDescriptionController;
+import interface_adapters.gameplacedescription.PlaceDescriptionPresenter;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcatePresenter;
 import interface_adapters.nevagatemainview.NevagateMainController;
-import interface_adapters.nevagatemainview.NevagateMainInterface;
 import interface_adapters.nevagatemainview.NevagateMainPresenter;
 import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcatePresenter;
 import usecases.dailybroadcast.BroadcastInteractor;
+import usecases.dailygather.GatherInteractor;
+import usecases.dailymove.MoveInteractor;
 import usecases.fetchresource.FetchInteractor;
+import usecases.gameplacedescription.PlaceDescriptionInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.nevagatemain.NevagateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
@@ -119,9 +127,26 @@ public class GameMainApplication {
         final BroadcastPresenter broadcastPresenter = new BroadcastPresenter(gameView);
         final BroadcastInteractor broadcastInteractor = new BroadcastInteractor(gamedatabase, broadcastPresenter);
         final BroadcastController broadcastController = new BroadcastController(broadcastInteractor);
-        gameView.setFetchController(fetchController, broadcastController);
-        attributeview.setAllowcateController(allowcateController, nevagateMainController);
+        // Place description usecase
+        final PlaceDescriptionPresenter placeDescriptionPresenter = new PlaceDescriptionPresenter(gameView);
+        final PlaceDescriptionInteractor placeDescriptionInteractor =
+                new PlaceDescriptionInteractor(gamedatabase, placeDescriptionPresenter);
+        final PlaceDescriptionController placeDescriptionController =
+                new PlaceDescriptionController(placeDescriptionInteractor);
+
+        // gather description usecase
+        final DailyGatherPresenter dailyGatherPresenter = new DailyGatherPresenter(gameView);
+        final GatherInteractor gatherInteractor = new GatherInteractor(gamedatabase, dailyGatherPresenter);
+        final DailyGatherController dailyGatherController = new DailyGatherController(gatherInteractor);
+
+        // Move usecase.
+        final DailyMovePresenter dailyMovePresenter = new DailyMovePresenter(gameView);
+        final MoveInteractor moveInteractor = new MoveInteractor(gamedatabase, dailyMovePresenter);
+        final DailyMoveController dailyMoveController = new DailyMoveController(moveInteractor);
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
+        gameView.setController(fetchController, broadcastController,
+                placeDescriptionController, dailyGatherController, dailyMoveController);
+        attributeview.setAllowcateController(allowcateController, nevagateMainController);
     }
 }

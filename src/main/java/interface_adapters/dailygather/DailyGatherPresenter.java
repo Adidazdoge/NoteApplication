@@ -9,6 +9,10 @@ import usecases.dailygather.GatherOutputData;
 public class DailyGatherPresenter implements GatherOutputBoundary {
     private DailyGatherInterface view;
 
+    public DailyGatherPresenter(DailyGatherInterface view) {
+        this.view = view;
+    }
+
     @Override
     public void prepareSuccessView(GatherOutputData outputdata) {
         view.updateUiGather(outputdata.getSuccessmessage());

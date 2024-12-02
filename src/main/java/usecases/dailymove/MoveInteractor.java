@@ -82,16 +82,16 @@ public class MoveInteractor implements MoveInputBoundary {
                                   int newX, int newY, int mapWidth, int mapHeight) {
         boolean ans = false;
         if (direction.equals(EntityConstants.UP)) {
-            ans = ycoor == 0 || newY == ycoor;
+            ans = newY == ycoor;
         }
         else if (direction.equals(EntityConstants.DOWN)) {
-            ans = ycoor == mapHeight - 1 || newY == ycoor;
+            ans = newY == ycoor;
         }
         else if (direction.equals(EntityConstants.LEFT)) {
-            ans = xcoor == 0 || newX == xcoor;
+            ans = newX == xcoor;
         }
         else if (direction.equals(EntityConstants.RIGHT)) {
-            ans = xcoor == mapWidth - 1 || newX == xcoor;
+            ans = newX == xcoor;
         }
         return ans;
     }

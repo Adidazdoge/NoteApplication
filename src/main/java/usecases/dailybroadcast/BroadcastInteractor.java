@@ -33,6 +33,10 @@ public class BroadcastInteractor implements usecases.dailybroadcast.BroadcastInp
             final BroadcastOutputData outputData = new BroadcastOutputData(successmessage);
             outputBoundary.prepareSuccessView(outputData);
         }
+        else {
+            final String failmessage = "Cannot move, your people are tired!";
+            outputBoundary.prepareFailureView(failmessage);
+        }
 
     }
 }

@@ -20,6 +20,6 @@ public class DailyMovePresenter implements MoveOutputBoundary {
 
     @Override
     public void prepareFailureView(String errorMessage) {
-        view.updateUiMove(errorMessage);
+        view.failureMove(errorMessage);
     }
 }

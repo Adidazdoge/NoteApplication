@@ -90,7 +90,7 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         });
 
         startGameButton.addActionListener(e -> {
-            allowcateController.execute(points, social, luck, mobilization, thrift, generalship);
+            allowcateController.execute(points, social, luck, thrift, mobilization, generalship);
         });
 
         // Window settings

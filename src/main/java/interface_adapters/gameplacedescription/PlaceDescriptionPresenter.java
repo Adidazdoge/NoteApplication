@@ -9,6 +9,10 @@ import usecases.gameplacedescription.PlaceDescriptionOutputData;
 public class PlaceDescriptionPresenter implements PlaceDescriptionOutputBoundary {
     private PlaceDescriptionInterface view;
 
+    public PlaceDescriptionPresenter(PlaceDescriptionInterface view) {
+        this.view = view;
+    }
+
     @Override
     public void preparesuccessview(PlaceDescriptionOutputData data) {
         final String description = data.getDescription();

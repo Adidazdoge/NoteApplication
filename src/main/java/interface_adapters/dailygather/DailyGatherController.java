@@ -9,7 +9,7 @@ import usecases.dailygather.GatherInputData;
 public class DailyGatherController {
     private GatherInputBoundary gatherUsecaseInteractor;
 
-    DailyGatherController(GatherInputBoundary gatherUsecaseInteractor) {
+    public DailyGatherController(GatherInputBoundary gatherUsecaseInteractor) {
         this.gatherUsecaseInteractor = gatherUsecaseInteractor;
     }
 

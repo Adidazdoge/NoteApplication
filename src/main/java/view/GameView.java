@@ -2,8 +2,14 @@ package view;
 
 import interface_adapters.broadcast.BroadcastController;
 import interface_adapters.broadcast.BroadcastInterface;
+import interface_adapters.dailygather.DailyGatherController;
+import interface_adapters.dailygather.DailyGatherInterface;
+import interface_adapters.dailymove.DailyMoveController;
+import interface_adapters.dailymove.DailyMoveInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
+import interface_adapters.gameplacedescription.PlaceDescriptionController;
+import interface_adapters.gameplacedescription.PlaceDescriptionInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +17,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface {
+public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface,
+        PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface {
     private int day;
     private int food;
     private int water;
@@ -27,11 +34,14 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     private final JLabel actionAvailableLabel;
 
     private final JTextArea mapPanel;
-    private final JTextArea infoBox;
+    private final JTextArea infoBox = new JTextArea();
     private boolean isMapVisible = true;
 
     private FetchController fetchController;
     private BroadcastController broadcastController;
+    private PlaceDescriptionController placeDescriptionController;
+    private DailyGatherController dailyGatherController;
+    private DailyMoveController dailyMoveController;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -72,13 +82,24 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         mapPanel.setPreferredSize(new Dimension(200, 200));
         container.add(mapPanel);
 
-        // InfoBox TextArea
-        infoBox = new JTextArea("Information Box");
-        infoBox.setEditable(false);
-        infoBox.setBackground(Color.LIGHT_GRAY);
-        infoBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        infoBox.setVisible(false);
-        container.add(infoBox);
+        // Wrap infoBox in a JScrollPane (top-left position, smaller width)
+        JScrollPane infoScrollPane = new JScrollPane(infoBox);
+        infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        infoScrollPane.setPreferredSize(new Dimension(200, 200)); // Adjusted smaller width and fixed height
+        container.add(infoScrollPane);
+        infoBox.setLineWrap(true);
+        infoBox.setWrapStyleWord(true);
+        infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+// Update Layout Constraints for infoScrollPane (top-left, same as minimap)
+        layout.putConstraint(SpringLayout.EAST, infoScrollPane, -20, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.NORTH, infoScrollPane, 20, SpringLayout.NORTH, container);
+
+
+
 
         // Buttons
         JButton broadcastButton = new JButton("Broadcast");
@@ -106,6 +127,33 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
             fetchController.execute();
         });
 
+        gatherButton.addActionListener(e -> {
+            dailyGatherController.execute();
+            fetchController.execute();
+        });
+
+        upButton.addActionListener(e -> {
+            dailyMoveController.execute("up");
+            fetchController.execute();
+        });
+
+        downButton.addActionListener(e -> {
+            dailyMoveController.execute("down");
+            fetchController.execute();
+        });
+
+        leftButton.addActionListener(e -> {
+            dailyMoveController.execute("left");
+            fetchController.execute();
+        });
+
+        rightButton.addActionListener(e -> {
+            dailyMoveController.execute("right");
+            fetchController.execute();
+        });
+
+
+
         // Add ActionListeners
         infoButton.addActionListener(e -> toggleInfoBox());
         nextDayButton.addActionListener(e -> {
@@ -128,12 +176,18 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         propertyChangeSupport.addPropertyChangeListener(this);
     }
 
-    public void setFetchController(FetchController fetchController, BroadcastController broadcastController) {
+    public void setController(FetchController fetchController, BroadcastController broadcastController,
+                              PlaceDescriptionController placeDescriptionController,
+                              DailyGatherController dailyGatherController, DailyMoveController dailyMoveController) {
         this.fetchController = fetchController;
         this.broadcastController = broadcastController;
+        this.placeDescriptionController = placeDescriptionController;
+        this.dailyGatherController = dailyGatherController;
+        this.dailyMoveController = dailyMoveController;
     }
 
     public void render() {
+        placeDescriptionController.execute();
         fetchController.execute();
         setVisible(true);
     }
@@ -215,7 +269,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         layout.putConstraint(SpringLayout.NORTH, mapPanel, 20, SpringLayout.NORTH, container);
 
         // Position info box
-        layout.putConstraint(SpringLayout.EAST, infoBox, -20, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.EAST, infoBox, 20, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, infoBox, 20, SpringLayout.NORTH, container);
 
         // Position buttons
@@ -299,7 +353,61 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         JOptionPane.showMessageDialog(
                 this,
                 errorMessage,
-                "Error",
+                "Unable to Broadcast",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public void updateUiGather(String message) {
+        if (infoBox != null) {
+            infoBox.append(message + "\n");
+            infoBox.setCaretPosition(infoBox.getDocument().getLength());
+        }
+    }
+
+    @Override
+    public void failureGather(String message) {
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "Unable to Gather",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public void updateUiMove(String message) {
+        if (infoBox != null) {
+            infoBox.append(message + "\n");
+            infoBox.setCaretPosition(infoBox.getDocument().getLength());
+        }
+    }
+
+    @Override
+    public void failureMove(String errormessage) {
+        JOptionPane.showMessageDialog(
+                this,
+                errormessage,
+                "Unable to Move",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public void updateUiPlaceDescription(String placeDescription) {
+        if (infoBox != null) {
+            infoBox.append(placeDescription + "\n");
+            infoBox.setCaretPosition(infoBox.getDocument().getLength());
+        }
+    }
+
+    @Override
+    public void failurePlaceDescription(String failmessage) {
+        JOptionPane.showMessageDialog(
+                this,
+                failmessage,
+                "Unable to Get Place Description",
                 JOptionPane.ERROR_MESSAGE
         );
     }
