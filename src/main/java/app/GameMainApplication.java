@@ -1,5 +1,6 @@
 package app;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -13,13 +14,33 @@ import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcatePresenter;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.startallowcate.AllowcateInteractor;
+import frameworks.database.JsonRankingDataAccess;
 import view.*;
 
 /**
  * Main of the game applicaition, initialize inmemory database for the game.
  */
 public class GameMainApplication {
-
+    /**
+     * Ends the game by updating the ranking data for the player.
+     * This method writes the player's final game data to the JSON file.
+     *
+     * @param filePath     The path to the JSON file storing ranking data.
+     * @param username     The username of the player.
+     * @param score        The final score of the player.
+     * @param daysSurvived The number of days the player survived.
+     * @param won          Whether the player won the game.
+     */
+    public static void endGame(String filePath, String username, int score, int daysSurvived, boolean won) {
+        try {
+            final JsonRankingDataAccess rankingDataAccess = new JsonRankingDataAccess(filePath);
+            rankingDataAccess.updateRankingData(username, score, daysSurvived, won);
+            // System.out.println("Game results saved to ranking.json!");
+        }
+        catch (IOException e) {
+            System.err.println("Failed to update ranking data: " + e.getMessage());
+        }
+    }
     /**
      * Main of the game loop.
      * @param args args
@@ -77,5 +98,7 @@ public class GameMainApplication {
         final AllowcateController allowcateController = new AllowcateController(allowcateInteractor);
         attributeview.setAllowcateController(allowcateController);
 
+        // Example of how to use the endGame method
+        // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
     }
 }
