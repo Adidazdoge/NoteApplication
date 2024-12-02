@@ -1,7 +1,7 @@
 package usecases.nevagatemain;
 
 /**
- * Not needed, this is when player click back.
+ * Data access, need decided events.
  */
 public interface NevagateMainDataAccessInterface {
 }

@@ -1,6 +1,7 @@
 package interface_adapters.nevagatemainview;
 
 import interface_adapters.NavigationManager;
+import interface_adapters.nevagateevent.NevagateEventInterface;
 import usecases.nevagatemain.NevagateMainOutputBoundary;
 
 public class NevagateMainPresenter implements NevagateMainOutputBoundary {
