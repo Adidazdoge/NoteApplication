@@ -15,6 +15,8 @@ import interface_adapters.dailygather.DailyGatherController;
 import interface_adapters.dailygather.DailyGatherPresenter;
 import interface_adapters.dailymove.DailyMoveController;
 import interface_adapters.dailymove.DailyMovePresenter;
+import interface_adapters.endprocesshorde.HordeController;
+import interface_adapters.endprocesshorde.HordePresenter;
 import interface_adapters.eventdecide.EventDecideController;
 import interface_adapters.eventdecide.EventDecidePresenter;
 import interface_adapters.eventinitializer.EventInitializerController;
@@ -33,6 +35,8 @@ import interface_adapters.fetchcurrentevent.FetchEventController;
 import interface_adapters.fetchcurrentevent.FetchEventPresenter;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchPresenter;
+import interface_adapters.gamelosedetecter.LoseController;
+import interface_adapters.gamelosedetecter.LosePresenter;
 import interface_adapters.gameminimap.MinimapController;
 import interface_adapters.gameminimap.MinimapPresenter;
 import interface_adapters.gamenewday.NewdayController;
@@ -45,6 +49,8 @@ import interface_adapters.nevagateevent.NevagateEventController;
 import interface_adapters.nevagateevent.NevagateEventPresenter;
 import interface_adapters.nevagategame.NevagateGameController;
 import interface_adapters.nevagategame.NevagateGamePresenter;
+import interface_adapters.nevagategameover.NevagateGameOverController;
+import interface_adapters.nevagategameover.NevagateGameOverPresenter;
 import interface_adapters.nevagatemainview.NevagateMainController;
 import interface_adapters.nevagatemainview.NevagateMainPresenter;
 import interface_adapters.startallowcatepoint.AllowcateController;
@@ -53,6 +59,7 @@ import usecases.NevagateEventPage.NevagateEventInteractor;
 import usecases.dailybroadcast.BroadcastInteractor;
 import usecases.dailygather.GatherInteractor;
 import usecases.dailymove.MoveInteractor;
+import usecases.endprocesshorde.HordeInteractor;
 import usecases.eventdecide.DecideEventInteractor;
 import usecases.eventinitialize.EventInitializeInteractor;
 import usecases.eventrespond.ambush.AmbushEventInteractor;
@@ -62,11 +69,13 @@ import usecases.eventrespond.survivor.SurvivorEventInteractor;
 import usecases.eventrespond.trader.TraderEventInteractor;
 import usecases.fetchcurrentevent.CurrentEventInteractor;
 import usecases.fetchresource.FetchInteractor;
+import usecases.gamelosedetecter.LoseInteractor;
 import usecases.gameminimap.MinimapInteractor;
 import usecases.gamenewday.NewdayInteractor;
 import usecases.gameplacedescription.PlaceDescriptionInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.nevagategame.NevagateGameInteractor;
+import usecases.nevagategameover.NevagateGameOverInteractor;
 import usecases.nevagatemain.NevagateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
 import frameworks.database.JsonRankingDataAccess;
@@ -257,12 +266,32 @@ public class GameMainApplication {
         final MinimapPresenter minimapPresenter = new MinimapPresenter(gameView);
         final MinimapInteractor minimapInteractor = new MinimapInteractor(gamedatabase, minimapPresenter);
         final MinimapController minimapController = new MinimapController(minimapInteractor);
-        // Event respond usecase
+
+        // Lose detect usecase
+        final LosePresenter losePresenter = new LosePresenter(gameView);
+        final LoseInteractor loseInteractor = new LoseInteractor(gamedatabase, losePresenter);
+        final LoseController loseController = new LoseController(loseInteractor);
+
+        // End process horde usecase
+        final HordePresenter hordePresenter = new HordePresenter(gameView);
+        final HordeInteractor hordeInteractor = new HordeInteractor(gamedatabase, hordePresenter);
+        final HordeController hordeController = new HordeController(hordeInteractor);
+
+        // Navigate Game Over view usecase
+        final NevagateGameOverPresenter nevagateGameOverPresenter =
+                new NevagateGameOverPresenter(navigationManager);
+        final NevagateGameOverInteractor nevagateGameOverInteractor =
+                new NevagateGameOverInteractor(gamedatabase, nevagateGameOverPresenter);
+        final NevagateGameOverController nevagateGameOverController =
+                new NevagateGameOverController(nevagateGameOverInteractor);
+
+
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
         gameView.setController(fetchController, broadcastController,
                 placeDescriptionController, dailyGatherController, dailyMoveController,
-                nevagateEventController, eventDecideController, newdayController, minimapController);
+                nevagateEventController, eventDecideController, newdayController, minimapController, loseController,
+                hordeController, nevagateGameOverController);
         attributeview.setAllowcateController(allowcateController, nevagateMainController);
         eventView.setController(eventInitializerController, fetchEventController, nevagateGameController);
         eventView.setManager(eventManager);
