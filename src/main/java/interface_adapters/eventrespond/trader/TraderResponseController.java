@@ -1,7 +1,7 @@
 package interface_adapters.eventrespond.trader;
 
 import usecases.eventrespond.trader.TraderEventInteractor;
-import usecases.eventrespond.shared.RespondInputData;
+import usecases.eventrespond.trader.TraderInputData;
 
 /**
  * Controller for handling responses to a Trader event.
@@ -18,7 +18,7 @@ public class TraderResponseController {
      * @param choice The player's choice for the event.
      */
     public void execute(int choice) {
-        RespondInputData inputData = new RespondInputData(choice);
+        TraderInputData inputData = new TraderInputData(choice);  // Use TraderInputData
         interactor.execute(inputData);
     }
 }

@@ -1,12 +1,12 @@
 package interface_adapters.eventrespond.survivor;
 
-import usecases.eventrespond.shared.RespondOutputBoundary;
-import usecases.eventrespond.shared.RespondOutputData;
+import usecases.eventrespond.survivor.SurvivorOutputBoundary;
+import usecases.eventrespond.survivor.SurvivorOutputData;
 
 /**
  * Presenter for handling the response output of a Survivor event.
  */
-public class SurvivorResponsePresenter implements RespondOutputBoundary {
+public class SurvivorResponsePresenter implements SurvivorOutputBoundary {
     private final SurvivorResponseInterface view;
 
     public SurvivorResponsePresenter(SurvivorResponseInterface view) {
@@ -14,12 +14,13 @@ public class SurvivorResponsePresenter implements RespondOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(RespondOutputData outputData) {
+    public void prepareSuccessView(SurvivorOutputData outputData) {
+        // Update the UI with the message from SurvivorOutputData
         view.updateUiResponse(outputData.getMessage());
     }
 
     @Override
     public void prepareFailureView(String errorMessage) {
-        view.failureResponse(errorMessage);
+        view.failureResponse(errorMessage);  // Handle failure case
     }
 }

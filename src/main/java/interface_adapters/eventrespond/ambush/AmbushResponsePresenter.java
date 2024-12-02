@@ -1,12 +1,12 @@
 package interface_adapters.eventrespond.ambush;
 
-import usecases.eventrespond.shared.RespondOutputBoundary;
-import usecases.eventrespond.shared.RespondOutputData;
+import usecases.eventrespond.ambush.AmbushOutputBoundary;
+import usecases.eventrespond.ambush.AmbushOutputData;
 
 /**
  * Presenter for handling the response output of an Ambush event.
  */
-public class AmbushResponsePresenter implements RespondOutputBoundary {
+public class AmbushResponsePresenter implements AmbushOutputBoundary {
     private final AmbushResponseInterface view;
 
     public AmbushResponsePresenter(AmbushResponseInterface view) {
@@ -14,12 +14,13 @@ public class AmbushResponsePresenter implements RespondOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(RespondOutputData outputData) {
-        view.updateUiResponse(outputData.getMessage());
+    public void prepareSuccessView(AmbushOutputData outputData) {
+        // Pass the message and relevant details to the view
+        view.updateUiResponse(outputData.getMessage());  // Updated method based on new event-specific data
     }
 
     @Override
     public void prepareFailureView(String errorMessage) {
-        view.failureResponse(errorMessage);
+        view.failureResponse(errorMessage);  // Handle failure case
     }
 }

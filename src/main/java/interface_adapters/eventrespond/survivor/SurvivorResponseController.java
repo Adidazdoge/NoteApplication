@@ -1,7 +1,7 @@
 package interface_adapters.eventrespond.survivor;
 
 import usecases.eventrespond.survivor.SurvivorEventInteractor;
-import usecases.eventrespond.shared.RespondInputData;
+import usecases.eventrespond.survivor.SurvivorInputData;
 
 /**
  * Controller for handling responses to a Survivor event.
@@ -18,7 +18,7 @@ public class SurvivorResponseController {
      * @param choice The player's choice for the event.
      */
     public void execute(int choice) {
-        RespondInputData inputData = new RespondInputData(choice);
+        SurvivorInputData inputData = new SurvivorInputData(choice);  // Use SurvivorInputData
         interactor.execute(inputData);
     }
 }

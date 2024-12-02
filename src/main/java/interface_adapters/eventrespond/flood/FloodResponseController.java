@@ -1,7 +1,7 @@
 package interface_adapters.eventrespond.flood;
 
 import usecases.eventrespond.flood.FloodEventInteractor;
-import usecases.eventrespond.shared.RespondInputData;
+import usecases.eventrespond.flood.FloodInputData;
 
 /**
  * Controller for handling responses to a Flood event.
@@ -18,7 +18,7 @@ public class FloodResponseController {
      * @param choice The player's choice for the event.
      */
     public void execute(int choice) {
-        RespondInputData inputData = new RespondInputData(choice);
+        FloodInputData inputData = new FloodInputData(choice);  // Using FloodInputData now
         interactor.execute(inputData);
     }
 }
