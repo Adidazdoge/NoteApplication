@@ -1,24 +1,18 @@
 package interface_adapters.eventrespond;
 
 /**
- * Interface for communicating with the view in a decoupled manner for event response use case.
+ * Interface for updating the event response UI.
  */
 public interface EventResponseInterface {
 
     /**
-     * Update the event description in the UI.
-     * @param description The event description to display.
-     */
-    void updateEventDescription(String description);
-
-    /**
-     * Update the UI with the success message from the interactor.
-     * @param message The success message.
+     * Update the UI with the result of a successful event response.
+     * @param message The success message to display.
      */
     void updateUiResponse(String message);
 
     /**
-     * Display an error message if the event response fails.
+     * Update the UI with an error message if the response fails.
      * @param errorMessage The error message to display.
      */
     void failureResponse(String errorMessage);

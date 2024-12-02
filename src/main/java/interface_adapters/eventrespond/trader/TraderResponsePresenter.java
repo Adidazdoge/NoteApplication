@@ -1,15 +1,15 @@
-package interface_adapters.eventrespond;
+package interface_adapters.eventrespond.trader;
 
 import usecases.eventrespond.shared.RespondOutputBoundary;
 import usecases.eventrespond.shared.RespondOutputData;
 
 /**
- * Presenter for handling event response outputs.
+ * Presenter for handling the response output of a Trader event.
  */
-public class EventResponsePresenter implements RespondOutputBoundary {
-    private final EventResponseInterface view;
+public class TraderResponsePresenter implements RespondOutputBoundary {
+    private final TraderResponseInterface view;
 
-    public EventResponsePresenter(EventResponseInterface view) {
+    public TraderResponsePresenter(TraderResponseInterface view) {
         this.view = view;
     }
 

@@ -1,15 +1,15 @@
-package interface_adapters.eventrespond;
+package interface_adapters.eventrespond.blizzard;
 
 import usecases.eventrespond.shared.RespondOutputBoundary;
 import usecases.eventrespond.shared.RespondOutputData;
 
 /**
- * Presenter for handling event response outputs.
+ * Presenter for handling the response output of a Blizzard event.
  */
-public class EventResponsePresenter implements RespondOutputBoundary {
-    private final EventResponseInterface view;
+public class BlizzardResponsePresenter implements RespondOutputBoundary {
+    private final BlizzardResponseInterface view;
 
-    public EventResponsePresenter(EventResponseInterface view) {
+    public BlizzardResponsePresenter(BlizzardResponseInterface view) {
         this.view = view;
     }
 

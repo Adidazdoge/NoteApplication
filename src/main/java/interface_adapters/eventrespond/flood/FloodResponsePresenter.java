@@ -1,15 +1,15 @@
-package interface_adapters.eventrespond;
+package interface_adapters.eventrespond.flood;
 
 import usecases.eventrespond.shared.RespondOutputBoundary;
 import usecases.eventrespond.shared.RespondOutputData;
 
 /**
- * Presenter for handling event response outputs.
+ * Presenter for handling the response output of a Flood event.
  */
-public class EventResponsePresenter implements RespondOutputBoundary {
-    private final EventResponseInterface view;
+public class FloodResponsePresenter implements RespondOutputBoundary {
+    private final FloodResponseInterface view;
 
-    public EventResponsePresenter(EventResponseInterface view) {
+    public FloodResponsePresenter(FloodResponseInterface view) {
         this.view = view;
     }
 

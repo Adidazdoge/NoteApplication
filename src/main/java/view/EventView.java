@@ -1,22 +1,27 @@
 package view;
 
+import interface_adapters.eventrespond.EventResponseController;
+import interface_adapters.eventrespond.EventResponseInterface;
+import interface_adapters.eventrespond.EventResponsePresenter;
+import usecases.eventrespond.shared.RespondDataAccessInterface;
+import usecases.eventrespond.shared.RespondInputData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import interface_adapters.eventrespond.EventResponseController;
-import interface_adapters.eventrespond.EventResponseInterface;
 
 /**
-// * Event view.
+ * Event view.
  */
-
 public class EventView extends JFrame implements EventResponseInterface {
-    private final JTextArea descriptionArea;
     private final EventResponseController controller;
 
-    public EventView(EventResponseController controller) {
+    public EventView(RespondDataAccessInterface dataAccess) {
         super("Event");
-        this.controller = controller;
+
+        // Set up the presenter and controller
+        EventResponsePresenter presenter = new EventResponsePresenter(this);
+        // this.controller = new EventResponseController(dataAccess, presenter);
 
         final Container container = getContentPane();
         final SpringLayout layout = new SpringLayout();
@@ -24,11 +29,11 @@ public class EventView extends JFrame implements EventResponseInterface {
 
         // Event Label
         final JLabel eventLabel = new JLabel("Event:");
-        eventLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
+        eventLabel.setFont(new Font("Serif", Font.BOLD, 20));
         container.add(eventLabel);
 
         // Description Area
-        descriptionArea = new JTextArea("Event description goes here...");
+        final JTextArea descriptionArea = new JTextArea("Event description goes here...");
         descriptionArea.setEditable(false);
         descriptionArea.setBackground(Color.LIGHT_GRAY);
         descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -45,56 +50,54 @@ public class EventView extends JFrame implements EventResponseInterface {
         container.add(backButton);
 
         // Layout Constraints
-        layoutComponents(layout, container, eventLabel, descriptionArea, fightButton, negotiateButton, fleeButton, backButton);
+        setupLayout(layout, eventLabel, container, descriptionArea, fightButton, negotiateButton, fleeButton, backButton);
 
         // Add ActionListeners to Buttons
-        fightButton.addActionListener(e -> controller.execute(1)); // Choice 1
-        negotiateButton.addActionListener(e -> controller.execute(2)); // Choice 2
-        fleeButton.addActionListener(e -> controller.execute(3)); // Choice 3
-        backButton.addActionListener(e -> dispose());
+        // fightButton.addActionListener(e -> controller.execute(1));
+        // negotiateButton.addActionListener(e -> controller.execute(2));
+        // fleeButton.addActionListener(e -> controller.execute(3));
+        backButton.addActionListener(e -> {
+            dispose();
+            new GameView();
+        });
 
         // Window Settings
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
     }
 
-    private void layoutComponents(SpringLayout layout, Container container, JLabel eventLabel, JTextArea descriptionArea,
-                                  JButton fightButton, JButton negotiateButton, JButton fleeButton, JButton backButton) {
+    private void setupLayout(SpringLayout layout, JLabel eventLabel, Container container,
+                             JTextArea descriptionArea, JButton fightButton, JButton negotiateButton, JButton fleeButton, JButton backButton) {
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, eventLabel, 0, SpringLayout.HORIZONTAL_CENTER, container);
-        layout.putConstraint(SpringLayout.NORTH, eventLabel, Constants.TWENTY, SpringLayout.NORTH, container);
+        layout.putConstraint(SpringLayout.NORTH, eventLabel, 20, SpringLayout.NORTH, container);
 
-        layout.putConstraint(SpringLayout.WEST, descriptionArea, Constants.TWENTY, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.EAST, descriptionArea, -Constants.TWENTY, SpringLayout.EAST, container);
-        layout.putConstraint(SpringLayout.NORTH, descriptionArea, Constants.TWENTY, SpringLayout.SOUTH, eventLabel);
-        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH, container);
+        layout.putConstraint(SpringLayout.WEST, descriptionArea, 20, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.EAST, descriptionArea, -20, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.NORTH, descriptionArea, 20, SpringLayout.SOUTH, eventLabel);
+        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -100, SpringLayout.SOUTH, container);
 
-        layout.putConstraint(SpringLayout.WEST, fightButton, Constants.TWENTY, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, fightButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionArea);
+        layout.putConstraint(SpringLayout.WEST, fightButton, 20, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, fightButton, 20, SpringLayout.SOUTH, descriptionArea);
 
-        layout.putConstraint(SpringLayout.WEST, negotiateButton, Constants.TWENTY, SpringLayout.EAST, fightButton);
+        layout.putConstraint(SpringLayout.WEST, negotiateButton, 20, SpringLayout.EAST, fightButton);
         layout.putConstraint(SpringLayout.NORTH, negotiateButton, 0, SpringLayout.NORTH, fightButton);
 
-        layout.putConstraint(SpringLayout.WEST, fleeButton, Constants.TWENTY, SpringLayout.EAST, negotiateButton);
+        layout.putConstraint(SpringLayout.WEST, fleeButton, 20, SpringLayout.EAST, negotiateButton);
         layout.putConstraint(SpringLayout.NORTH, fleeButton, 0, SpringLayout.NORTH, fightButton);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
-        layout.putConstraint(SpringLayout.NORTH, backButton, Constants.TWENTY, SpringLayout.SOUTH, fightButton);
-    }
-
-    @Override
-    public void updateEventDescription(String description) {
-        descriptionArea.setText(description);
+        layout.putConstraint(SpringLayout.NORTH, backButton, 20, SpringLayout.SOUTH, fightButton);
     }
 
     @Override
     public void updateUiResponse(String message) {
-        JOptionPane.showMessageDialog(this, "Success: " + message);
+        JOptionPane.showMessageDialog(this, "Success: " + message, "Event Response", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void failureResponse(String errorMessage) {
-        JOptionPane.showMessageDialog(this, "Error: " + errorMessage);
+        JOptionPane.showMessageDialog(this, "Error: " + errorMessage, "Event Response", JOptionPane.ERROR_MESSAGE);
     }
 }
