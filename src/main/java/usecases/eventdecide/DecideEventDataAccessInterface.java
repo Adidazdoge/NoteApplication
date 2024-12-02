@@ -16,13 +16,13 @@ public interface DecideEventDataAccessInterface {
      * This method is responsible for get all event and their info.
      * @return List of all events type data.
      */
-    ArrayList<Event> getEvents();
+    ArrayList<Event> getALLEvents();
 
     /**
      * This method will set the decided events for that day.
      * @param events events decided.
      */
-    void setEvents(ArrayList<Event> events);
+    void setDecidedEvents(ArrayList<Event> events);
 
     /**
      * Get the player's current location, because certain event will only happen in certain location, Iceland

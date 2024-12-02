@@ -14,19 +14,28 @@ import interface_adapters.dailygather.DailyGatherController;
 import interface_adapters.dailygather.DailyGatherPresenter;
 import interface_adapters.dailymove.DailyMoveController;
 import interface_adapters.dailymove.DailyMovePresenter;
+import interface_adapters.eventdecide.EventDecideController;
+import interface_adapters.eventdecide.EventDecidePresenter;
+import interface_adapters.eventinitializer.EventInitializerController;
+import interface_adapters.eventinitializer.EventInitializerPresenter;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchPresenter;
 import interface_adapters.gameplacedescription.PlaceDescriptionController;
 import interface_adapters.gameplacedescription.PlaceDescriptionPresenter;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcatePresenter;
+import interface_adapters.nevagateevent.NevagateEventController;
+import interface_adapters.nevagateevent.NevagateEventPresenter;
 import interface_adapters.nevagatemainview.NevagateMainController;
 import interface_adapters.nevagatemainview.NevagateMainPresenter;
 import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcatePresenter;
+import usecases.NevagateEventPage.NevagateEventInteractor;
 import usecases.dailybroadcast.BroadcastInteractor;
 import usecases.dailygather.GatherInteractor;
 import usecases.dailymove.MoveInteractor;
+import usecases.eventdecide.DecideEventInteractor;
+import usecases.eventinitialize.EventInitializeInteractor;
 import usecases.fetchresource.FetchInteractor;
 import usecases.gameplacedescription.PlaceDescriptionInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
@@ -143,10 +152,32 @@ public class GameMainApplication {
         final DailyMovePresenter dailyMovePresenter = new DailyMovePresenter(gameView);
         final MoveInteractor moveInteractor = new MoveInteractor(gamedatabase, dailyMovePresenter);
         final DailyMoveController dailyMoveController = new DailyMoveController(moveInteractor);
+
+        // Nevagate Event usecase
+        final NevagateEventPresenter nevagateEventPresenter = new NevagateEventPresenter(navigationManager, gameView);
+        final NevagateEventInteractor nevagateEventInteractor =
+                new NevagateEventInteractor(gamedatabase, nevagateEventPresenter);
+        final NevagateEventController nevagateEventController = new NevagateEventController(nevagateEventInteractor);
+
+        // Event Initialize usecase
+        final EventInitializerPresenter eventInitializerPresenter = new EventInitializerPresenter(eventView);
+        final EventInitializeInteractor eventInitializeInteractor =
+                new EventInitializeInteractor(gamedatabase, eventInitializerPresenter);
+        final EventInitializerController eventInitializerController =
+                new EventInitializerController(eventInitializeInteractor);
+
+        // Event Decide usecase
+        final EventDecidePresenter eventDecidePresenter = new EventDecidePresenter(gameView);
+        final DecideEventInteractor decideEventInteractor =
+                new DecideEventInteractor(gamedatabase, eventDecidePresenter);
+        final EventDecideController eventDecideController = new EventDecideController(decideEventInteractor);
+
+        // Event respond usecase
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
         gameView.setController(fetchController, broadcastController,
-                placeDescriptionController, dailyGatherController, dailyMoveController);
+                placeDescriptionController, dailyGatherController, dailyMoveController,
+                nevagateEventController, eventDecideController);
         attributeview.setAllowcateController(allowcateController, nevagateMainController);
     }
 }

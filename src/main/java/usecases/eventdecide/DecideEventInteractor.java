@@ -21,7 +21,7 @@ public class DecideEventInteractor implements DecideEventInputBoundary {
 
     @Override
     public void execute(DecideEventInputData inputdata) {
-        final ArrayList<Event> events = dataaccessobject.getEvents();
+        final ArrayList<Event> events = dataaccessobject.getALLEvents();
         final ArrayList<Event> decidedEvents = new ArrayList<>();
         final Location location = dataaccessobject.getLocation();
         final String locationName = location.toString();
@@ -39,7 +39,7 @@ public class DecideEventInteractor implements DecideEventInputBoundary {
                 }
             }
         }
-        dataaccessobject.setEvents(decidedEvents);
+        dataaccessobject.setDecidedEvents(decidedEvents);
         final DecideEventOutputData outputdata = new DecideEventOutputData(decidedEventNames);
         outputboundary.prepareSuccessView(outputdata);
     }

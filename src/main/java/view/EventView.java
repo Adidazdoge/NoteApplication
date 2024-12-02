@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapters.eventinitializer.EventInitializerInterface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -7,7 +9,7 @@ import java.awt.event.ActionListener;
  * Event view.
  */
 
-public class EventView extends JFrame {
+public class EventView extends JFrame implements EventInitializerInterface {
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public EventView() {
         super("Event");
@@ -101,5 +103,15 @@ public class EventView extends JFrame {
 
     public static void main(String[] args) {
         new EventView();
+    }
+
+    @Override
+    public void updateUiEventInitializer(String eventdescription, String option1, String option2, String option3) {
+
+    }
+
+    @Override
+    public void failureEventInitializer(String failmessage) {
+
     }
 }

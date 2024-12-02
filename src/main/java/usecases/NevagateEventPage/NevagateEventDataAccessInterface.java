@@ -12,5 +12,5 @@ public interface NevagateEventDataAccessInterface {
      * Get all events decided for that day.
      * @return events.
      */
-    ArrayList<Event> getEvents();
+    ArrayList<Event> getDecidedEvents();
 }

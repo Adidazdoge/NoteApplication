@@ -6,19 +6,25 @@ import interface_adapters.dailygather.DailyGatherController;
 import interface_adapters.dailygather.DailyGatherInterface;
 import interface_adapters.dailymove.DailyMoveController;
 import interface_adapters.dailymove.DailyMoveInterface;
+import interface_adapters.eventdecide.EventDecideController;
+import interface_adapters.eventdecide.EventDecideInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
 import interface_adapters.gameplacedescription.PlaceDescriptionController;
 import interface_adapters.gameplacedescription.PlaceDescriptionInterface;
+import interface_adapters.nevagateevent.NevagateEventController;
+import interface_adapters.nevagateevent.NevagateEventInterface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface,
-        PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface {
+        PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface,
+        EventDecideInterface, NevagateEventInterface {
     private int day;
     private int food;
     private int water;
@@ -42,6 +48,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     private PlaceDescriptionController placeDescriptionController;
     private DailyGatherController dailyGatherController;
     private DailyMoveController dailyMoveController;
+    private EventDecideController eventDecideController;
+    private NevagateEventController nevagateEventController;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -152,7 +160,13 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
             fetchController.execute();
         });
 
+        eventButton.addActionListener(e -> {
+            nevagateEventController.execute();
+        });
 
+        nextDayButton.addActionListener(e -> {
+            eventDecideController.execute();
+        });
 
         // Add ActionListeners
         infoButton.addActionListener(e -> toggleInfoBox());
@@ -178,12 +192,16 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
 
     public void setController(FetchController fetchController, BroadcastController broadcastController,
                               PlaceDescriptionController placeDescriptionController,
-                              DailyGatherController dailyGatherController, DailyMoveController dailyMoveController) {
+                              DailyGatherController dailyGatherController, DailyMoveController dailyMoveController,
+                              NevagateEventController nevagateEventController,
+                              EventDecideController eventDecideController) {
         this.fetchController = fetchController;
         this.broadcastController = broadcastController;
         this.placeDescriptionController = placeDescriptionController;
         this.dailyGatherController = dailyGatherController;
         this.dailyMoveController = dailyMoveController;
+        this.nevagateEventController = nevagateEventController;
+        this.eventDecideController = eventDecideController;
     }
 
     public void render() {
@@ -408,6 +426,44 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                 this,
                 failmessage,
                 "Unable to Get Place Description",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public void updateUiEventDecide(ArrayList<String> eventNames) {
+        if (infoBox != null) {
+            if (eventNames.isEmpty()) {
+                // No events
+                infoBox.append("No events happened today.\n");
+            }
+            else {
+                // Display the events
+                infoBox.append("Today's events:\n");
+                for (String event : eventNames) {
+                    infoBox.append("- " + event + "\n");
+                }
+            }
+            infoBox.setCaretPosition(infoBox.getDocument().getLength());
+        }
+    }
+
+    @Override
+    public void failureEventDecide(String errorMessage) {
+        JOptionPane.showMessageDialog(
+                this,
+                errorMessage,
+                "Unable to decide event.",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public void failureNevagateEvent(String message) {
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "Unable to go to event page!",
                 JOptionPane.ERROR_MESSAGE
         );
     }

@@ -3,6 +3,7 @@ package frameworks.database;
 import java.util.ArrayList;
 
 import entities.*;
+import usecases.NevagateEventPage.NevagateEventDataAccessInterface;
 import usecases.dailybroadcast.BroadcastDataAccessInterface;
 import usecases.dailygather.GatherDataAccessInterface;
 import usecases.dailymove.MoveDataAccessInterface;
@@ -43,11 +44,12 @@ public class InMemoryUnifiedDataAccess implements
         TraderDataAccessInterface,
         BlizzardDataAccessInterface,
         AmbushDataAccessInterface,
-        NevagateMainDataAccessInterface {
+        NevagateMainDataAccessInterface,
+        NevagateEventDataAccessInterface {
     // Shared game data
     private PlayerAttributes playerAttributes;
     private Inventory inventory;
-    private ArrayList<Event> events;
+    private ArrayList<Event> unprocessedevents;
     private Location currentLocation;
     private Horde horde;
     private PlayerInfo playerInfo;
@@ -68,7 +70,7 @@ public class InMemoryUnifiedDataAccess implements
                                      EventTraderEncounter traderEncounter) {
         this.playerAttributes = playerAttributes;
         this.inventory = inventory;
-        this.events = events;
+        this.unprocessedevents = events;
         this.currentLocation = currentLocation;
         this.horde = horde;
         this.playerInfo = playerInfo;
@@ -125,7 +127,7 @@ public class InMemoryUnifiedDataAccess implements
 
     // Implement of the DecideEventDataAccessInterface
     @Override
-    public ArrayList<Event> getEvents() {
+    public ArrayList<Event> getALLEvents() {
         // Return a copy to ensure immutability
         final ArrayList<Event> allevents = new ArrayList();
         allevents.add(ambush);
@@ -137,8 +139,8 @@ public class InMemoryUnifiedDataAccess implements
     }
 
     @Override
-    public void setEvents(ArrayList<Event> events) {
-        this.events = new ArrayList<>(events);
+    public void setDecidedEvents(ArrayList<Event> decidedevents) {
+        this.unprocessedevents = new ArrayList<>(decidedevents);
     }
 
     @Override
@@ -159,7 +161,7 @@ public class InMemoryUnifiedDataAccess implements
     // Implement of the EventInitiallizeInterface
     @Override
     public Event getEvent() {
-        return events.get(0);
+        return unprocessedevents.get(0);
     }
 
     // Implement of the FetchDataAccessInterface
@@ -235,5 +237,10 @@ public class InMemoryUnifiedDataAccess implements
     @Override
     public void changePeople(int people) {
         inventory.changePeople(people);
+    }
+
+    @Override
+    public ArrayList<Event> getDecidedEvents() {
+        return this.unprocessedevents;
     }
 }
