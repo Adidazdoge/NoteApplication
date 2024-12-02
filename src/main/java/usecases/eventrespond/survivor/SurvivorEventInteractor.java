@@ -2,23 +2,25 @@ package usecases.eventrespond.survivor;
 
 import entities.EntityConstants;
 import entities.EventSurvivorJoins;
-import usecases.eventrespond.shared.*;
+import usecases.eventrespond.survivor.SurvivorInputData;
+import usecases.eventrespond.survivor.SurvivorOutputBoundary;
+import usecases.eventrespond.survivor.SurvivorDataAccessInterface;
 
 /**
  * Interactor for handling player responses to a Survivor Encounter event.
- * Implements the RespondInputBoundary interface.
+ * Implements the SurvivorInputBoundary interface.
  */
-public class SurvivorEventInteractor implements RespondInputBoundary {
-    private final RespondDataAccessInterface dataAccess;
-    private final RespondOutputBoundary outputBoundary;
+public class SurvivorEventInteractor implements SurvivorInputBoundary {
+    private final SurvivorDataAccessInterface dataAccess;
+    private final SurvivorOutputBoundary outputBoundary;
 
-    public SurvivorEventInteractor(RespondDataAccessInterface dataAccess, RespondOutputBoundary outputBoundary) {
+    public SurvivorEventInteractor(SurvivorDataAccessInterface dataAccess, SurvivorOutputBoundary outputBoundary) {
         this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
     }
 
     @Override
-    public void execute(RespondInputData inputData) {
+    public void execute(SurvivorInputData inputData) {
         EventSurvivorJoins survivorEvent = (EventSurvivorJoins) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
@@ -58,7 +60,7 @@ public class SurvivorEventInteractor implements RespondInputBoundary {
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +
                                   ", Supplies " + suppliesChange + ", People " + peopleChange + ".";
-        RespondOutputData outputData = new RespondOutputData(message, foodChange, waterChange, suppliesChange, peopleChange, inventoryMessage);
+        SurvivorOutputData outputData = new SurvivorOutputData(message, foodChange, waterChange, suppliesChange, peopleChange, inventoryMessage);
         outputBoundary.prepareSuccessView(outputData);
     }
 }

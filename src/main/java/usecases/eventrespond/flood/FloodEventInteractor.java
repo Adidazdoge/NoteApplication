@@ -2,23 +2,25 @@ package usecases.eventrespond.flood;
 
 import entities.EntityConstants;
 import entities.EventFlood;
-import usecases.eventrespond.shared.*;
+import usecases.eventrespond.flood.FloodInputData;
+import usecases.eventrespond.flood.FloodOutputBoundary;
+import usecases.eventrespond.flood.FloodDataAccessInterface;
 
 /**
  * Interactor for handling player responses to a Flood event.
- * Implements the RespondInputBoundary interface.
+ * Implements the FloodInputBoundary interface.
  */
-public class FloodEventInteractor implements RespondInputBoundary {
-    private final RespondDataAccessInterface dataAccess;
-    private final RespondOutputBoundary outputBoundary;
+public class FloodEventInteractor implements FloodInputBoundary {
+    private final FloodDataAccessInterface dataAccess;
+    private final FloodOutputBoundary outputBoundary;
 
-    public FloodEventInteractor(RespondDataAccessInterface dataAccess, RespondOutputBoundary outputBoundary) {
+    public FloodEventInteractor(FloodDataAccessInterface dataAccess, FloodOutputBoundary outputBoundary) {
         this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
     }
 
     @Override
-    public void execute(RespondInputData inputData) {
+    public void execute(FloodInputData inputData) {
         EventFlood floodEvent = (EventFlood) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
@@ -54,7 +56,7 @@ public class FloodEventInteractor implements RespondInputBoundary {
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +
                                   ", People " + peopleChange + ".";
-        RespondOutputData outputData = new RespondOutputData(message, foodChange, waterChange, 0, peopleChange, inventoryMessage);
+        FloodOutputData outputData = new FloodOutputData(message, foodChange, waterChange, 0, peopleChange, inventoryMessage);
         outputBoundary.prepareSuccessView(outputData);
     }
 }

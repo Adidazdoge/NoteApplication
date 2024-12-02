@@ -2,23 +2,25 @@ package usecases.eventrespond.trader;
 
 import entities.EntityConstants;
 import entities.EventTraderEncounter;
-import usecases.eventrespond.shared.*;
+import usecases.eventrespond.trader.TraderInputData;
+import usecases.eventrespond.trader.TraderOutputBoundary;
+import usecases.eventrespond.trader.TraderDataAccessInterface;
 
 /**
  * Interactor for handling player responses to a Trader Encounter event.
- * Implements the RespondInputBoundary interface.
+ * Implements the TraderInputBoundary interface.
  */
-public class TraderEventInteractor implements RespondInputBoundary {
-    private final RespondDataAccessInterface dataAccess;
-    private final RespondOutputBoundary outputBoundary;
+public class TraderEventInteractor implements TraderInputBoundary {
+    private final TraderDataAccessInterface dataAccess;
+    private final TraderOutputBoundary outputBoundary;
 
-    public TraderEventInteractor(RespondDataAccessInterface dataAccess, RespondOutputBoundary outputBoundary) {
+    public TraderEventInteractor(TraderDataAccessInterface dataAccess, TraderOutputBoundary outputBoundary) {
         this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
     }
 
     @Override
-    public void execute(RespondInputData inputData) {
+    public void execute(TraderInputData inputData) {
         EventTraderEncounter traderEvent = (EventTraderEncounter) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
@@ -60,11 +62,12 @@ public class TraderEventInteractor implements RespondInputBoundary {
         dataAccess.changeFood(foodChange);
         dataAccess.changeWater(waterChange);
         dataAccess.changeWeapon(suppliesChange);
+        dataAccess.changePeople(peopleChange);
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +
                                   ", Supplies " + suppliesChange + ", People " + peopleChange + ".";
-        RespondOutputData outputData = new RespondOutputData(message, foodChange, waterChange, suppliesChange, peopleChange, inventoryMessage);
+        TraderOutputData outputData = new TraderOutputData(message, foodChange, waterChange, suppliesChange, peopleChange, inventoryMessage);
         outputBoundary.prepareSuccessView(outputData);
     }
 }

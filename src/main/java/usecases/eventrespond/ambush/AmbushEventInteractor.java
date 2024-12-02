@@ -2,23 +2,25 @@ package usecases.eventrespond.ambush;
 
 import entities.EntityConstants;
 import entities.EventAmbush;
-import usecases.eventrespond.shared.*;
+import usecases.eventrespond.ambush.AmbushInputData;
+import usecases.eventrespond.ambush.AmbushOutputBoundary;
+import usecases.eventrespond.ambush.AmbushDataAccessInterface;
 
 /**
  * Interactor for handling player responses to an Ambush event.
- * Implements the RespondInputBoundary interface.
+ * Implements the AmbushInputBoundary interface.
  */
-public class AmbushEventInteractor implements RespondInputBoundary {
-    private final RespondDataAccessInterface dataAccess;
-    private final RespondOutputBoundary outputBoundary;
+public class AmbushEventInteractor implements AmbushInputBoundary {
+    private final AmbushDataAccessInterface dataAccess;
+    private final AmbushOutputBoundary outputBoundary;
 
-    public AmbushEventInteractor(RespondDataAccessInterface dataAccess, RespondOutputBoundary outputBoundary) {
+    public AmbushEventInteractor(AmbushDataAccessInterface dataAccess, AmbushOutputBoundary outputBoundary) {
         this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
     }
 
     @Override
-    public void execute(RespondInputData inputData) {
+    public void execute(AmbushInputData inputData) {
         EventAmbush ambushEvent = (EventAmbush) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
@@ -74,7 +76,7 @@ public class AmbushEventInteractor implements RespondInputBoundary {
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +
                                   ", Weapons " + weaponChange + ", People " + peopleChange + ".";
-        RespondOutputData outputData = new RespondOutputData(message, foodChange, waterChange, weaponChange, peopleChange, inventoryMessage);
+        AmbushOutputData outputData = new AmbushOutputData(message, foodChange, waterChange, weaponChange, peopleChange, inventoryMessage);
         outputBoundary.prepareSuccessView(outputData);
     }
 }

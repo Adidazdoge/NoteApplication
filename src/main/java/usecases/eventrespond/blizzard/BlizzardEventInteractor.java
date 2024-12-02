@@ -2,23 +2,25 @@ package usecases.eventrespond.blizzard;
 
 import entities.EntityConstants;
 import entities.EventBlizzard;
-import usecases.eventrespond.shared.*;
+import usecases.eventrespond.blizzard.BlizzardInputData;
+import usecases.eventrespond.blizzard.BlizzardOutputBoundary;
+import usecases.eventrespond.blizzard.BlizzardDataAccessInterface;
 
 /**
  * Interactor for handling player responses to a Blizzard event.
- * Implements the RespondInputBoundary interface.
+ * Implements the BlizzardInputBoundary interface.
  */
-public class BlizzardEventInteractor implements RespondInputBoundary {
-    private final RespondDataAccessInterface dataAccess;
-    private final RespondOutputBoundary outputBoundary;
+public class BlizzardEventInteractor implements BlizzardInputBoundary {
+    private final BlizzardDataAccessInterface dataAccess;
+    private final BlizzardOutputBoundary outputBoundary;
 
-    public BlizzardEventInteractor(RespondDataAccessInterface dataAccess, RespondOutputBoundary outputBoundary) {
+    public BlizzardEventInteractor(BlizzardDataAccessInterface dataAccess, BlizzardOutputBoundary outputBoundary) {
         this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
     }
 
     @Override
-    public void execute(RespondInputData inputData) {
+    public void execute(BlizzardInputData inputData) {
         EventBlizzard blizzardEvent = (EventBlizzard) dataAccess.getEvent();
         int choice = inputData.getChoice();
 
@@ -52,7 +54,7 @@ public class BlizzardEventInteractor implements RespondInputBoundary {
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange + ".";
-        RespondOutputData outputData = new RespondOutputData(message, foodChange, waterChange, 0, 0, inventoryMessage);
+        BlizzardOutputData outputData = new BlizzardOutputData(message, foodChange, waterChange, 0, 0, inventoryMessage);
         outputBoundary.prepareSuccessView(outputData);
     }
 }
