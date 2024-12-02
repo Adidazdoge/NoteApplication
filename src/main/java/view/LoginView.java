@@ -83,6 +83,7 @@ public class LoginView extends JFrame implements LoginInterface {
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
         setVisible(true);
     }
 
@@ -122,7 +123,7 @@ public class LoginView extends JFrame implements LoginInterface {
             // Close login window
             dispose();
             // Navigate to the game view
-            MainView mainView = new MainView();
+            final MainView mainView = new MainView();
             mainView.render();
         }
     }
