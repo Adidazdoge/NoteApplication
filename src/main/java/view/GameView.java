@@ -60,13 +60,13 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         this.propertyChangeSupport = new PropertyChangeSupport(this);
 
         // Initialize UI components
-        Container container = getContentPane();
-        SpringLayout layout = new SpringLayout();
+        final Container container = getContentPane();
+        final SpringLayout layout = new SpringLayout();
         container.setLayout(layout);
 
         // Initialize labels for resources
         dayLabel = new JLabel("Day: " + day);
-        dayLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        dayLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
         foodLabel = new JLabel("Food: " + food);
         waterLabel = new JLabel("Water: " + water);
         peopleLabel = new JLabel("People: " + people);
@@ -87,38 +87,35 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         mapPanel.setWrapStyleWord(true);
         mapPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mapPanel.setBackground(Color.LIGHT_GRAY);
-        mapPanel.setPreferredSize(new Dimension(200, 200));
+        mapPanel.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
         container.add(mapPanel);
 
         // Wrap infoBox in a JScrollPane (top-left position, smaller width)
-        JScrollPane infoScrollPane = new JScrollPane(infoBox);
+        final JScrollPane infoScrollPane = new JScrollPane(infoBox);
         infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        infoScrollPane.setPreferredSize(new Dimension(200, 200)); // Adjusted smaller width and fixed height
+        // Adjusted smaller width and fixed height
+        infoScrollPane.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
         container.add(infoScrollPane);
         infoBox.setLineWrap(true);
         infoBox.setWrapStyleWord(true);
         infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-
-// Update Layout Constraints for infoScrollPane (top-left, same as minimap)
-        layout.putConstraint(SpringLayout.EAST, infoScrollPane, -20, SpringLayout.EAST, container);
-        layout.putConstraint(SpringLayout.NORTH, infoScrollPane, 20, SpringLayout.NORTH, container);
-
-
-
+        // Update Layout Constraints for infoScrollPane (top-left, same as minimap)
+        layout.putConstraint(SpringLayout.EAST, infoScrollPane, -Constants.TWENTY, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.NORTH, infoScrollPane, Constants.TWENTY, SpringLayout.NORTH, container);
 
         // Buttons
-        JButton broadcastButton = new JButton("Broadcast");
-        JButton gatherButton = new JButton("Gather");
-        JButton upButton = new JButton("Up");
-        JButton downButton = new JButton("Down");
-        JButton leftButton = new JButton("Left");
-        JButton rightButton = new JButton("Right");
-        JButton eventButton = new JButton("Event");
-        JButton nextDayButton = new JButton("Next Day");
-        JButton infoButton = new JButton("Log");
+        final JButton broadcastButton = new JButton("Broadcast");
+        final JButton gatherButton = new JButton("Gather");
+        final JButton upButton = new JButton("Up");
+        final JButton downButton = new JButton("Down");
+        final JButton leftButton = new JButton("Left");
+        final JButton rightButton = new JButton("Right");
+        final JButton eventButton = new JButton("Event");
+        final JButton nextDayButton = new JButton("Next Day");
+        final JButton infoButton = new JButton("Log");
 
         container.add(broadcastButton);
         container.add(gatherButton);
@@ -182,7 +179,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                 leftButton, rightButton, eventButton, nextDayButton, infoButton);
 
         // Set frame properties
-        setSize(600, 400);
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -204,54 +201,94 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         this.eventDecideController = eventDecideController;
     }
 
+    /**
+     * Renders the UI by executing controllers and making the panel visible.
+     */
     public void render() {
         placeDescriptionController.execute();
         fetchController.execute();
         setVisible(true);
     }
 
+    /**
+     * Hides the UI by making the panel invisible.
+     */
     public void disrender() {
         setVisible(false);
     }
 
+    /**
+     * Toggles the visibility of the map and information box.
+     * If the map is currently visible, it hides the map and shows the info box, and vice versa.
+     */
     private void toggleInfoBox() {
         isMapVisible = !isMapVisible;
         mapPanel.setVisible(isMapVisible);
         infoBox.setVisible(!isMapVisible);
     }
 
+    /**
+     * Sets the current day and notifies listeners of the property change.
+     *
+     * @param day the new day value
+     */
     public void setDay(int day) {
-        int oldDay = this.day;
+        final int oldDay = this.day;
         this.day = day;
         propertyChangeSupport.firePropertyChange("day", oldDay, day);
     }
 
+    /**
+     * Sets the current food level and notifies listeners of the property change.
+     *
+     * @param food the new food value
+     */
     public void setFood(int food) {
-        int oldFood = this.food;
+        final int oldFood = this.food;
         this.food = food;
         propertyChangeSupport.firePropertyChange("food", oldFood, food);
     }
 
+    /**
+     * Sets the current water level and notifies listeners of the property change.
+     *
+     * @param water the new water value
+     */
     public void setWater(int water) {
-        int oldWater = this.water;
+        final int oldWater = this.water;
         this.water = water;
         propertyChangeSupport.firePropertyChange("water", oldWater, water);
     }
 
+    /**
+     * Sets the current population count and notifies listeners of the property change.
+     *
+     * @param people the new people count
+     */
     public void setPeople(int people) {
-        int oldPeople = this.people;
+        final int oldPeople = this.people;
         this.people = people;
         propertyChangeSupport.firePropertyChange("people", oldPeople, people);
     }
 
+    /**
+     * Sets the current weapon count and notifies listeners of the property change.
+     *
+     * @param weapon the new weapon value
+     */
     public void setWeapon(int weapon) {
-        int oldWeapon = this.weapon;
+        final int oldWeapon = this.weapon;
         this.weapon = weapon;
         propertyChangeSupport.firePropertyChange("weapon", oldWeapon, weapon);
     }
 
+    /**
+     * Sets the current action count and notifies listeners of the property change.
+     *
+     * @param action the new action value
+     */
     public void setAction(int action) {
-        int oldAction = this.action;
+        final int oldAction = this.action;
         this.action = action;
         propertyChangeSupport.firePropertyChange("action", oldAction, action);
     }
@@ -264,64 +301,66 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                                         JButton rightButton, JButton eventButton, JButton nextDayButton,
                                         JButton infoButton) {
         // Position resource labels
-        layout.putConstraint(SpringLayout.WEST, dayLabel, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, dayLabel, 20, SpringLayout.NORTH, container);
+        layout.putConstraint(SpringLayout.WEST, dayLabel, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, dayLabel, Constants.TWENTY, SpringLayout.NORTH, container);
 
-        layout.putConstraint(SpringLayout.WEST, foodLabel, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, foodLabel, 20, SpringLayout.SOUTH, dayLabel);
+        layout.putConstraint(SpringLayout.WEST, foodLabel, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, foodLabel, Constants.TWENTY, SpringLayout.SOUTH, dayLabel);
 
-        layout.putConstraint(SpringLayout.WEST, waterLabel, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, waterLabel, 20, SpringLayout.SOUTH, foodLabel);
+        layout.putConstraint(SpringLayout.WEST, waterLabel, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, waterLabel, Constants.TWENTY, SpringLayout.SOUTH, foodLabel);
 
-        layout.putConstraint(SpringLayout.WEST, peopleLabel, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, peopleLabel, 20, SpringLayout.SOUTH, waterLabel);
+        layout.putConstraint(SpringLayout.WEST, peopleLabel, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, peopleLabel, Constants.TWENTY, SpringLayout.SOUTH, waterLabel);
 
-        layout.putConstraint(SpringLayout.WEST, weaponLabel, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, weaponLabel, 20, SpringLayout.SOUTH, peopleLabel);
+        layout.putConstraint(SpringLayout.WEST, weaponLabel, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, weaponLabel, Constants.TWENTY, SpringLayout.SOUTH, peopleLabel);
 
-        layout.putConstraint(SpringLayout.WEST, actionAvailableLabel, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, actionAvailableLabel, 20, SpringLayout.SOUTH, weaponLabel);
+        layout.putConstraint(SpringLayout.WEST, actionAvailableLabel, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, actionAvailableLabel, Constants.TWENTY, SpringLayout.SOUTH,
+                weaponLabel);
 
         // Position minimap
-        layout.putConstraint(SpringLayout.EAST, mapPanel, -20, SpringLayout.EAST, container);
-        layout.putConstraint(SpringLayout.NORTH, mapPanel, 20, SpringLayout.NORTH, container);
+        layout.putConstraint(SpringLayout.EAST, mapPanel, -Constants.TWENTY, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.NORTH, mapPanel, Constants.TWENTY, SpringLayout.NORTH, container);
 
         // Position info box
-        layout.putConstraint(SpringLayout.EAST, infoBox, 20, SpringLayout.EAST, container);
-        layout.putConstraint(SpringLayout.NORTH, infoBox, 20, SpringLayout.NORTH, container);
+        layout.putConstraint(SpringLayout.EAST, infoBox, Constants.TWENTY, SpringLayout.EAST, container);
+        layout.putConstraint(SpringLayout.NORTH, infoBox, Constants.TWENTY, SpringLayout.NORTH, container);
 
         // Position buttons
-        layout.putConstraint(SpringLayout.WEST, broadcastButton, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, broadcastButton, 20, SpringLayout.SOUTH, actionAvailableLabel);
+        layout.putConstraint(SpringLayout.WEST, broadcastButton, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, broadcastButton, Constants.TWENTY, SpringLayout.SOUTH,
+                actionAvailableLabel);
 
-        layout.putConstraint(SpringLayout.WEST, gatherButton, 20, SpringLayout.EAST, broadcastButton);
+        layout.putConstraint(SpringLayout.WEST, gatherButton, Constants.TWENTY, SpringLayout.EAST, broadcastButton);
         layout.putConstraint(SpringLayout.NORTH, gatherButton, 0, SpringLayout.NORTH, broadcastButton);
 
-        layout.putConstraint(SpringLayout.WEST, upButton, 20, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, upButton, 20, SpringLayout.SOUTH, broadcastButton);
+        layout.putConstraint(SpringLayout.WEST, upButton, Constants.TWENTY, SpringLayout.WEST, container);
+        layout.putConstraint(SpringLayout.NORTH, upButton, Constants.TWENTY, SpringLayout.SOUTH, broadcastButton);
 
-        layout.putConstraint(SpringLayout.WEST, downButton, 20, SpringLayout.EAST, upButton);
+        layout.putConstraint(SpringLayout.WEST, downButton, Constants.TWENTY, SpringLayout.EAST, upButton);
         layout.putConstraint(SpringLayout.NORTH, downButton, 0, SpringLayout.NORTH, upButton);
 
-        layout.putConstraint(SpringLayout.WEST, leftButton, 20, SpringLayout.EAST, downButton);
+        layout.putConstraint(SpringLayout.WEST, leftButton, Constants.TWENTY, SpringLayout.EAST, downButton);
         layout.putConstraint(SpringLayout.NORTH, leftButton, 0, SpringLayout.NORTH, upButton);
 
-        layout.putConstraint(SpringLayout.WEST, rightButton, 20, SpringLayout.EAST, leftButton);
+        layout.putConstraint(SpringLayout.WEST, rightButton, Constants.TWENTY, SpringLayout.EAST, leftButton);
         layout.putConstraint(SpringLayout.NORTH, rightButton, 0, SpringLayout.NORTH, upButton);
 
-        layout.putConstraint(SpringLayout.WEST, eventButton, 20, SpringLayout.EAST, gatherButton);
+        layout.putConstraint(SpringLayout.WEST, eventButton, Constants.TWENTY, SpringLayout.EAST, gatherButton);
         layout.putConstraint(SpringLayout.NORTH, eventButton, 0, SpringLayout.NORTH, broadcastButton);
 
-        layout.putConstraint(SpringLayout.WEST, nextDayButton, 20, SpringLayout.EAST, eventButton);
+        layout.putConstraint(SpringLayout.WEST, nextDayButton, Constants.TWENTY, SpringLayout.EAST, eventButton);
         layout.putConstraint(SpringLayout.NORTH, nextDayButton, 0, SpringLayout.NORTH, broadcastButton);
 
-        layout.putConstraint(SpringLayout.WEST, infoButton, 20, SpringLayout.EAST, rightButton);
+        layout.putConstraint(SpringLayout.WEST, infoButton, Constants.TWENTY, SpringLayout.EAST, rightButton);
         layout.putConstraint(SpringLayout.NORTH, infoButton, 0, SpringLayout.NORTH, upButton);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        String propertyName = evt.getPropertyName();
+        final String propertyName = evt.getPropertyName();
 
         switch (propertyName) {
             case "day":
