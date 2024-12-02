@@ -29,9 +29,9 @@ public class EventFlood implements Event {
         this.description = "Heavy rains have caused nearby rivers to overflow, threatening your group with a flood. "
                 + "You must act quickly to avoid losing supplies and people. What will you do?";
         this.choices = new HashMap<>();
-        choices.put(EntityConstants.FIRSTCHOICE, "Evacuate to higher ground");
-        choices.put(EntityConstants.SECONDCHOICE, "Secure supplies and hold position");
-        choices.put(EntityConstants.THIRDCHOICE, "Do nothing and hope the flood subsides");
+        choices.put(EntityConstants.FIRSTCHOICE, "Evacuate");
+        choices.put(EntityConstants.SECONDCHOICE, "Secure supplies");
+        choices.put(EntityConstants.THIRDCHOICE, "hope subsides");
 
         this.probability = EntityConstants.RAREEVENTBASEPROB;
         this.evacuateOutcome = "You successfully evacuated, saving most of your group but losing some supplies.";

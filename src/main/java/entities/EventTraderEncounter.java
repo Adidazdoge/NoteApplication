@@ -32,9 +32,9 @@ public class EventTraderEncounter implements Event {
         this.description = "You encounter a wandering trader offering supplies in exchange for your resources. "
                 + "What will you do?";
         this.choices = new HashMap<>();
-        choices.put(EntityConstants.FIRSTCHOICE, "Trade with the trader");
-        choices.put(EntityConstants.SECONDCHOICE, "Ignore the trader");
-        choices.put(EntityConstants.THIRDCHOICE, "Attempt to rob the trader");
+        choices.put(EntityConstants.FIRSTCHOICE, "Trade");
+        choices.put(EntityConstants.SECONDCHOICE, "Ignore");
+        choices.put(EntityConstants.THIRDCHOICE, "rob");
 
         this.probability = EntityConstants.RAREEVENTBASEPROB;
         this.tradeOutcomeSuccess = "You traded successfully and gained valuable supplies.";

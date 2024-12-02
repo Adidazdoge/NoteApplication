@@ -72,6 +72,7 @@ public class AmbushEventInteractor implements AmbushInputBoundary {
         dataAccess.changeWater(waterChange);
         dataAccess.changeWeapon(weaponChange);
         dataAccess.changePeople(peopleChange);
+        dataAccess.removeEvent();
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +

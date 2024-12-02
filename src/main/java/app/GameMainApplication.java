@@ -7,6 +7,7 @@ import java.util.Map;
 
 import entities.*;
 import frameworks.database.InMemoryUnifiedDataAccess;
+import interface_adapters.EventManager;
 import interface_adapters.NavigationManager;
 import interface_adapters.broadcast.BroadcastController;
 import interface_adapters.broadcast.BroadcastPresenter;
@@ -18,6 +19,18 @@ import interface_adapters.eventdecide.EventDecideController;
 import interface_adapters.eventdecide.EventDecidePresenter;
 import interface_adapters.eventinitializer.EventInitializerController;
 import interface_adapters.eventinitializer.EventInitializerPresenter;
+import interface_adapters.eventrespond.ambush.AmbushResponseController;
+import interface_adapters.eventrespond.ambush.AmbushResponsePresenter;
+import interface_adapters.eventrespond.blizzard.BlizzardResponseController;
+import interface_adapters.eventrespond.blizzard.BlizzardResponsePresenter;
+import interface_adapters.eventrespond.flood.FloodResponseController;
+import interface_adapters.eventrespond.flood.FloodResponsePresenter;
+import interface_adapters.eventrespond.survivor.SurvivorResponseController;
+import interface_adapters.eventrespond.survivor.SurvivorResponsePresenter;
+import interface_adapters.eventrespond.trader.TraderResponseController;
+import interface_adapters.eventrespond.trader.TraderResponsePresenter;
+import interface_adapters.fetchcurrentevent.FetchEventController;
+import interface_adapters.fetchcurrentevent.FetchEventPresenter;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchPresenter;
 import interface_adapters.gameplacedescription.PlaceDescriptionController;
@@ -26,6 +39,8 @@ import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcatePresenter;
 import interface_adapters.nevagateevent.NevagateEventController;
 import interface_adapters.nevagateevent.NevagateEventPresenter;
+import interface_adapters.nevagategame.NevagateGameController;
+import interface_adapters.nevagategame.NevagateGamePresenter;
 import interface_adapters.nevagatemainview.NevagateMainController;
 import interface_adapters.nevagatemainview.NevagateMainPresenter;
 import interface_adapters.startallowcatepoint.AllowcateController;
@@ -36,9 +51,16 @@ import usecases.dailygather.GatherInteractor;
 import usecases.dailymove.MoveInteractor;
 import usecases.eventdecide.DecideEventInteractor;
 import usecases.eventinitialize.EventInitializeInteractor;
+import usecases.eventrespond.ambush.AmbushEventInteractor;
+import usecases.eventrespond.blizzard.BlizzardEventInteractor;
+import usecases.eventrespond.flood.FloodEventInteractor;
+import usecases.eventrespond.survivor.SurvivorEventInteractor;
+import usecases.eventrespond.trader.TraderEventInteractor;
+import usecases.fetchcurrentevent.CurrentEventInteractor;
 import usecases.fetchresource.FetchInteractor;
 import usecases.gameplacedescription.PlaceDescriptionInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
+import usecases.nevagategame.NevagateGameInteractor;
 import usecases.nevagatemain.NevagateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
 import frameworks.database.JsonRankingDataAccess;
@@ -172,6 +194,53 @@ public class GameMainApplication {
                 new DecideEventInteractor(gamedatabase, eventDecidePresenter);
         final EventDecideController eventDecideController = new EventDecideController(decideEventInteractor);
 
+        // Event Respond usecase ambush
+        final AmbushResponsePresenter ambushresponsePresenter = new AmbushResponsePresenter(eventView);
+        final AmbushEventInteractor ambushEventInteractor =
+                new AmbushEventInteractor(gamedatabase, ambushresponsePresenter);
+        final AmbushResponseController ambushResponseController = new AmbushResponseController(ambushEventInteractor);
+
+        // Event Respond usecase blizzard
+        final BlizzardResponsePresenter blizzardResponsePresenter = new BlizzardResponsePresenter(eventView);
+        final BlizzardEventInteractor blizzardEventInteractor =
+                new BlizzardEventInteractor(gamedatabase, blizzardResponsePresenter);
+        final BlizzardResponseController blizzardResponseController =
+                new BlizzardResponseController(blizzardEventInteractor);
+
+        // Event Respond usecase flood
+        final FloodResponsePresenter floodResponsePresenter = new FloodResponsePresenter(eventView);
+        final FloodEventInteractor floodEventInteractor =
+                new FloodEventInteractor(gamedatabase, floodResponsePresenter);
+        final FloodResponseController floodResponseController = new FloodResponseController(floodEventInteractor);
+
+        // Event Respond usecase survivor
+        final SurvivorResponsePresenter survivorResponsePresenter = new SurvivorResponsePresenter(eventView);
+        final SurvivorEventInteractor survivorEventInteractor =
+                new SurvivorEventInteractor(gamedatabase, survivorResponsePresenter);
+        final SurvivorResponseController survivorResponseController =
+                new SurvivorResponseController(survivorEventInteractor);
+
+        // Event Respond usecase trader
+        final TraderResponsePresenter traderResponsePresenter = new TraderResponsePresenter(eventView);
+        final TraderEventInteractor traderEventInteractor =
+                new TraderEventInteractor(gamedatabase, traderResponsePresenter);
+        final TraderResponseController traderResponseController = new TraderResponseController(traderEventInteractor);
+
+        // Initialize Event manager
+        final EventManager eventManager = new EventManager(ambushResponseController, blizzardResponseController,
+                floodResponseController, survivorResponseController, traderResponseController);
+
+        // Fetch Event usecase
+        final FetchEventPresenter fetchEventPresenter = new FetchEventPresenter(eventView);
+        final CurrentEventInteractor currentEventInteractor =
+                new CurrentEventInteractor(gamedatabase, fetchEventPresenter);
+        final FetchEventController fetchEventController = new FetchEventController(currentEventInteractor);
+
+        // Nevagate Game usecase
+        final NevagateGamePresenter nevagateGamePresenter = new NevagateGamePresenter(navigationManager);
+        final NevagateGameInteractor nevagateGameInteractor =
+                new NevagateGameInteractor(gamedatabase, nevagateGamePresenter);
+        final NevagateGameController nevagateGameController = new NevagateGameController(nevagateGameInteractor);
         // Event respond usecase
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
@@ -179,5 +248,7 @@ public class GameMainApplication {
                 placeDescriptionController, dailyGatherController, dailyMoveController,
                 nevagateEventController, eventDecideController);
         attributeview.setAllowcateController(allowcateController, nevagateMainController);
+        eventView.setController(eventInitializerController, fetchEventController, nevagateGameController);
+        eventView.setManager(eventManager);
     }
 }

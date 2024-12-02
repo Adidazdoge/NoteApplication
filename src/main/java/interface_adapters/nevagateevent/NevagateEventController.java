@@ -1,5 +1,6 @@
 package interface_adapters.nevagateevent;
 
+import usecases.NevagateEventPage.NevagateEventInputBoundary;
 import usecases.NevagateEventPage.NevagateEventInputdata;
 import usecases.NevagateEventPage.NevagateEventInteractor;
 
@@ -7,9 +8,9 @@ import usecases.NevagateEventPage.NevagateEventInteractor;
  * Controller.
  */
 public class NevagateEventController {
-    private final NevagateEventInteractor interactor;
+    private final NevagateEventInputBoundary interactor;
 
-    public NevagateEventController(NevagateEventInteractor interactor) {
+    public NevagateEventController(NevagateEventInputBoundary interactor) {
         this.interactor = interactor;
     }
 

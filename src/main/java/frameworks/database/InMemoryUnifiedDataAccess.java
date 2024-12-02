@@ -3,6 +3,7 @@ package frameworks.database;
 import java.util.ArrayList;
 
 import entities.*;
+import interface_adapters.nevagategame.NevagateGameInterface;
 import usecases.NevagateEventPage.NevagateEventDataAccessInterface;
 import usecases.dailybroadcast.BroadcastDataAccessInterface;
 import usecases.dailygather.GatherDataAccessInterface;
@@ -15,11 +16,13 @@ import usecases.eventrespond.blizzard.BlizzardDataAccessInterface;
 import usecases.eventrespond.flood.FloodDataAccessInterface;
 import usecases.eventrespond.survivor.SurvivorDataAccessInterface;
 import usecases.eventrespond.trader.TraderDataAccessInterface;
+import usecases.fetchcurrentevent.CurrentEventDataAccessInterface;
 import usecases.fetchresource.FetchDataAccessInterface;
 import usecases.gameminimap.MinimapDataAccessInterface;
 import usecases.gamenewday.NewdayDataAccessInterface;
 import usecases.gameplacedescription.PlaceDescriptionDataAccessInterface;
 import usecases.nevagateAllowcatePage.NevagateAllowcateDataAccessInterface;
+import usecases.nevagategame.NevagateGameDataAccessInterface;
 import usecases.nevagatemain.NevagateMainDataAccessInterface;
 import usecases.startallowcate.AllowcateDataAccessInterface;
 
@@ -45,7 +48,9 @@ public class InMemoryUnifiedDataAccess implements
         BlizzardDataAccessInterface,
         AmbushDataAccessInterface,
         NevagateMainDataAccessInterface,
-        NevagateEventDataAccessInterface {
+        NevagateEventDataAccessInterface,
+        CurrentEventDataAccessInterface,
+        NevagateGameDataAccessInterface {
     // Shared game data
     private PlayerAttributes playerAttributes;
     private Inventory inventory;
@@ -162,6 +167,11 @@ public class InMemoryUnifiedDataAccess implements
     @Override
     public Event getEvent() {
         return unprocessedevents.get(0);
+    }
+
+    @Override
+    public void removeEvent() {
+        this.unprocessedevents.remove(0);
     }
 
     // Implement of the FetchDataAccessInterface

@@ -52,6 +52,7 @@ public class FloodEventInteractor implements FloodInputBoundary {
         dataAccess.changeFood(foodChange);
         dataAccess.changeWater(waterChange);
         dataAccess.changePeople(peopleChange);
+        dataAccess.removeEvent();
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +

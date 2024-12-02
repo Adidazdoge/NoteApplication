@@ -56,6 +56,7 @@ public class SurvivorEventInteractor implements SurvivorInputBoundary {
         dataAccess.changeWater(waterChange);
         dataAccess.changeWeapon(suppliesChange);
         dataAccess.changePeople(peopleChange);
+        dataAccess.removeEvent();
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +

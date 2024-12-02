@@ -9,6 +9,7 @@ import entities.PlayerAttributes;
  */
 public interface SurvivorDataAccessInterface {
     Event getEvent();
+    void removeEvent();
     Inventory getInventory();
     PlayerAttributes getPlayerAttributes();
 

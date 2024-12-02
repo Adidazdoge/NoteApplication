@@ -9,6 +9,7 @@ import entities.PlayerAttributes;
  */
 public interface BlizzardDataAccessInterface {
     Event getEvent();
+    void removeEvent();
     Inventory getInventory();
     PlayerAttributes getPlayerAttributes();
 

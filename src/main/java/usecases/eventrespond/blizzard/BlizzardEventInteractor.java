@@ -51,6 +51,7 @@ public class BlizzardEventInteractor implements BlizzardInputBoundary {
         // Apply resource changes to the inventory
         dataAccess.changeFood(foodChange);
         dataAccess.changeWater(waterChange);
+        dataAccess.removeEvent();
 
         // Prepare output
         String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange + ".";

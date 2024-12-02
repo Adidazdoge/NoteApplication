@@ -57,8 +57,8 @@ public class EntityConstants {
     public static final int FOURTHCHOICE = 4;
 
     // Base event probability (probability at default at start).
-    public static final double COMMONEVENTBASEPROB = 0.1;
-    public static final double RAREEVENTBASEPROB = 0.03;
+    public static final double COMMONEVENTBASEPROB = 1;
+    public static final double RAREEVENTBASEPROB = 1;
 
     // Horde starter setting.
     public static final int STARTERHORDEMAGNITUDE = 3000;
