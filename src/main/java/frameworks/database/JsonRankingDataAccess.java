@@ -45,26 +45,57 @@ public class JsonRankingDataAccess implements RankingDataAccessInterface {
      */
     @Override
     public void updateScore(String username, int score) {
+        for (PlayerRankingEntry entry : rankings) {
+            if (entry.getName().equals(username)) {
+                entry.setScore(score);
+                saveRankings();
+                return;
+            }
+        }
+
+        // If the player does not exist, add them to the rankings
+        rankings.add(new PlayerRankingEntry(username, score, 0, false));
+        saveRankings();
+    }
+
+    /**
+     * Updates the full ranking entry for a player or adds a new entry if the player does not exist.
+     *
+     * @param username     The username of the player.
+     * @param score        The player's final score.
+     * @param daysSurvived The number of days survived by the player.
+     * @param won          Whether the player won the game.
+     */
+    @Override
+    public void updateRankingData(String username, int score, int daysSurvived, boolean won) {
         boolean playerFound = false;
 
         for (PlayerRankingEntry entry : rankings) {
             if (entry.getName().equals(username)) {
                 entry.setScore(score);
+                entry.setDaysSurvived(daysSurvived);
+                entry.setWon(won);
                 playerFound = true;
                 break;
             }
         }
 
-        // If the player does not exist, add them to the rankings
         if (!playerFound) {
-            rankings.add(new PlayerRankingEntry(username, score, 0, false));
+            rankings.add(new PlayerRankingEntry(username, score, daysSurvived, won));
         }
 
+        saveRankings();
+    }
+
+    /**
+     * Saves the updated rankings to the JSON file.
+     */
+    private void saveRankings() {
         try {
             database.save(rankings);
         }
-        catch (IOException ioException) {
-            ioException.printStackTrace();
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
