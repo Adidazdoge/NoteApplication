@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapters.nevagatemainview.NevagateMainController;
 import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcateInterface;
 
@@ -28,6 +29,7 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
     private int thrift;
     private int generalship;
     private AllowcateController allowcateController;
+    private NevagateMainController nevagateMainController;
 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
                        "checkstyle:ExecutableStatementCount"})
@@ -84,7 +86,7 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         addListeners(socialButton, luckButton, mobilizationButton, thriftButton, generalshipButton);
 
         backButton.addActionListener(e -> {
-
+            nevagateMainController.execute();
         });
 
         startGameButton.addActionListener(e -> {
@@ -98,8 +100,10 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         setVisible(false);
     }
 
-    public void setAllowcateController(AllowcateController allowcateController) {
-        this.allowcateController = allowcateController;
+    public void setAllowcateController(AllowcateController AllowcateController,
+                                       NevagateMainController NevagateMainController) {
+        this.allowcateController = AllowcateController;
+        this.nevagateMainController = NevagateMainController;
     }
 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})

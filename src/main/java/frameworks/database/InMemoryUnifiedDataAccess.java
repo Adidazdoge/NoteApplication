@@ -19,6 +19,7 @@ import usecases.gameminimap.MinimapDataAccessInterface;
 import usecases.gamenewday.NewdayDataAccessInterface;
 import usecases.gameplacedescription.PlaceDescriptionDataAccessInterface;
 import usecases.nevagateAllowcatePage.NevagateAllowcateDataAccessInterface;
+import usecases.nevagatemain.NevagateMainDataAccessInterface;
 import usecases.startallowcate.AllowcateDataAccessInterface;
 
 /**
@@ -41,7 +42,8 @@ public class InMemoryUnifiedDataAccess implements
         SurvivorDataAccessInterface,
         TraderDataAccessInterface,
         BlizzardDataAccessInterface,
-        AmbushDataAccessInterface {
+        AmbushDataAccessInterface,
+        NevagateMainDataAccessInterface {
     // Shared game data
     private PlayerAttributes playerAttributes;
     private Inventory inventory;
