@@ -1,46 +1,55 @@
 package view;
 
+import app.LoginApplication;
+import interface_adapters.login.LoginController;
+import interface_adapters.login.LoginInterface;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-
+import java.io.IOException;
 
 /**
- * Login view.
+ * LoginView handles the UI for user login and integrates with the LoginApplication.
  */
-public class LoginView extends JFrame {
-    private JLabel nameLabel = new JLabel("group project", JLabel.CENTER);
-    private SpringLayout springLayout = new SpringLayout();
-    private JPanel centerPanel = new JPanel(springLayout);
-    private JLabel userNameLabel = new JLabel("username");
-    private static JTextField userText = new JTextField();
-    private JLabel passwordLabel = new JLabel("password");
-    private static JPasswordField passwordText = new JPasswordField();
-    private static JButton loginBotton = new JButton("log in");
-    private static JButton registerButton = new JButton("sign up");
+public class LoginView extends JFrame implements LoginInterface {
+    private final JLabel nameLabel = new JLabel("Group Project", JLabel.CENTER);
+    private final SpringLayout springLayout = new SpringLayout();
+    private final JPanel centerPanel = new JPanel(springLayout);
+    private final JLabel userNameLabel = new JLabel("Username:");
+    private final JTextField userText = new JTextField();
+    private final JLabel passwordLabel = new JLabel("Password:");
+    private final JPasswordField passwordText = new JPasswordField();
+    private final JButton loginButton = new JButton("Log In");
+    private final JButton registerButton = new JButton("Sign Up");
 
-    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
-                       "checkstyle:ExecutableStatementCount"})
-    public LoginView() {
-        super("Log in");
+    private final LoginController loginController;
+
+    /**
+     * Constructs the LoginView with the provided LoginController.
+     *
+     * @throws IOException If there is an error initializing the login application.
+     */
+    public LoginView() throws IOException {
+        super("Login");
+
+        // Initialize the controller via the LoginApplication
+        this.loginController = LoginApplication.initializeLogin(this);
+
         final Container contentPane = getContentPane();
-        // set size
-        final Font nameFont = new Font("12", Font.PLAIN, Constants.FORTY);
-        nameLabel.setFont(nameFont);
-        final Font centerFont = new Font("8", Font.PLAIN, 20);
-        userNameLabel.setFont(centerFont);
-        passwordLabel.setFont(centerFont);
-        registerButton.setFont(centerFont);
-        loginBotton.setFont(centerFont);
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, Constants.FORTY));
+        userNameLabel.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        passwordLabel.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        loginButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        registerButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+
         userText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
         passwordText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
 
-        // add components
         centerPanel.add(userNameLabel);
         centerPanel.add(userText);
         centerPanel.add(passwordLabel);
         centerPanel.add(passwordText);
-        centerPanel.add(loginBotton);
+        centerPanel.add(loginButton);
         centerPanel.add(registerButton);
 
         contentPane.add(nameLabel, BorderLayout.NORTH);
@@ -54,25 +63,27 @@ public class LoginView extends JFrame {
         final int offsetX = childWidth.getValue() / 2;
         layout(offsetX);
 
-        final ActionListener openSignUpListener = e -> {
-            dispose();
-            new SignUpView();
-        };
+        loginButton.addActionListener(e -> {
+            final String username = userText.getText();
+            final String password = new String(passwordText.getPassword());
+            loginController.handleLogin(username, password);
+        });
 
-        final ActionListener openGameViewListener = e -> {
+        registerButton.addActionListener(e -> {
             dispose();
-            new GameView();
-        };
-
-        loginBotton.addActionListener(openGameViewListener);
-        registerButton.addActionListener(openSignUpListener);
+            try {
+                // Navigate to the sign-up page
+                new SignUpView();
+            }
+            catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
-        // setLocation(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
-
     }
 
     private void layout(int offsetX) {
@@ -89,36 +100,40 @@ public class LoginView extends JFrame {
         springLayout.putConstraint(SpringLayout.WEST, passwordText, Constants.TEN, SpringLayout.EAST, passwordLabel);
         springLayout.putConstraint(SpringLayout.NORTH, passwordText, 0, SpringLayout.NORTH, passwordLabel);
         // set loginButton location
-        springLayout.putConstraint(SpringLayout.WEST, loginBotton, Constants.FIFTY, SpringLayout.WEST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, loginBotton, Constants.TWENTY,
+        springLayout.putConstraint(SpringLayout.WEST, loginButton, Constants.FIFTY, SpringLayout.WEST, passwordLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, loginButton, Constants.TWENTY,
                 SpringLayout.SOUTH, passwordLabel);
         // set registerButton
-        springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.SIXTY, SpringLayout.EAST, loginBotton);
-        springLayout.putConstraint(SpringLayout.NORTH, registerButton, 0, SpringLayout.NORTH, loginBotton);
+        springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.SIXTY, SpringLayout.EAST, loginButton);
+        springLayout.putConstraint(SpringLayout.NORTH, registerButton, 0, SpringLayout.NORTH, loginButton);
 
     }
 
-    public void render() {
-        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
-        setVisible(true);
+    /**
+     * Displays the result of a login attempt.
+     *
+     * @param message A message indicating the result of the login attempt.
+     */
+    @Override
+    public void displayLoginResult(String message) {
+        JOptionPane.showMessageDialog(this, message, "Login Result", JOptionPane.INFORMATION_MESSAGE);
+
+        if ("Login successful!".equals(message)) {
+            // Close login window
+            dispose();
+            // Navigate to the game view
+            new GameView();
+        }
     }
 
     public static void main(String[] args) {
-     new LoginView();
-     }
-     public static String getUser() {
-        return userText.getText();
-    }
-
-    public static String getPwd() {
-        return passwordText.getText();
-    }
-
-    public static JButton getLoginButton() {
-        return loginBotton;
-    }
-
-    public static JButton getRegisterButton() {
-        return registerButton;
+        try {
+            new LoginView();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error initializing the login system.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
