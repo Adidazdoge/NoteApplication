@@ -268,11 +268,13 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     }
 
     @Override
-    public void updateUiResource(int food, int water, int people, int weapon) {
+    public void updateUiResource(int food, int water, int people, int weapon, int day, int actionpoint) {
         setFood(food);
         setWater(water);
         setPeople(people);
         setWeapon(weapon);
+        setDay(day);
+        setAction(actionpoint);
     }
 
 }

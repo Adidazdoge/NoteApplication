@@ -23,7 +23,7 @@ public class PlayerInfo {
     public PlayerInfo(String name) {
         this.name = name;
         this.score = 0;
-        this.daysSurvived = 0;
+        this.daysSurvived = 1;
         this.won = false;
         this.actionPoint = EntityConstants.STARTERACTIONPOINT;
     }

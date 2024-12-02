@@ -16,6 +16,6 @@ public class FetchPresenter implements FetchOutputBoundary {
     @Override
     public void prepareSuccessview(FetchOutputData outputdata) {
         view.updateUiResource(outputdata.getFood(), outputdata.getWater(),
-                outputdata.getPeople(), outputdata.getWeapon());
+                outputdata.getPeople(), outputdata.getWeapon(), outputdata.getDay(), outputdata.getActionpoint());
     }
 }
