@@ -11,18 +11,18 @@ import java.util.Map;
  * Service to integrate ChatGPT API.
  */
 public class ChatGptService {
-    private static final String API_URL = "https://api.openai.com/v1/chat/completions";
+    private static final String API_URL = "https://api.openai.com/v1/completions";
 
     /**
-     * Sends a request to ChatGPT with the event description, player attributes, and choices.
+     * Sends a request to ChatGPT with the event description, player attributes, and player choice.
      *
      * @param eventDescription Description of the event.
      * @param playerAttributes Player's attributes as key-value pairs.
-     * @param choices          Event choices.
+     * @param playerChoice     The player's choice for the event.
      * @return The response from ChatGPT.
      * @throws Exception If an error occurs during the API call.
      */
-    public String getResponse(String eventDescription, Map<String, Integer> playerAttributes, Map<Integer, String> choices) throws Exception {
+    public String getResponse(String eventDescription, Map<String, Integer> playerAttributes, String playerChoice) throws Exception {
         URL url = new URL(API_URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -31,16 +31,13 @@ public class ChatGptService {
         connection.setDoOutput(true);
 
         // Build the prompt for ChatGPT
-        String prompt = generatePrompt(eventDescription, playerAttributes, choices);
+        String prompt = generatePrompt(eventDescription, playerAttributes, playerChoice);
 
         // Construct the request payload
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(Map.of(
-                "model", "gpt-4o-mini",
-                "messages", new Object[]{
-                        Map.of("role", "system", "content", "You are a helpful assistant that processes game events."),
-                        Map.of("role", "user", "content", prompt)
-                },
+                "model", "gpt-3.5-turbo",
+                "prompt", prompt,
                 "max_tokens", 150,
                 "temperature", 0.7
         ));
@@ -55,8 +52,7 @@ public class ChatGptService {
         if (connection.getResponseCode() == 200) {
             return new String(connection.getInputStream().readAllBytes());
         } else {
-            String errorResponse = new String(connection.getErrorStream().readAllBytes());
-            throw new RuntimeException("Failed to call ChatGPT API: HTTP " + connection.getResponseCode() + " | " + errorResponse);
+            throw new RuntimeException("Failed to call ChatGPT API: HTTP " + connection.getResponseCode());
         }
     }
 
@@ -65,16 +61,15 @@ public class ChatGptService {
      *
      * @param eventDescription Description of the event.
      * @param playerAttributes Player's attributes.
-     * @param choices          Event choices.
+     * @param playerChoice     The player's chosen option.
      * @return The formatted prompt.
      */
-    private String generatePrompt(String eventDescription, Map<String, Integer> playerAttributes, Map<Integer, String> choices) {
+    private String generatePrompt(String eventDescription, Map<String, Integer> playerAttributes, String playerChoice) {
         StringBuilder prompt = new StringBuilder();
         prompt.append("Event Description: ").append(eventDescription).append("\n");
         prompt.append("Player Attributes: ").append(playerAttributes).append("\n");
-        prompt.append("Choices:\n");
-        choices.forEach((key, value) -> prompt.append(key).append(". ").append(value).append("\n"));
-        prompt.append("Choose the best option and provide a short paragraph explaining the result.");
+        prompt.append("Player Choice: ").append(playerChoice).append("\n");
+        prompt.append("Provide a short paragraph describing the event outcome based on the player's choice.");
         return prompt.toString();
     }
 }
