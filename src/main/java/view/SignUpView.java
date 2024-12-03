@@ -44,9 +44,9 @@ public class SignUpView extends JFrame implements SignupInterface {
         againLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
         registerButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
         registerButton.setBackground(Color.WHITE);
-        registerButton.setForeground(new Color(139, 69, 19));
+        registerButton.setForeground(Constants.THEME_COLOR);
         loginButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        loginButton.setBackground(new Color(139, 69, 19));
+        loginButton.setBackground(Constants.THEME_COLOR);
         loginButton.setForeground(Color.WHITE);
 
         userText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));

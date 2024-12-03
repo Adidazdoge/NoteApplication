@@ -8,6 +8,7 @@ import interface_adapters.rankinglist.RankingInterface;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class RankingView extends JFrame implements RankingInterface {
     private final DefaultTableModel tableModel;
     private final JButton backButton;
     private final RankingController rankingController;
+
     /**
      * Constructs the RankingView and sets up the UI components.
      * @throws RuntimeException If there is an error initializing the signup application.
@@ -38,8 +40,8 @@ public class RankingView extends JFrame implements RankingInterface {
         container.setLayout(new BorderLayout());
 
         // Title
-        final JLabel titleLabel = new JLabel("Leaderboard", JLabel.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        final JLabel titleLabel = new JLabel("Ranking List", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, Constants.TWENTYFIVE));
         container.add(titleLabel, BorderLayout.NORTH);
 
         // Table to display rankings
@@ -52,8 +54,9 @@ public class RankingView extends JFrame implements RankingInterface {
 
         // Error label
         backButton = new JButton("Back to Main Memu");
-        backButton.setForeground(Color.BLACK);
-        backButton.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
+        backButton.setBackground(Color.WHITE);
+        backButton.setForeground(Constants.THEME_COLOR);
+        backButton.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
         container.add(backButton, BorderLayout.SOUTH);
 
         // Fetch and display rankings via the controller

@@ -23,7 +23,6 @@ public class LoginView extends JFrame implements LoginInterface {
     private final JButton registerButton = new JButton("Sign up");
 
     private final LoginController loginController;
-
     /**
      * Constructs the LoginView with the provided LoginController.
      *
@@ -40,11 +39,11 @@ public class LoginView extends JFrame implements LoginInterface {
         userNameLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
         passwordLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
         loginButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        loginButton.setBackground(new Color(139, 69, 19));
+        loginButton.setBackground(Constants.THEME_COLOR);
         loginButton.setForeground(Color.WHITE);
         registerButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
         registerButton.setBackground(Color.WHITE);
-        registerButton.setForeground(new Color(139, 69, 19));
+        registerButton.setForeground(Constants.THEME_COLOR);
 
         userText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
         passwordText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
