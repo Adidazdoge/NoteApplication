@@ -1,76 +1,136 @@
-## Group members && GitHub id
+# **60 Days to Survive**
 
-Yitong An - vinkoos 
-Haoze Li - FlashYDirOX
-Ze Kun Song - UTSGJohnsonSong
-Owen Hexiang Wang- Adidazdoge
-Xiaoshu Lin - Michael-lin6677
+## **Table of Contents**
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Installation Instructions](#installation-instructions)
+- [Usage Guide](#usage-guide)
+- [Contribution Guidelines](#contribution-guidelines)
+- [Authors](#authors)
+- [License](#license)
+- [Feedback](#feedback)
 
-## Software Specification
-The game is a 60-day simulation in which the player acts as a group leader navigating 
-the challenges of a zombie apocalypse. Players allocate a set number of initial points 
-across resources (e.g., people, weaponry, food, luck) before the first day. These choices 
-impact the group's survival strategies and outcomes. Each day, the program provides a 
-brief description of the group's current location and what has transpired, such as how 
-many people survived or died, the quantity of resources found, or any weaponry acquired.
+---
 
+## **Project Overview**
+**60 Days to Survive** is a text-based strategy game set in a post-apocalyptic zombie world. Players must manage resources, handle daily random events, and survive for 60 days. This project is built using **Clean Architecture (CA)** for modularity, maintainability, and ease of future enhancements.
 
-### User Stories and Functional Requirements
+**Why This Project?**
+- Provides an engaging and challenging survival experience.
+- Demonstrates the practical application of Clean Architecture.
+- Aims to create a modular game that is easy to extend and maintain.
 
-**1. Allocation of Remaining Points** - Yitong An
-- **Feature**: Points Allocation System
-- **As a player**:
-    - I want to allocate my remaining points to my Team, Weapons, Food, and Luck,
-    - so I can strengthen specific areas and increase my chances of survival.
-- **Requirements**:
-    - Players can see how many points are available to allocate.
-    - Players can distribute points to Team, Weapons, Food, or Luck as they choose.
-    - Allocated points are applied immediately and affect the player’s stats.
+---
 
-**2. Status Check** - Haoze Li
-- **Feature**: Status Update Interface
-- **As a player**:
-    - I want to get updates on the current status so I can make informed decisions.
-- **Requirements**:
-    - Players can view:
-        - **Weather**: Information on current weather conditions.
-        - **Environment**: Description of surroundings, including potential threats 
-        - or opportunities.
-        - **Location**: The current position on the map.
-        - **Date**: In-game date to help track progression.
-        - **Backpack**: Inventory overview, showing items and supplies.
-        - **Body State**: Health and energy status of team members.
+## **Features**
+1. **Resource Management**:
+   - Players must manage resources like food, water, weapons, and action points.
+   - Resource availability influences survival outcomes.
 
-**3. Decision-Making Actions** - Ze Kun Song
-- **Feature**: Action Menu
-- **As a player**:
-    - I want to make strategic decisions like moving, gathering, defending, 
-    - or broadcasting to improve my team’s survival.
-- **Requirements**:
-    - **Move**: Enables relocation to a new area on the map.
-    - **Gather**: Allows collection of resources from the current environment.
-    - **Defend**: Option to set up defenses against threats.
-    - **Broadcast**: Sends out signals or attempts to locate survivors and information.
-    - Actions have context-dependent outcomes, with feedback influenced by 
-    - the environment or events.
+2. **Random Events**:
+   - Handle events such as ambushes, blizzards, and encounters with traders.
+   - Each event has choices, risks, and rewards.
 
-**4. Interaction with Random Events** - Owen Hexiang Wang
-- **Feature**: Random Events Engine
-- **As a player**:
-    - I want to interact with unexpected events to experience realistic challenges and 
-    - surprises.
-- **Requirements**:
-    - Random events are triggered based on factors like location, weather, 
-    - and player actions.
-    - Events impact resources, health, or the environment, requiring adaptive strategies.
+3. **Map Navigation**:
+   - Players can move around the map to explore different terrains and gather resources.
 
-**5. Game Exit** - Xiaoshu Lin
-- **Feature**: Exit Game
-- **As a player**:
-    - I want the option to end or save my game to resume later.
-- **Requirements**:
-    - Players can choose to end or save their progress.
-    - When ending, the game provides a summary of progress, achievements, and challenges 
-    - faced.
+4. **Daily Updates**:
+   - Each day introduces new challenges, including resource depletion and potential encounters.
 
+5. **Leaderboard**:
+   - Track your performance and compare with other players.
+
+---
+
+## **Installation Instructions**
+### **Environment Requirements**
+- **JDK**: Java 11 or higher.
+- **IDE**: IntelliJ IDEA or any Java-compatible IDE.
+- **Dependencies**:
+   - **Jackson**: For JSON data manipulation.
+
+### **Setup Steps**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Adidazdoge/NoteApplication.git
+2. Import the project into your IDE and configure the JDK.
+3. Install dependencies via your IDE's package manager.
+4. Run the main application:
+   src/app/GameMainApplication.java
+## **Usage Guide**
+1. Login or Register:
+   - Use the login interface to sign in or create a new account.
+2. Main Menu Options:
+   - New Game: Start a new survival challenge.
+   - Leaderboard: View rankings of players.
+   - Quit: Exit the game.
+3. Gameplay:
+   - Daily Actions:
+     - Manage resources.
+     - Move around the map. 
+     - Handle random events.
+   - Survive 60 Days:
+     - Balance risks and resources to outlast the apocalypse.
+### **Contribution Guidelines**
+We welcome contributions to improve 60 Days to Survive. Here’s how you can contribute:
+**Steps to Contribute**
+1. Fork the repository:
+   ```bash
+   git fork https://github.com/Adidazdoge/NoteApplication.git
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature
+3. Commit your changes:
+   ```bash
+   git commit -m "Add your feature"
+4. Push your branch:
+   ```bash
+   git push origin feature/your-feature
+5. Create a Pull Request and await review.
+**Contribution Guidelines**
+   - Provide clear commit messages.
+   - Follow the project's coding standards.
+   - Ensure all tests pass before submitting your changes.
+   - Include documentation for any new features.
+### **Authors**
+   - Yitong An - vinkoos
+   - Haoze Li - FlashYDirOX
+   - Ze Kun Song - UTSGJohnsonSong
+   - Owen Hexiang Wang- Adidazdoge
+   - Xiaoshu Lin - Michael-lin6677
+### **License**
+   This project is licensed under the CC0 1.0 Universal license. See the LICENSE file for details.
+## **Feedback**
+We value your feedback and encourage you to share your thoughts to help us improve the game! Here's how you can give feedback:
+
+1. **Email Us**:  
+   If you have suggestions, feature requests, or bug reports, please email [dooolly647@gmail.com].
+
+### Feedback Guidelines
+- Ensure your feedback is clear, concise, and respectful.
+- Use the following template when reporting issues:
+  ```plaintext
+  **Subject: Feedback/Issue Report - 60 Days to Survive**
+
+  **Description:**
+  Provide a clear and concise description of the issue or suggestion.
+
+  **Steps to Reproduce (if applicable):**
+  1. Step one
+  2. Step two
+  3. Step three
+
+  **Expected Behavior (if applicable):**
+  Describe what you expected to happen.
+
+  **Actual Behavior (if applicable):**
+  Describe what actually happened.
+
+  **Environment:**
+  - OS: (e.g., Windows 10, macOS Monterey)
+  - Java Version: (e.g., Java 11)
+  - IDE: (e.g., IntelliJ IDEA 2022)
+
+  **Additional Notes:**
+  Add any other relevant information or context here.
 
