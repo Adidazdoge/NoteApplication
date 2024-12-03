@@ -3,6 +3,7 @@ package view;
 import app.GameMainApplication;
 import app.JsonApplication;
 import app.RankingApplication;
+import app.RestartGameController;
 import interface_adapters.NavigationManagerJson;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
 import interface_adapters.rankinglist.RankingInterface;
@@ -25,6 +26,7 @@ public class MainView extends JFrame {
 
     private NevagateAllowcateController nevagateAllowcateController;
     private NavigationManagerJson navigationManager;
+    private RestartGameController restartGameController;
 
     public MainView() {
         // Set layout and container
@@ -100,13 +102,15 @@ public class MainView extends JFrame {
         this.nevagateAllowcateController = nevagateAllowcateController;
     }
 
+    public void setRestartGameController(RestartGameController restartGameController) {
+        this.restartGameController = restartGameController;
+    }
+
     // Add ActionListener to buttons
     private void addListeners() {
         // Switch to GameView when "New Game" is clicked
         newGameButton.addActionListener(e -> {
-            dispose();
-            final String[] args = {};
-            GameMainApplication.main(args);
+            restartGameController.resetGame();
             if (nevagateAllowcateController != null) {
                 nevagateAllowcateController.execute();
             }
