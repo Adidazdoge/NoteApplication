@@ -1,10 +1,15 @@
 package view;
 
+import app.RankingApplication;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
-import interface_adapters.startallowcatepoint.AllowcateController;
+import interface_adapters.rankinglist.RankingInterface;
+import interface_adapters.rankinglist.RankingController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * Main view.
  */
@@ -18,7 +23,6 @@ public class MainView extends JFrame {
 
     @SuppressWarnings({"checkstyle:MultipleStringLiterals", "checkstyle:SuppressWarnings"})
     public MainView() {
-        super("Main Menu");
         // Set layout and container
         final Container container = getContentPane();
         final SpringLayout layout = new SpringLayout();
@@ -68,6 +72,7 @@ public class MainView extends JFrame {
         // Set window properties (moved to render())
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
     }
 
     public void setNevagateAllowcateController(NevagateAllowcateController nevagateAllowcateController) {
@@ -84,7 +89,10 @@ public class MainView extends JFrame {
 
         // Switch to RankView when "Ranking" is clicked
         rankingButton.addActionListener(e -> {
-
+            // Close MainView
+            dispose();
+            final RankingView rankingView = new RankingView();
+            rankingView.render();
         });
 
         // Exit the game when "Quit" is clicked

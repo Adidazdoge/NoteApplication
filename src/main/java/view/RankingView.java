@@ -1,98 +1,120 @@
 package view;
 
-import org.jetbrains.annotations.NotNull;
+import app.LoginApplication;
+import app.RankingApplication;
+import interface_adapters.rankinglist.RankingController;
+import interface_adapters.rankinglist.RankingInterface;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 
 /**
- * Ranking view.
+ * Ranking view class that implements RankingInterface to display the leaderboard.
  */
-public class RankingView extends JFrame {
+public class RankingView extends JFrame implements RankingInterface {
+    private final JTable rankingTable;
+    private final DefaultTableModel tableModel;
+    private final JLabel errorLabel;
+    private final RankingController rankingController;
+    /**
+     * Constructs the RankingView and sets up the UI components.
+     * @throws RuntimeException If there is an error initializing the signup application.
+     */
     public RankingView() {
-        super("Ranking");
+        super("Leaderboard");
+
+        try {
+            this.rankingController = RankingApplication.initializeRanking(this);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Main container layout
         final Container container = getContentPane();
         container.setLayout(new BorderLayout());
 
-        final JLabel titleLabel = new JLabel("Ranking", JLabel.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, Constants.THIRTY));
+        // Title
+        final JLabel titleLabel = new JLabel("Leaderboard", JLabel.CENTER);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
         container.add(titleLabel, BorderLayout.NORTH);
 
-        // JTable example
-        final String[] columnNames = {"Rank", "Player", "Score"};
-        final Object[][] data = new Object[Constants.ONE_HUNDRED][Constants.THREE];
-        for (int i = 0; i < Constants.ONE_HUNDRED; i++) {
-            // Rank
-            data[i][0] = "No." + (i + 1);
-            // Player name (example)
-            data[i][1] = "Player" + (i + 1);
-            // Random score
-            data[i][2] = (int) (Math.random() * Constants.ONE_THOUSAND);
-        }
+        // Table to display rankings
+        final String[] columnNames = {"Rank", "Player Name", "Score", "Days Survived", "Status"};
+        tableModel = new DefaultTableModel(columnNames, 0);
+        rankingTable = new JTable(tableModel);
+        // Make table non-editable
+        rankingTable.setEnabled(false);
+        container.add(new JScrollPane(rankingTable), BorderLayout.CENTER);
 
-        extracted(data, columnNames, container);
+        // Error label
+        errorLabel = new JLabel("", JLabel.CENTER);
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setFont(new Font("Serif", Font.ITALIC, 16));
+        container.add(errorLabel, BorderLayout.SOUTH);
 
-        final JPanel bottomPanel = getjPanel();
-
-        // Example rank
-        final JLabel yourRankLabel = new JLabel("Your Rank: No. 10", JLabel.CENTER);
-        yourRankLabel.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
-        bottomPanel.add(yourRankLabel);
-
-        final JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, Constants.TWENTY, Constants.TEN));
-
-        final JButton mainButton = new JButton("Main");
-        final JButton quitButton = new JButton("Quit");
-        buttonPanel.add(mainButton);
-        buttonPanel.add(quitButton);
-
-        bottomPanel.add(buttonPanel);
-
-        container.add(bottomPanel, BorderLayout.SOUTH);
-
-        // Add ActionListeners to buttons
-        mainButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new MainView();
-            }
-        });
-
-        quitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        // Fetch and display rankings via the controller
+        rankingController.handleRanking(Constants.TEN);
 
         // Window settings
-        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
     }
 
-    @NotNull
-    private static JPanel getjPanel() {
-        final JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(Constants.THREE, 1));
-        return bottomPanel;
+    /**
+     * Displays the leaderboard in the UI.
+     *
+     * @param playerNames   A list of player names.
+     * @param scores        A list of player scores.
+     * @param daysSurvived  A list of days survived by each player.
+     * @param statuses      A list of statuses indicating if each player won or lost.
+     */
+    @Override
+    public void displayRankings(List<String> playerNames, List<Integer> scores,
+                                List<Integer> daysSurvived, List<String> statuses) {
+        // Clear any existing rows in the table
+        tableModel.setRowCount(0);
+
+        // Populate the table with new data
+        for (int i = 0; i < playerNames.size(); i++) {
+            tableModel.addRow(new Object[]{
+                // Rank
+                i + 1,
+                // Player Name
+                playerNames.get(i),
+                // Score
+                scores.get(i),
+                // Days Survived
+                daysSurvived.get(i),
+                // Status (Won/Lost)
+                statuses.get(i),
+            });
+        }
+
+        // Clear the error message
+        errorLabel.setText("");
     }
 
-    private static void extracted(Object[][] data, String[] columnNames, Container container) {
-        final JTable rankingTable = new JTable(new DefaultTableModel(data, columnNames));
-        rankingTable.setEnabled(false);
-        final JScrollPane scrollPane = new JScrollPane(rankingTable);
-        container.add(scrollPane, BorderLayout.CENTER);
+    /**
+     * Displays an error message in the UI.
+     *
+     * @param errorMessage The error message to display.
+     */
+    @Override
+    public void displayError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage,
+                "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Renders the ranking view window.
+     */
     public void render() {
-        setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setVisible(true);
     }
 

@@ -80,6 +80,7 @@ public class SignUpView extends JFrame implements SignupInterface {
         // setLocation(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
         setVisible(true);
     }
 
