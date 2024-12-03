@@ -102,7 +102,15 @@ public class MainView extends JFrame {
 
         // Switch to LoginView when "Logout" is clicked
         logoutButton.addActionListener(e -> {
-
+            dispose();
+            final LoginView loginView;
+            try {
+                loginView = new LoginView();
+            }
+            catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            loginView.render();
         });
     }
 
