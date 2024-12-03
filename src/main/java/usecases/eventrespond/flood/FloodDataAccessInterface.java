@@ -19,7 +19,7 @@ public interface FloodDataAccessInterface {
      * Value: Attribute value.
      * @return Map of player attributes.
      */
-    Map<String, Integer> getPlayerAttributes();
+    Map<String, Integer> getPlayerAttributesAsMap();
 
     void changeFood(int amount);
     void changeWater(int amount);

@@ -30,7 +30,7 @@ public class FloodEventInteractor implements FloodInputBoundary {
     @Override
     public void execute(FloodInputData inputData) {
         EventFlood floodEvent = (EventFlood) dataAccess.getEvent();
-        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributes();
+        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributesAsMap();
         Map<Integer, String> choices = floodEvent.getchoices();
 
         try {

@@ -93,7 +93,7 @@ public class InMemoryUnifiedDataAccess implements
         this.traderEncounter = traderEncounter;
     }
 
-    public PlayerAttributes getPlayerAttributesAsObject() {
+    public PlayerAttributes getPlayerAttributes() {
         return playerAttributes;
     }
 
@@ -101,8 +101,8 @@ public class InMemoryUnifiedDataAccess implements
      * Returns player attributes as a map.
      */
     @Override
-    public Map<String, Integer> getPlayerAttributes() {
-        Map<String, Integer> attributesMap = new HashMap<>();
+    public Map<String, Integer> getPlayerAttributesAsMap() {
+        final Map<String, Integer> attributesMap = new HashMap<>();
         attributesMap.put("Social", playerAttributes.getSocial());
         attributesMap.put("Luck", playerAttributes.getLuck());
         attributesMap.put("Mobilization", playerAttributes.getMobilization());

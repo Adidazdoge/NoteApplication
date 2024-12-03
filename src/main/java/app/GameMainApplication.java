@@ -79,6 +79,8 @@ import usecases.nevagateGameover.NevagateGameOverInteractor;
 import usecases.nevagateMain.NevagateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
 import frameworks.database.JsonRankingDataAccess;
+import usecases.chatgpt.ChatGptService;
+import usecases.chatgpt.ChatGptResponseParser;
 import view.*;
 
 /**
@@ -155,10 +157,6 @@ public class GameMainApplication {
                 gamedatabase, nevagateAllowcatePresenter);
         final NevagateAllowcateController nevagateAllowcateController = new NevagateAllowcateController(
                 nevagateAllowcateInteractor);
-
-        System.out.println("Starting JsonApplication initialization...");
-        mainView.setNevagateAllowcateController(nevagateAllowcateController);
-        System.out.println("NevagateAllowcateController is set successfully!");
 
         mainView.render();
         // Allowcate points ussecase.

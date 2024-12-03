@@ -30,7 +30,7 @@ public class AmbushEventInteractor implements AmbushInputBoundary {
     @Override
     public void execute(AmbushInputData inputData) {
         EventAmbush ambushEvent = (EventAmbush) dataAccess.getEvent();
-        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributes();
+        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributesAsMap();
         Map<Integer, String> choices = ambushEvent.getchoices();
 
         try {

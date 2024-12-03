@@ -30,7 +30,7 @@ public class BlizzardEventInteractor implements BlizzardInputBoundary {
     @Override
     public void execute(BlizzardInputData inputData) {
         EventBlizzard blizzardEvent = (EventBlizzard) dataAccess.getEvent();
-        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributes();
+        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributesAsMap();
         Map<Integer, String> choices = blizzardEvent.getchoices();
 
         try {
