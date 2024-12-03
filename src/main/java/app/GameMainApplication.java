@@ -216,33 +216,33 @@ public class GameMainApplication {
         // Event Respond usecase ambush
         final AmbushResponsePresenter ambushresponsePresenter = new AmbushResponsePresenter(eventView);
         final AmbushEventInteractor ambushEventInteractor =
-                new AmbushEventInteractor(gamedatabase, ambushresponsePresenter, chatGptService, responseParser);
+                new AmbushEventInteractor(gamedatabase, ambushresponsePresenter, chatGptService);
         final AmbushResponseController ambushResponseController = new AmbushResponseController(ambushEventInteractor);
 
         // Event Respond usecase blizzard
         final BlizzardResponsePresenter blizzardResponsePresenter = new BlizzardResponsePresenter(eventView);
         final BlizzardEventInteractor blizzardEventInteractor =
-                new BlizzardEventInteractor(gamedatabase, blizzardResponsePresenter, chatGptService, responseParser);
+                new BlizzardEventInteractor(gamedatabase, blizzardResponsePresenter, chatGptService);
         final BlizzardResponseController blizzardResponseController =
                 new BlizzardResponseController(blizzardEventInteractor);
 
         // Event Respond usecase flood
         final FloodResponsePresenter floodResponsePresenter = new FloodResponsePresenter(eventView);
         final FloodEventInteractor floodEventInteractor =
-                new FloodEventInteractor(gamedatabase, floodResponsePresenter, chatGptService, responseParser);
+                new FloodEventInteractor(gamedatabase, floodResponsePresenter, chatGptService);
         final FloodResponseController floodResponseController = new FloodResponseController(floodEventInteractor);
 
         // Event Respond usecase survivor
         final SurvivorResponsePresenter survivorResponsePresenter = new SurvivorResponsePresenter(eventView);
         final SurvivorEventInteractor survivorEventInteractor =
-                new SurvivorEventInteractor(gamedatabase, survivorResponsePresenter, chatGptService, responseParser);
+                new SurvivorEventInteractor(gamedatabase, survivorResponsePresenter, chatGptService);
         final SurvivorResponseController survivorResponseController =
                 new SurvivorResponseController(survivorEventInteractor);
 
         // Event Respond usecase trader
         final TraderResponsePresenter traderResponsePresenter = new TraderResponsePresenter(eventView);
         final TraderEventInteractor traderEventInteractor =
-                new TraderEventInteractor(gamedatabase, traderResponsePresenter, chatGptService, responseParser);
+                new TraderEventInteractor(gamedatabase, traderResponsePresenter, chatGptService);
         final TraderResponseController traderResponseController = new TraderResponseController(traderEventInteractor);
 
         // Initialize Event manager
