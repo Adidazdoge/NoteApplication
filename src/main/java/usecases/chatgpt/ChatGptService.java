@@ -11,7 +11,7 @@ import java.util.Map;
  * Service to integrate ChatGPT API.
  */
 public class ChatGptService {
-    private static final String API_URL = "https://api.openai.com/v1/completions";
+    private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
     /**
      * Sends a request to ChatGPT with the event description, player attributes, and player choice.
@@ -31,16 +31,18 @@ public class ChatGptService {
         connection.setDoOutput(true);
 
         // Build the prompt for ChatGPT
-        String prompt = generatePrompt(eventDescription, playerAttributes, playerChoice);
-
-        // Construct the request payload
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(Map.of(
-                "model", "gpt-3.5-turbo",
-                "prompt", prompt,
+                "model", "gpt-4",
+                "messages", new Object[]{
+                        Map.of("role", "system", "content", "You are an AI that helps resolve events in a survival game."),
+                        Map.of("role", "user", "content", generatePrompt(eventDescription, playerAttributes, playerChoice))
+                },
                 "max_tokens", 150,
                 "temperature", 0.7
         ));
+
+        System.out.println("Request Body: " + requestBody);
 
         // Send the request
         try (OutputStream os = connection.getOutputStream()) {
@@ -52,6 +54,9 @@ public class ChatGptService {
         if (connection.getResponseCode() == 200) {
             return new String(connection.getInputStream().readAllBytes());
         } else {
+            // Log the error response
+            String errorResponse = new String(connection.getErrorStream().readAllBytes());
+            System.err.println("ChatGPT API Error: HTTP " + connection.getResponseCode() + " - " + errorResponse);
             throw new RuntimeException("Failed to call ChatGPT API: HTTP " + connection.getResponseCode());
         }
     }
