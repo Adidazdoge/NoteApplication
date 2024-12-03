@@ -41,7 +41,7 @@ public class RankingView extends JFrame implements RankingInterface {
 
         // Title
         final JLabel titleLabel = new JLabel("Ranking List", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, Constants.TWENTYFIVE));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, Constants.THIRTY));
         container.add(titleLabel, BorderLayout.NORTH);
 
         // Table to display rankings
@@ -50,24 +50,38 @@ public class RankingView extends JFrame implements RankingInterface {
         rankingTable = new JTable(tableModel);
         // Make table non-editable
         rankingTable.setEnabled(false);
+        rankingTable.setFont(new Font("Arial", Font.PLAIN, Constants.FIFTEEN));
+        rankingTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
+        rankingTable.setRowHeight(Constants.TWENTYFIVE);
         container.add(new JScrollPane(rankingTable), BorderLayout.CENTER);
 
         // Error label
         backButton = new JButton("Back to Main Memu");
         backButton.setBackground(Color.WHITE);
         backButton.setForeground(Constants.THEME_COLOR);
-        backButton.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
+        backButton.setFont(new Font("Arial", Font.BOLD, Constants.TWENTY));
         container.add(backButton, BorderLayout.SOUTH);
+
+        // Add ActionListener to navigate back to the main menu
+        backButton.addActionListener(e -> {
+            // Dispose the current view
+            dispose();
+
+            // Open the MainView
+            final MainView mainView = new MainView();
+            mainView.render();
+        });
 
         // Fetch and display rankings via the controller
         rankingController.handleRanking(Constants.TEN);
 
         // Window settings
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setSize(Constants.EIGHT_HUNDRED, Constants.SIX_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
     }
+
 
     /**
      * Displays the leaderboard in the UI.

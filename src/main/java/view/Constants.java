@@ -12,6 +12,7 @@ public class Constants {
     public static final int TWENTYFIVE = 25;
     public static final int TWO_HUNDRED = 200;
     public static final int THREE_HUNDRED = 300;
+    public static final int FIVE_HUNDRED = 500;
     public static final int FORTY = 40;
     public static final int TEN = 10;
     public static final int FIFTY = 50;

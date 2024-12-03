@@ -83,10 +83,10 @@ public class LoginView extends JFrame implements LoginInterface {
                 throw new RuntimeException(ex);
             }
         });
-
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
     }
 
     private void layout(int offsetX) {
@@ -133,7 +133,6 @@ public class LoginView extends JFrame implements LoginInterface {
 
     // Add render method
     public void render() {
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(true);
     }
 

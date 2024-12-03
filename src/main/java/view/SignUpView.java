@@ -85,7 +85,7 @@ public class SignUpView extends JFrame implements SignupInterface {
         // setLocation(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
     }
 
     private void extracted() {
@@ -174,7 +174,6 @@ public class SignUpView extends JFrame implements SignupInterface {
 
     // Add render method
     public void render() {
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(true);
     }
 

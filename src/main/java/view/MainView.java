@@ -86,7 +86,7 @@ public class MainView extends JFrame {
         // Set window properties (moved to render())
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
     }
 
     public void setNevagateAllowcateController(NevagateAllowcateController nevagateAllowcateController) {
