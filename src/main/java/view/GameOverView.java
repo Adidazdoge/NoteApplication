@@ -10,17 +10,28 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Gameover view.
+ * Represents the "Game Over" view in the application.
+ * Provides UI components for displaying the game result and returning to the main menu.
  */
 public class GameOverView extends JFrame implements LoseInterface, HordeInterface, NevagateMainInterface {
-    private final JLabel scoreLabel; // Make it an instance variable
-    private final JTextArea descriptionArea; // Make it an instance variable
+    // Make it an instance variable
+    private final JLabel scoreLabel;
+    // Make it an instance variable
+    private final JTextArea descriptionArea;
     private NevagateMainController nevagateMainController;
 
+    /**
+     * Sets the navigation controller for this view.
+     *
+     * @param nevagateMainController The navigation controller instance.
+     */
     public void setController(NevagateMainController nevagateMainController) {
         this.nevagateMainController = nevagateMainController;
     }
 
+    /**
+     * Constructs the GameOverView UI and initializes all components.
+     */
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public GameOverView() {
         super("Game Over");
@@ -35,7 +46,8 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
         container.add(titleLabel);
 
         // Score label
-        scoreLabel = new JLabel("Score: 0"); // Initialize with a default value
+        // Initialize with a default value
+        scoreLabel = new JLabel("Score: 0");
         scoreLabel.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
         container.add(scoreLabel);
 
@@ -45,7 +57,8 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
         descriptionArea.setBackground(Color.LIGHT_GRAY);
         descriptionArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         descriptionArea.setLineWrap(true);
-        descriptionArea.setWrapStyleWord(true); // Ensure long text wraps
+        // Ensure long text wraps
+        descriptionArea.setWrapStyleWord(true);
         container.add(descriptionArea);
 
         // Main menu button
