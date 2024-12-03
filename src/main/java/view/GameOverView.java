@@ -1,6 +1,9 @@
 package view;
 
 import app.GameMainApplication;
+import app.JsonApplication;
+import app.RestartGameController;
+import interface_adapters.NavigationManagerJson;
 import interface_adapters.endprocesshorde.HordeInterface;
 import interface_adapters.gamelosedetecter.LoseInterface;
 import interface_adapters.nevagatemainview.NevagateMainController;
@@ -19,6 +22,8 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
     // Make it an instance variable
     private final JTextArea descriptionArea;
     private NevagateMainController nevagateMainController;
+    private NavigationManagerJson navigationManager;
+    private RestartGameController restartGameController;
 
     /**
      * Sets the navigation controller for this view.
@@ -27,6 +32,14 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
      */
     public void setController(NevagateMainController nevagateMainController) {
         this.nevagateMainController = nevagateMainController;
+    }
+
+    public void setNavigationManager(NavigationManagerJson navigationManager) {
+        this.navigationManager = navigationManager;
+    }
+
+    public void setRestartGameController(RestartGameController restartGameController) {
+        this.restartGameController = restartGameController;
     }
 
     /**
@@ -71,10 +84,9 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
 
         // Add action listener to "Main Menu" button
         mainMenuButton.addActionListener(e -> {
+            restartGameController.resetGame();
+            navigationManager.showMainView();
             dispose();
-            // Call the main method to restart the application
-            final String[] args = {};
-            GameMainApplication.main(args);
         });
 
         // Window settings
