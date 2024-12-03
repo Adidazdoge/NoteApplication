@@ -54,6 +54,7 @@ public class InformationView extends JFrame {
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
         setVisible(false);
     }
 

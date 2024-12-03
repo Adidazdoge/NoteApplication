@@ -208,6 +208,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
 
         // Register this as a listener for property changes
         propertyChangeSupport.addPropertyChangeListener(this);

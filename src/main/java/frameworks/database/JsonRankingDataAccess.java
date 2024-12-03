@@ -93,9 +93,18 @@ public class JsonRankingDataAccess implements RankingDataAccessInterface {
     private void saveRankings() {
         try {
             database.save(rankings);
+            reloadData();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Reload the JSON file after save.
+     */
+    @Override
+    public void reloadData() throws IOException {
+        this.rankings = database.load();
     }
 }

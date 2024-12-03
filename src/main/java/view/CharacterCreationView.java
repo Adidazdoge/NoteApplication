@@ -105,6 +105,7 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
         setVisible(false);
     }
 

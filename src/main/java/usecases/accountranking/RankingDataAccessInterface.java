@@ -1,5 +1,6 @@
 package usecases.accountranking;
 
+import java.io.IOException;
 import java.util.List;
 
 import entities.PlayerRankingEntry;
@@ -35,4 +36,6 @@ public interface RankingDataAccessInterface {
      * @param won          Whether the player won the game.
      */
     void updateRankingData(String username, int score, int daysSurvived, boolean won);
+
+    void reloadData() throws IOException;
 }
