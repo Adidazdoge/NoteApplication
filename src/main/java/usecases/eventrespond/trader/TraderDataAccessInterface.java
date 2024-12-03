@@ -2,6 +2,7 @@ package usecases.eventrespond.trader;
 
 import entities.Event;
 import entities.Inventory;
+import entities.PlayerAttributes;
 
 import java.util.Map;
 
@@ -19,14 +20,14 @@ public interface TraderDataAccessInterface {
      * Value: Attribute value.
      * @return Map of player attributes.
      */
-    Map<String, Integer> getPlayerAttributes();
+    Map<String, Integer> getPlayerAttributesAsMap();
 
     /**
      * Returns player attributes as an object.
      * This is used when specific attribute methods are needed.
      * @return PlayerAttributes object.
      */
-    PlayerAttributes getPlayerAttributesAsObject();
+    PlayerAttributes getPlayerAttributes();
 
     void changeFood(int amount);
     void changeWater(int amount);

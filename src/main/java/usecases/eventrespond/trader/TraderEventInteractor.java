@@ -30,7 +30,7 @@ public class TraderEventInteractor implements TraderInputBoundary {
     @Override
     public void execute(TraderInputData inputData) {
         EventTraderEncounter traderEvent = (EventTraderEncounter) dataAccess.getEvent();
-        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributes();
+        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributesAsMap();
         Map<Integer, String> choices = traderEvent.getchoices();
 
         try {
