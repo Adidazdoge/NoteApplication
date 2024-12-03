@@ -1,6 +1,7 @@
 package view;
 
-import app.LoginApplication;
+import app.JsonApplication;
+import interface_adapters.NavigationManagerJson;
 import interface_adapters.login.LoginController;
 import interface_adapters.login.LoginInterface;
 
@@ -22,7 +23,9 @@ public class LoginView extends JFrame implements LoginInterface {
     private final JButton loginButton = new JButton("Log in");
     private final JButton registerButton = new JButton("Sign up");
 
-    private final LoginController loginController;
+    private LoginController loginController;
+    private NavigationManagerJson navigationManager;
+
     /**
      * Constructs the LoginView with the provided LoginController.
      *
@@ -30,9 +33,6 @@ public class LoginView extends JFrame implements LoginInterface {
      */
     public LoginView() throws IOException {
         super("Login");
-
-        // Initialize the controller via the LoginApplication
-        this.loginController = LoginApplication.initializeLogin(this);
 
         final Container contentPane = getContentPane();
         nameLabel.setFont(new Font("Impact", Font.BOLD, Constants.FIFTY));
@@ -69,18 +69,15 @@ public class LoginView extends JFrame implements LoginInterface {
         loginButton.addActionListener(e -> {
             final String username = userText.getText();
             final String password = new String(passwordText.getPassword());
+            userText.setText("");
+            passwordText.setText("");
             loginController.handleLogin(username, password);
         });
 
         registerButton.addActionListener(e -> {
-            dispose();
-            try {
-                // Navigate to the sign-up page
-                final SignUpView signUpView = new SignUpView();
-                signUpView.render();
-            }
-            catch (IOException ex) {
-                throw new RuntimeException(ex);
+            if (navigationManager != null) {
+                // Navigate to SignUpView
+                navigationManager.showSignUpView();
             }
         });
         setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
@@ -114,6 +111,24 @@ public class LoginView extends JFrame implements LoginInterface {
     }
 
     /**
+     * Sets the LoginController for this view.
+     *
+     * @param loginController The LoginController instance.
+     */
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+    /**
+     * Sets the NavigationManager for this view.
+     *
+     * @param navigationManager The NavigationManager instance.
+     */
+    public void setNavigationManager(NavigationManagerJson navigationManager) {
+        this.navigationManager = navigationManager;
+    }
+
+    /**
      * Displays the result of a login attempt.
      *
      * @param message A message indicating the result of the login attempt.
@@ -123,21 +138,31 @@ public class LoginView extends JFrame implements LoginInterface {
         JOptionPane.showMessageDialog(this, message, "Login Result", JOptionPane.INFORMATION_MESSAGE);
 
         if ("Login successful!".equals(message)) {
-            // Close login window
-            dispose();
-            // Navigate to the game view
-            final MainView mainView = new MainView();
-            mainView.render();
+            if (navigationManager != null) {
+                navigationManager.showMainView();
+            }
+            else {
+                JOptionPane.showMessageDialog(this,
+                        "Cannot navigate to Main View.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
-    // Add render method
     public void render() {
         setVisible(true);
     }
 
+    public void disrender() {
+        setVisible(false);
+    }
+
     public static void main(String[] args) throws IOException {
-        final LoginView loginView = new LoginView();
-        loginView.render();
+        try {
+            new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

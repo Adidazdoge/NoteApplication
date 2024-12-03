@@ -1,7 +1,7 @@
 package interface_adapters.nevagatemainview;
 
-import usecases.nevagatemain.NevagateMainInputBoundary;
-import usecases.nevagatemain.NevagateMainInputdata;
+import usecases.nevagateMain.NevagateMainInputBoundary;
+import usecases.nevagateMain.NevagateMainInputdata;
 
 /**
  * Controller for navigating to new page.

@@ -1,8 +1,8 @@
 package interface_adapters.nevagategame;
 
 import interface_adapters.NavigationManager;
-import usecases.nevagategame.NevagateGameOutputBoundary;
-import usecases.nevagategame.NevagateGameOutputdata;
+import usecases.nevagateGame.NevagateGameOutputBoundary;
+import usecases.nevagateGame.NevagateGameOutputdata;
 
 public class NevagateGamePresenter implements NevagateGameOutputBoundary {
     private NavigationManager navigationManager;

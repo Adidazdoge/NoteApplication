@@ -1,7 +1,7 @@
 package interface_adapters.nevagategameover;
 
-import usecases.nevagategameover.NevagateGameOverInputBoundary;
-import usecases.nevagategameover.NevagateGameOverInputdata;
+import usecases.nevagateGameover.NevagateGameOverInputBoundary;
+import usecases.nevagateGameover.NevagateGameOverInputdata;
 
 /**
  * Controller for navigate.

@@ -409,13 +409,14 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         final int centerRow = rows / 2;
         final int centerCol = cols / 2;
 
-        StringBuilder mapBuilder = new StringBuilder();
+        final StringBuilder mapBuilder = new StringBuilder();
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 if (r == centerRow && c == centerCol) {
                     mapBuilder.append("@  ");
-                } else {
+                }
+                else {
                     mapBuilder.append(grid.get(r).get(c)).append("  ");
                 }
             }

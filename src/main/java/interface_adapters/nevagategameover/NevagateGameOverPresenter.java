@@ -1,8 +1,8 @@
 package interface_adapters.nevagategameover;
 
 import interface_adapters.NavigationManager;
-import usecases.nevagategameover.NevagateGameOverOutputBoundary;
-import usecases.nevagategameover.NevagateGameOverOutputdata;
+import usecases.nevagateGameover.NevagateGameOverOutputBoundary;
+import usecases.nevagateGameover.NevagateGameOverOutputdata;
 
 /**
  * Nevagate game over view presenter.

@@ -1,6 +1,8 @@
 package view;
 
+import app.JsonApplication;
 import app.RankingApplication;
+import interface_adapters.NavigationManagerJson;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
 import interface_adapters.rankinglist.RankingInterface;
 import interface_adapters.rankinglist.RankingController;
@@ -19,7 +21,9 @@ public class MainView extends JFrame {
     private JButton rankingButton = new JButton("Ranking List");
     private JButton quitButton = new JButton("Quit");
     private JButton logoutButton = new JButton("Log Out");
+
     private NevagateAllowcateController nevagateAllowcateController;
+    private NavigationManagerJson navigationManager;
 
     public MainView() {
         // Set layout and container
@@ -84,29 +88,39 @@ public class MainView extends JFrame {
         addListeners();
 
         // Set window properties (moved to render())
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
     }
 
     public void setNevagateAllowcateController(NevagateAllowcateController nevagateAllowcateController) {
+        System.out.println("MainView instance in setNevagateAllowcateController: " + System.identityHashCode(this));
         this.nevagateAllowcateController = nevagateAllowcateController;
     }
 
     // Add ActionListener to buttons
-    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     private void addListeners() {
         // Switch to GameView when "New Game" is clicked
         newGameButton.addActionListener(e -> {
-            nevagateAllowcateController.execute();
+            if (nevagateAllowcateController != null) {
+                nevagateAllowcateController.execute();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Navigation controller not initialized.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         // Switch to RankView when "Ranking" is clicked
         rankingButton.addActionListener(e -> {
-            // Close MainView
-            dispose();
-            final RankingView rankingView = new RankingView();
-            rankingView.render();
+            if (navigationManager != null) {
+                navigationManager.showRankingView();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Navigation Manager is not initialized. Cannot navigate to Ranking View.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         // Exit the game when "Quit" is clicked
@@ -116,31 +130,41 @@ public class MainView extends JFrame {
 
         // Switch to LoginView when "Logout" is clicked
         logoutButton.addActionListener(e -> {
-            dispose();
-            final LoginView loginView;
-            try {
-                loginView = new LoginView();
+            if (navigationManager != null) {
+                navigationManager.showLoginView();
             }
-            catch (IOException ex) {
-                throw new RuntimeException(ex);
+            else {
+                JOptionPane.showMessageDialog(this,
+                        "Error navigating to LoginView.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
-            loginView.render();
         });
+    }
+
+    /**
+     * Sets the NavigationManager for this view.
+     *
+     * @param navigationManager The NavigationManager instance.
+     */
+    public void setNavigationManager(NavigationManagerJson navigationManager) {
+        this.navigationManager = navigationManager;
     }
 
     // Add render method
     public void render() {
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(true);
     }
 
     public void disrender() {
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(false);
     }
 
-     public static void main(String[] args) {
-        // Call render() to display the view
-        new MainView().render();
-     }
+    public static void main(String[] args) {
+        try {
+            new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

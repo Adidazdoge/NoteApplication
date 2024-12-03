@@ -55,7 +55,7 @@ import interface_adapters.nevagatemainview.NevagateMainController;
 import interface_adapters.nevagatemainview.NevagateMainPresenter;
 import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcatePresenter;
-import usecases.NevagateEventPage.NevagateEventInteractor;
+import usecases.nevagateEventPage.NevagateEventInteractor;
 import usecases.dailybroadcast.BroadcastInteractor;
 import usecases.dailygather.GatherInteractor;
 import usecases.dailymove.MoveInteractor;
@@ -74,9 +74,9 @@ import usecases.gameminimap.MinimapInteractor;
 import usecases.gamenewday.NewdayInteractor;
 import usecases.gameplacedescription.PlaceDescriptionInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
-import usecases.nevagategame.NevagateGameInteractor;
-import usecases.nevagategameover.NevagateGameOverInteractor;
-import usecases.nevagatemain.NevagateMainInteractor;
+import usecases.nevagateGame.NevagateGameInteractor;
+import usecases.nevagateGameover.NevagateGameOverInteractor;
+import usecases.nevagateMain.NevagateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
 import frameworks.database.JsonRankingDataAccess;
 import view.*;
@@ -105,6 +105,7 @@ public class GameMainApplication {
             System.err.println("Failed to update ranking data: " + e.getMessage());
         }
     }
+
     /**
      * Main of the game loop.
      * @param args args
@@ -149,12 +150,16 @@ public class GameMainApplication {
                 new NavigationManager(mainView, attributeview, gameView, eventView, informationView, gameOverView);
         // initialize each usecase.
         // Nevagate to allowcate page usecase.
-        final NevagateAllowcatePresenter nevagateallowcatepresener = new NevagateAllowcatePresenter(navigationManager);
-        final NevagateAllowcateInteractor nevagateAllowcateInteractor =
-                new NevagateAllowcateInteractor(gamedatabase, nevagateallowcatepresener);
-        final NevagateAllowcateController nevagateAllowcateController =
-                new NevagateAllowcateController(nevagateAllowcateInteractor);
+        final NevagateAllowcatePresenter nevagateAllowcatePresenter = new NevagateAllowcatePresenter(navigationManager);
+        final NevagateAllowcateInteractor nevagateAllowcateInteractor = new NevagateAllowcateInteractor(
+                gamedatabase, nevagateAllowcatePresenter);
+        final NevagateAllowcateController nevagateAllowcateController = new NevagateAllowcateController(
+                nevagateAllowcateInteractor);
+
+        System.out.println("Starting JsonApplication initialization...");
         mainView.setNevagateAllowcateController(nevagateAllowcateController);
+        System.out.println("NevagateAllowcateController is set successfully!");
+
         mainView.render();
         // Allowcate points ussecase.
         final AllowcatePresenter allowcatePresenter = new AllowcatePresenter(attributeview, navigationManager);

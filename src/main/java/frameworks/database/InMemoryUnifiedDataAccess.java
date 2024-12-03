@@ -3,8 +3,7 @@ package frameworks.database;
 import java.util.ArrayList;
 
 import entities.*;
-import interface_adapters.nevagategame.NevagateGameInterface;
-import usecases.NevagateEventPage.NevagateEventDataAccessInterface;
+import usecases.nevagateEventPage.NevagateEventDataAccessInterface;
 import usecases.dailybroadcast.BroadcastDataAccessInterface;
 import usecases.dailygather.GatherDataAccessInterface;
 import usecases.dailymove.MoveDataAccessInterface;
@@ -23,9 +22,9 @@ import usecases.gameminimap.MinimapDataAccessInterface;
 import usecases.gamenewday.NewdayDataAccessInterface;
 import usecases.gameplacedescription.PlaceDescriptionDataAccessInterface;
 import usecases.nevagateAllowcatePage.NevagateAllowcateDataAccessInterface;
-import usecases.nevagategame.NevagateGameDataAccessInterface;
-import usecases.nevagategameover.NevagateGameOverDataAccessInterface;
-import usecases.nevagatemain.NevagateMainDataAccessInterface;
+import usecases.nevagateGame.NevagateGameDataAccessInterface;
+import usecases.nevagateGameover.NevagateGameOverDataAccessInterface;
+import usecases.nevagateMain.NevagateMainDataAccessInterface;
 import usecases.startallowcate.AllowcateDataAccessInterface;
 
 /**

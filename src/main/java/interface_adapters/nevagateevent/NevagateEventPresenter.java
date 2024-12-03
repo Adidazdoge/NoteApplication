@@ -1,8 +1,8 @@
 package interface_adapters.nevagateevent;
 
 import interface_adapters.NavigationManager;
-import usecases.NevagateEventPage.NevagateEventOutputBoundary;
-import usecases.NevagateEventPage.NevagateEventOutputdata;
+import usecases.nevagateEventPage.NevagateEventOutputBoundary;
+import usecases.nevagateEventPage.NevagateEventOutputdata;
 
 public class NevagateEventPresenter implements NevagateEventOutputBoundary {
     private final NavigationManager navigationManager;

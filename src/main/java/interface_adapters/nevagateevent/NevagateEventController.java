@@ -1,8 +1,7 @@
 package interface_adapters.nevagateevent;
 
-import usecases.NevagateEventPage.NevagateEventInputBoundary;
-import usecases.NevagateEventPage.NevagateEventInputdata;
-import usecases.NevagateEventPage.NevagateEventInteractor;
+import usecases.nevagateEventPage.NevagateEventInputBoundary;
+import usecases.nevagateEventPage.NevagateEventInputdata;
 
 /**
  * Controller.

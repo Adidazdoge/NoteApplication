@@ -1,14 +1,13 @@
 package view;
 
-import app.LoginApplication;
-import app.RankingApplication;
+import app.JsonApplication;
+import interface_adapters.NavigationManagerJson;
 import interface_adapters.rankinglist.RankingController;
 import interface_adapters.rankinglist.RankingInterface;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,7 +18,9 @@ public class RankingView extends JFrame implements RankingInterface {
     private final JTable rankingTable;
     private final DefaultTableModel tableModel;
     private final JButton backButton;
-    private final RankingController rankingController;
+
+    private RankingController rankingController;
+    private NavigationManagerJson navigationManager;
 
     /**
      * Constructs the RankingView and sets up the UI components.
@@ -27,13 +28,6 @@ public class RankingView extends JFrame implements RankingInterface {
      */
     public RankingView() {
         super("Leaderboard");
-
-        try {
-            this.rankingController = RankingApplication.initializeRanking(this);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         // Main container layout
         final Container container = getContentPane();
@@ -64,16 +58,14 @@ public class RankingView extends JFrame implements RankingInterface {
 
         // Add ActionListener to navigate back to the main menu
         backButton.addActionListener(e -> {
-            // Dispose the current view
-            dispose();
-
-            // Open the MainView
-            final MainView mainView = new MainView();
-            mainView.render();
+            if (navigationManager != null) {
+                navigationManager.showMainView();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Navigation Manager not initialized.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
-
-        // Fetch and display rankings via the controller
-        rankingController.handleRanking(Constants.TEN);
 
         // Window settings
         setSize(Constants.EIGHT_HUNDRED, Constants.SIX_HUNDRED);
@@ -82,6 +74,23 @@ public class RankingView extends JFrame implements RankingInterface {
         setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
     }
 
+    /**
+     * Sets the LoginController for this view.
+     *
+     * @param rankingController The LoginController instance.
+     */
+    public void setRankingController(RankingController rankingController) {
+        this.rankingController = rankingController;
+    }
+
+    /**
+     * Sets the NavigationManager for this view.
+     *
+     * @param navigationManager The NavigationManager instance.
+     */
+    public void setNavigationManager(NavigationManagerJson navigationManager) {
+        this.navigationManager = navigationManager;
+    }
 
     /**
      * Displays the leaderboard in the UI.
@@ -130,10 +139,22 @@ public class RankingView extends JFrame implements RankingInterface {
      */
     public void render() {
         setVisible(true);
+        if (rankingController != null) {
+            // Fetch rankings after the controller is set
+            rankingController.handleRanking(Constants.TEN);
+        }
+    }
+
+    public void disrender() {
+        setVisible(false);
     }
 
     public static void main(String[] args) {
-        final RankingView rankingView = new RankingView();
-        rankingView.render();
+        try {
+            new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

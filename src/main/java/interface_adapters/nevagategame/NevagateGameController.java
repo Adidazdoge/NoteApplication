@@ -1,7 +1,7 @@
 package interface_adapters.nevagategame;
 
-import usecases.nevagategame.NevagateGameInputBoundary;
-import usecases.nevagategame.NevagateGameInputdata;
+import usecases.nevagateGame.NevagateGameInputBoundary;
+import usecases.nevagateGame.NevagateGameInputdata;
 
 public class NevagateGameController {
     private final NevagateGameInputBoundary interactor;

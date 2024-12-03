@@ -1,6 +1,7 @@
 package view;
 
-import app.SignupApplication;
+import app.JsonApplication;
+import interface_adapters.NavigationManagerJson;
 import interface_adapters.signup.SignupController;
 import interface_adapters.signup.SignupInterface;
 
@@ -24,7 +25,8 @@ public class SignUpView extends JFrame implements SignupInterface {
     private final JButton registerButton = new JButton("Sign up");
     private final JButton loginButton = new JButton("Back to login");
 
-    private final SignupController signupController;
+    private SignupController signupController;
+    private NavigationManagerJson navigationManager;
 
     /**
      * Constructs the SignUpView with the provided SignupController.
@@ -33,9 +35,6 @@ public class SignUpView extends JFrame implements SignupInterface {
      */
     public SignUpView() throws IOException {
         super("Sign Up");
-
-        // Initialize the controller via SignupApplication
-        this.signupController = SignupApplication.initializeSignup(this);
 
         final Container contentPane = getContentPane();
         nameLabel.setFont(new Font("Impact", Font.BOLD, Constants.FIFTY));
@@ -69,15 +68,15 @@ public class SignUpView extends JFrame implements SignupInterface {
         extracted(offsetX);
 
         registerButton.addActionListener(e -> handleSignup());
+
         loginButton.addActionListener(e -> {
-            dispose();
             try {
-                final LoginView loginView = new LoginView();
-                loginView.render();
+                navigationManager.showLoginView();
             }
-            catch (IOException ex) {
+            catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error navigating to LoginView.",
                         "Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
             }
         });
 
@@ -143,6 +142,24 @@ public class SignUpView extends JFrame implements SignupInterface {
     }
 
     /**
+     * Sets the LoginController for this view.
+     *
+     * @param signupController The LoginController instance.
+     */
+    public void setSignupController(SignupController signupController) {
+        this.signupController = signupController;
+    }
+
+    /**
+     * Sets the NavigationManager for this view.
+     *
+     * @param navigationManager The NavigationManager instance.
+     */
+    public void setNavigationManager(NavigationManagerJson navigationManager) {
+        this.navigationManager = navigationManager;
+    }
+
+    /**
      * Displays the result of the signup process.
      *
      * @param message A message indicating the result of the signup process.
@@ -152,18 +169,15 @@ public class SignUpView extends JFrame implements SignupInterface {
         JOptionPane.showMessageDialog(this, message, "Signup Result", JOptionPane.INFORMATION_MESSAGE);
 
         if ("Signup successful!".equals(message)) {
-            // Close signup view
-            dispose();
-            try {
-                // Navigate to login page
-                final LoginView loginView = new LoginView();
-                loginView.render();
+            if (navigationManager != null) {
+                navigationManager.showLoginView();
             }
-            catch (IOException e) {
+            else {
                 userText.setText("");
                 passwordText.setText("");
                 againText.setText("");
-                JOptionPane.showMessageDialog(this, "Error navigating to LoginView.",
+                JOptionPane.showMessageDialog(this,
+                        "Error navigating to LoginView.",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -177,8 +191,16 @@ public class SignUpView extends JFrame implements SignupInterface {
         setVisible(true);
     }
 
-    public static void main(String[] args) throws IOException {
-        final SignUpView signUpView = new SignUpView();
-        signUpView.render();
+    public void disrender() {
+        setVisible(false);
+    }
+
+    public static void main(String[] args) {
+        try {
+            new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

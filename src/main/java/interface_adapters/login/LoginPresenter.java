@@ -1,5 +1,6 @@
 package interface_adapters.login;
 
+import interface_adapters.NavigationManagerJson;
 import usecases.accountlogin.LoginOutputBoundary;
 import usecases.accountlogin.LoginOutputData;
 
@@ -9,9 +10,17 @@ import usecases.accountlogin.LoginOutputData;
  */
 public class LoginPresenter implements LoginOutputBoundary {
     private final LoginInterface view;
+    private final NavigationManagerJson navigationManager;
 
-    public LoginPresenter(LoginInterface view) {
+    /**
+     * Constructs a LoginPresenter with the specified view and navigation manager.
+     *
+     * @param view              The view interface for displaying login results.
+     * @param navigationManager The navigation manager for handling navigation logic.
+     */
+    public LoginPresenter(LoginInterface view, NavigationManagerJson navigationManager) {
         this.view = view;
+        this.navigationManager = navigationManager;
     }
 
     /**
@@ -20,6 +29,9 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareSuccessView(LoginOutputData outputData) {
         view.displayLoginResult(outputData.getMessage());
+        if (outputData.isLoginSuccess()) {
+            navigationManager.showMainView();
+        }
     }
 
     /**
