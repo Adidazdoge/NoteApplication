@@ -37,6 +37,7 @@ public class NavigationManager {
         eventView.disrender();
         informationView.disrender();
         gameOverView.disrender();
+        System.out.println("Attribute view created");
     }
 
     public void showEventView() {

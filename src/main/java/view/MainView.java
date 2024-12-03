@@ -1,5 +1,6 @@
 package view;
 
+import app.GameMainApplication;
 import app.JsonApplication;
 import app.RankingApplication;
 import interface_adapters.NavigationManagerJson;
@@ -103,6 +104,9 @@ public class MainView extends JFrame {
     private void addListeners() {
         // Switch to GameView when "New Game" is clicked
         newGameButton.addActionListener(e -> {
+            dispose();
+            final String[] args = {};
+            GameMainApplication.main(args);
             if (nevagateAllowcateController != null) {
                 nevagateAllowcateController.execute();
             }

@@ -160,8 +160,6 @@ public class GameMainApplication {
 
         final ChatGptService chatGptService = new ChatGptService();
         final ChatGptResponseParser responseParser = new ChatGptResponseParser();
-
-        mainView.render();
         // Allowcate points ussecase.
         final AllowcatePresenter allowcatePresenter = new AllowcatePresenter(attributeview, navigationManager);
         final AllowcateInteractor allowcateInteractor = new AllowcateInteractor(gamedatabase, allowcatePresenter);
@@ -294,6 +292,7 @@ public class GameMainApplication {
 
         // Example of how to use the endGame method
         // endGame("path/to/rankings.json", "Player1", score, daysSurvived, won);
+        attributeview.render();
         gameView.setController(fetchController, broadcastController,
                 placeDescriptionController, dailyGatherController, dailyMoveController,
                 nevagateEventController, eventDecideController, newdayController, minimapController, loseController,
@@ -302,5 +301,6 @@ public class GameMainApplication {
         eventView.setController(eventInitializerController, fetchEventController, nevagateGameController);
         eventView.setManager(eventManager);
         gameOverView.setController(nevagateMainController);
+        mainView.setNevagateAllowcateController(nevagateAllowcateController);
     }
 }
