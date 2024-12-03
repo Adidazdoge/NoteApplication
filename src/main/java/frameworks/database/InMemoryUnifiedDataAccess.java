@@ -1,6 +1,8 @@
 package frameworks.database;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import entities.*;
 import usecases.nevagateEventPage.NevagateEventDataAccessInterface;
@@ -91,10 +93,22 @@ public class InMemoryUnifiedDataAccess implements
         this.traderEncounter = traderEncounter;
     }
 
-    // Implementation of AllowcateDataAccessInterface
-    @Override
-    public PlayerAttributes getPlayerAttributes() {
+    public PlayerAttributes getPlayerAttributesAsObject() {
         return playerAttributes;
+    }
+
+    /**
+     * Returns player attributes as a map.
+     */
+    @Override
+    public Map<String, Integer> getPlayerAttributes() {
+        Map<String, Integer> attributesMap = new HashMap<>();
+        attributesMap.put("Social", playerAttributes.getSocial());
+        attributesMap.put("Luck", playerAttributes.getLuck());
+        attributesMap.put("Mobilization", playerAttributes.getMobilization());
+        attributesMap.put("Thrift", playerAttributes.getThrift());
+        attributesMap.put("Generalship", playerAttributes.getGeneralship());
+        return attributesMap;
     }
 
     @Override
