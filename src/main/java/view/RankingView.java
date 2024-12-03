@@ -8,6 +8,7 @@ import interface_adapters.rankinglist.RankingInterface;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,8 +18,9 @@ import java.util.List;
 public class RankingView extends JFrame implements RankingInterface {
     private final JTable rankingTable;
     private final DefaultTableModel tableModel;
-    private final JLabel errorLabel;
+    private final JButton backButton;
     private final RankingController rankingController;
+
     /**
      * Constructs the RankingView and sets up the UI components.
      * @throws RuntimeException If there is an error initializing the signup application.
@@ -38,8 +40,8 @@ public class RankingView extends JFrame implements RankingInterface {
         container.setLayout(new BorderLayout());
 
         // Title
-        final JLabel titleLabel = new JLabel("Leaderboard", JLabel.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+        final JLabel titleLabel = new JLabel("Ranking List", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, Constants.THIRTY));
         container.add(titleLabel, BorderLayout.NORTH);
 
         // Table to display rankings
@@ -48,23 +50,38 @@ public class RankingView extends JFrame implements RankingInterface {
         rankingTable = new JTable(tableModel);
         // Make table non-editable
         rankingTable.setEnabled(false);
+        rankingTable.setFont(new Font("Arial", Font.PLAIN, Constants.FIFTEEN));
+        rankingTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
+        rankingTable.setRowHeight(Constants.TWENTYFIVE);
         container.add(new JScrollPane(rankingTable), BorderLayout.CENTER);
 
         // Error label
-        errorLabel = new JLabel("", JLabel.CENTER);
-        errorLabel.setForeground(Color.RED);
-        errorLabel.setFont(new Font("Serif", Font.ITALIC, 16));
-        container.add(errorLabel, BorderLayout.SOUTH);
+        backButton = new JButton("Back to Main Memu");
+        backButton.setBackground(Color.WHITE);
+        backButton.setForeground(Constants.THEME_COLOR);
+        backButton.setFont(new Font("Arial", Font.BOLD, Constants.TWENTY));
+        container.add(backButton, BorderLayout.SOUTH);
+
+        // Add ActionListener to navigate back to the main menu
+        backButton.addActionListener(e -> {
+            // Dispose the current view
+            dispose();
+
+            // Open the MainView
+            final MainView mainView = new MainView();
+            mainView.render();
+        });
 
         // Fetch and display rankings via the controller
         rankingController.handleRanking(Constants.TEN);
 
         // Window settings
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setSize(Constants.EIGHT_HUNDRED, Constants.SIX_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
     }
+
 
     /**
      * Displays the leaderboard in the UI.
@@ -95,9 +112,6 @@ public class RankingView extends JFrame implements RankingInterface {
                 statuses.get(i),
             });
         }
-
-        // Clear the error message
-        errorLabel.setText("");
     }
 
     /**
@@ -119,6 +133,7 @@ public class RankingView extends JFrame implements RankingInterface {
     }
 
     public static void main(String[] args) {
-        new RankingView();
+        final RankingView rankingView = new RankingView();
+        rankingView.render();
     }
 }

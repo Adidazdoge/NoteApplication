@@ -1,21 +1,28 @@
 package view;
 
+import java.awt.Container;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SpringLayout;
+
 import interface_adapters.nevagatemainview.NevagateMainController;
 import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcateInterface;
 
-import javax.swing.*;
-import java.awt.*;
 /**
  * Character creation view.
  */
 
 public class CharacterCreationView extends JFrame implements AllowcateInterface {
-    public static final String textSocial = "Social";
-    public static final String textLuck = "Luck";
-    public static final String textThrift = "Thrift";
-    public static final String textMobilization = "Mobilization";
-    public static final String textGeneralship = "Generalship";
+    public static final String TEXT_SOCIAL = "Social";
+    public static final String TEXT_LUCK = "Luck";
+    public static final String TEXT_THRIFT = "Thrift";
+    public static final String TEXT_MOBILIZATION = "Mobilization";
+    public static final String TEXT_GENERALSHIP = "Generalship";
     private int points = Constants.TWENTY;
     private final JLabel pointsLabel;
     private final JLabel socialLabel;
@@ -32,7 +39,7 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
     private NevagateMainController nevagateMainController;
 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings",
-                       "checkstyle:ExecutableStatementCount"})
+            "checkstyle:ExecutableStatementCount"})
     public CharacterCreationView() {
         super("Build Your Character");
 
@@ -48,27 +55,27 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
 
         // Attribute Labels and Buttons
         socialLabel = new JLabel("Social: " + social);
-        final JButton socialButton = createButton(textSocial);
+        final JButton socialButton = createButton(TEXT_SOCIAL);
         container.add(socialLabel);
         container.add(socialButton);
 
         luckLabel = new JLabel("Luck: " + luck);
-        final JButton luckButton = createButton(textLuck);
+        final JButton luckButton = createButton(TEXT_LUCK);
         container.add(luckLabel);
         container.add(luckButton);
 
         mobilizationLabel = new JLabel("Mobilization: " + mobilization);
-        final JButton mobilizationButton = createButton(textMobilization);
+        final JButton mobilizationButton = createButton(TEXT_MOBILIZATION);
         container.add(mobilizationLabel);
         container.add(mobilizationButton);
 
         thriftLabel = new JLabel("Thrift: " + thrift);
-        final JButton thriftButton = createButton(textThrift);
+        final JButton thriftButton = createButton(TEXT_THRIFT);
         container.add(thriftLabel);
         container.add(thriftButton);
 
         generalshipLabel = new JLabel("Generalship: " + generalship);
-        final JButton generalshipButton = createButton(textGeneralship);
+        final JButton generalshipButton = createButton(TEXT_GENERALSHIP);
         container.add(generalshipLabel);
         container.add(generalshipButton);
 
@@ -100,6 +107,12 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         setVisible(false);
     }
 
+    /**
+     * Sets the AllowcateController and NevagateMainController for this instance.
+     *
+     * @param AllowcateController the instance of {@code AllowcateController} to set
+     * @param NevagateMainController the instance of {@code NevagateMainController} to set
+     */
     public void setAllowcateController(AllowcateController AllowcateController,
                                        NevagateMainController NevagateMainController) {
         this.allowcateController = AllowcateController;
@@ -109,11 +122,11 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     private void addListeners(JButton socialButton, JButton luckButton, JButton mobilizationButton,
                               JButton thriftButton, JButton generalshipButton) {
-        socialButton.addActionListener(e -> updatePoints(textSocial));
-        luckButton.addActionListener(e -> updatePoints(textLuck));
-        mobilizationButton.addActionListener(e -> updatePoints(textMobilization));
-        thriftButton.addActionListener(e -> updatePoints(textThrift));
-        generalshipButton.addActionListener(e -> updatePoints(textGeneralship));
+        socialButton.addActionListener(e -> updatePoints(TEXT_SOCIAL));
+        luckButton.addActionListener(e -> updatePoints(TEXT_LUCK));
+        mobilizationButton.addActionListener(e -> updatePoints(TEXT_MOBILIZATION));
+        thriftButton.addActionListener(e -> updatePoints(TEXT_THRIFT));
+        generalshipButton.addActionListener(e -> updatePoints(TEXT_GENERALSHIP));
     }
 
     private void extracted(SpringLayout layout, Container container, JButton socialButton, JButton luckButton,
@@ -134,7 +147,8 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
 
         layout.putConstraint(SpringLayout.WEST, mobilizationLabel, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, mobilizationLabel, Constants.TWENTY, SpringLayout.SOUTH, luckLabel);
-        layout.putConstraint(SpringLayout.WEST, mobilizationButton, Constants.TWENTY, SpringLayout.EAST, mobilizationLabel);
+        layout.putConstraint(SpringLayout.WEST, mobilizationButton, Constants.TWENTY, SpringLayout.EAST,
+                mobilizationLabel);
         layout.putConstraint(SpringLayout.NORTH, mobilizationButton, 0, SpringLayout.NORTH, mobilizationLabel);
 
         layout.putConstraint(SpringLayout.WEST, thriftLabel, Constants.TWENTY, SpringLayout.WEST, container);
@@ -144,7 +158,8 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
 
         layout.putConstraint(SpringLayout.WEST, generalshipLabel, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.NORTH, generalshipLabel, Constants.TWENTY, SpringLayout.SOUTH, thriftLabel);
-        layout.putConstraint(SpringLayout.WEST, generalshipButton, Constants.TWENTY, SpringLayout.EAST, generalshipLabel);
+        layout.putConstraint(SpringLayout.WEST, generalshipButton, Constants.TWENTY, SpringLayout.EAST,
+                generalshipLabel);
         layout.putConstraint(SpringLayout.NORTH, generalshipButton, 0, SpringLayout.NORTH, generalshipLabel);
 
         layout.putConstraint(SpringLayout.WEST, backButton, Constants.TWENTY, SpringLayout.WEST, container);
@@ -184,6 +199,9 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
                     generalship++;
                     generalshipLabel.setText("Generalship: " + generalship);
                     break;
+                default:
+                    // No action needed
+                    break;
             }
             points--;
             pointsLabel.setText("Points: " + points);
@@ -194,14 +212,19 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         }
     }
 
-    // public static void main(String[] args) {
-    //    new CharacterCreationView();
-    // }
+    /**
+     * Renders the component by setting its size and making it visible.
+     * The size is set to 400x600 pixels.
+     */
     public void render() {
         setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setVisible(true);
     }
 
+    /**
+     * Disables the rendering of the component by changing its size and making it invisible.
+     * The size is set to 400x400 pixels.
+     */
     public void disrender() {
         setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(false);

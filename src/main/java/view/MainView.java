@@ -16,12 +16,11 @@ import java.util.List;
 
 public class MainView extends JFrame {
     private JButton newGameButton = new JButton("New Game");
-    private JButton rankingButton = new JButton("Ranking");
+    private JButton rankingButton = new JButton("Ranking List");
     private JButton quitButton = new JButton("Quit");
-    private JButton logoutButton = new JButton("Logout");
+    private JButton logoutButton = new JButton("Log Out");
     private NevagateAllowcateController nevagateAllowcateController;
 
-    @SuppressWarnings({"checkstyle:MultipleStringLiterals", "checkstyle:SuppressWarnings"})
     public MainView() {
         // Set layout and container
         final Container container = getContentPane();
@@ -30,14 +29,29 @@ public class MainView extends JFrame {
 
         // Title
         final JLabel titleLabel = new JLabel("Main Menu");
-        titleLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, Constants.THIRTY));
         container.add(titleLabel);
 
         // Set button fonts
-        newGameButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
-        rankingButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
-        quitButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
-        logoutButton.setFont(new Font("Serif", Font.PLAIN, Constants.TWENTY));
+        newGameButton.setFont(new Font("Arial", Font.BOLD, Constants.TWENTY));
+        rankingButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        quitButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        logoutButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+
+        newGameButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
+        rankingButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
+        quitButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FORTY));
+        logoutButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
+
+        newGameButton.setBackground(Constants.THEME_COLOR);
+        rankingButton.setBackground(Color.WHITE);
+        quitButton.setBackground(Color.WHITE);
+        logoutButton.setBackground(Color.WHITE);
+
+        newGameButton.setForeground(Color.WHITE);
+        rankingButton.setForeground(Constants.THEME_COLOR);
+        quitButton.setForeground(Constants.THEME_COLOR);
+        logoutButton.setForeground(Constants.THEME_COLOR);
 
         // Add buttons to the container
         container.add(newGameButton);
@@ -48,7 +62,7 @@ public class MainView extends JFrame {
         // Layout constraints
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, titleLabel, 0, SpringLayout.HORIZONTAL_CENTER,
                 container);
-        layout.putConstraint(SpringLayout.NORTH, titleLabel, Constants.TWENTY, SpringLayout.NORTH, container);
+        layout.putConstraint(SpringLayout.NORTH, titleLabel, Constants.THIRTY, SpringLayout.NORTH, container);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, newGameButton, 0, SpringLayout.HORIZONTAL_CENTER,
                 container);
@@ -56,15 +70,15 @@ public class MainView extends JFrame {
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, rankingButton, 0, SpringLayout.HORIZONTAL_CENTER,
                 container);
-        layout.putConstraint(SpringLayout.NORTH, rankingButton, Constants.TWENTY, SpringLayout.SOUTH, newGameButton);
-
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, quitButton, 0, SpringLayout.HORIZONTAL_CENTER,
-                container);
-        layout.putConstraint(SpringLayout.NORTH, quitButton, Constants.TWENTY, SpringLayout.SOUTH, rankingButton);
+        layout.putConstraint(SpringLayout.NORTH, rankingButton, Constants.TEN, SpringLayout.SOUTH, newGameButton);
 
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logoutButton, 0, SpringLayout.HORIZONTAL_CENTER,
                 container);
-        layout.putConstraint(SpringLayout.NORTH, logoutButton, Constants.TWENTY, SpringLayout.SOUTH, quitButton);
+        layout.putConstraint(SpringLayout.NORTH, logoutButton, Constants.TEN, SpringLayout.SOUTH, rankingButton);
+
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, quitButton, 0, SpringLayout.HORIZONTAL_CENTER,
+                container);
+        layout.putConstraint(SpringLayout.NORTH, quitButton, Constants.TEN, SpringLayout.SOUTH, logoutButton);
 
         // Add listeners for buttons
         addListeners();
@@ -72,7 +86,7 @@ public class MainView extends JFrame {
         // Set window properties (moved to render())
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
     }
 
     public void setNevagateAllowcateController(NevagateAllowcateController nevagateAllowcateController) {
@@ -116,12 +130,12 @@ public class MainView extends JFrame {
 
     // Add render method
     public void render() {
-        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(true);
     }
 
     public void disrender() {
-        setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(false);
     }
 

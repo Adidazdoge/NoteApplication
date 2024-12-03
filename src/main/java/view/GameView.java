@@ -115,12 +115,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         final JScrollPane infoScrollPane = new JScrollPane(infoBox);
         infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-<<<<<<< HEAD
         // Adjusted smaller width and fixed height
         infoScrollPane.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
-=======
-        infoScrollPane.setPreferredSize(new Dimension(200, 200));
->>>>>>> a9b305d6b6d0ec21289be47be19c6e2be3d54808
         container.add(infoScrollPane);
         infoBox.setLineWrap(true);
         infoBox.setWrapStyleWord(true);

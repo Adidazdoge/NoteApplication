@@ -12,18 +12,17 @@ import java.io.IOException;
  * LoginView handles the UI for user login and integrates with the LoginApplication.
  */
 public class LoginView extends JFrame implements LoginInterface {
-    private final JLabel nameLabel = new JLabel("Group Project", JLabel.CENTER);
+    private final JLabel nameLabel = new JLabel("60 Days to Survive", JLabel.CENTER);
     private final SpringLayout springLayout = new SpringLayout();
     private final JPanel centerPanel = new JPanel(springLayout);
     private final JLabel userNameLabel = new JLabel("Username:");
     private final JTextField userText = new JTextField();
     private final JLabel passwordLabel = new JLabel("Password:");
     private final JPasswordField passwordText = new JPasswordField();
-    private final JButton loginButton = new JButton("Log In");
-    private final JButton registerButton = new JButton("Sign Up");
+    private final JButton loginButton = new JButton("Log in");
+    private final JButton registerButton = new JButton("Sign up");
 
     private final LoginController loginController;
-
     /**
      * Constructs the LoginView with the provided LoginController.
      *
@@ -36,11 +35,15 @@ public class LoginView extends JFrame implements LoginInterface {
         this.loginController = LoginApplication.initializeLogin(this);
 
         final Container contentPane = getContentPane();
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, Constants.FORTY));
-        userNameLabel.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        passwordLabel.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        nameLabel.setFont(new Font("Impact", Font.BOLD, Constants.FIFTY));
+        userNameLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
         loginButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        loginButton.setBackground(Constants.THEME_COLOR);
+        loginButton.setForeground(Color.WHITE);
         registerButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        registerButton.setBackground(Color.WHITE);
+        registerButton.setForeground(Constants.THEME_COLOR);
 
         userText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
         passwordText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
@@ -60,7 +63,7 @@ public class LoginView extends JFrame implements LoginInterface {
         final Spring titleTextWidth = Spring.width(userText);
         final Spring spaceWidth = Spring.constant(20);
         final Spring childWidth = Spring.sum(Spring.sum(titleLabelWidth, titleTextWidth), spaceWidth);
-        final int offsetX = childWidth.getValue() / 2;
+        final int offsetX = (childWidth.getValue() + 40) / 2;
         layout(offsetX);
 
         loginButton.addActionListener(e -> {
@@ -73,37 +76,39 @@ public class LoginView extends JFrame implements LoginInterface {
             dispose();
             try {
                 // Navigate to the sign-up page
-                new SignUpView();
+                final SignUpView signUpView = new SignUpView();
+                signUpView.render();
             }
             catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
-
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
+        setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
     }
 
     private void layout(int offsetX) {
+        // set userLable location
         springLayout.putConstraint(SpringLayout.WEST, userNameLabel, -offsetX, SpringLayout.HEIGHT, centerPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, userNameLabel, Constants.TWENTY, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.NORTH, userNameLabel, Constants.SIXTY, SpringLayout.NORTH,
                 centerPanel);
         // set userText location
         springLayout.putConstraint(SpringLayout.WEST, userText, Constants.TEN, SpringLayout.EAST, userNameLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, userText, 0, SpringLayout.NORTH, userNameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, userText, -Constants.FIVE, SpringLayout.NORTH, userNameLabel);
         // set passwordLabel location
         springLayout.putConstraint(SpringLayout.EAST, passwordLabel, 0, SpringLayout.EAST, userNameLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TEN, SpringLayout.SOUTH, userNameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TWENTY, SpringLayout.SOUTH, userNameLabel);
         // set passwordText location
         springLayout.putConstraint(SpringLayout.WEST, passwordText, Constants.TEN, SpringLayout.EAST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordText, 0, SpringLayout.NORTH, passwordLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordText, -Constants.FIVE, SpringLayout.NORTH, passwordLabel);
         // set loginButton location
         springLayout.putConstraint(SpringLayout.WEST, loginButton, Constants.FIFTY, SpringLayout.WEST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, loginButton, Constants.TWENTY,
+        springLayout.putConstraint(SpringLayout.NORTH, loginButton, Constants.FORTY,
                 SpringLayout.SOUTH, passwordLabel);
         // set registerButton
-        springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.SIXTY, SpringLayout.EAST, loginButton);
+        springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.FIFTY, SpringLayout.EAST, loginButton);
         springLayout.putConstraint(SpringLayout.NORTH, registerButton, 0, SpringLayout.NORTH, loginButton);
 
     }
@@ -128,7 +133,6 @@ public class LoginView extends JFrame implements LoginInterface {
 
     // Add render method
     public void render() {
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(true);
     }
 
