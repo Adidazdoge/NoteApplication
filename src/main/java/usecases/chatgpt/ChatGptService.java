@@ -2,6 +2,8 @@ package usecases.chatgpt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -36,8 +38,8 @@ public class ChatGptService {
         // Construct the request payload
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(Map.of(
-                "model", "gpt-3.5-turbo",
-                "prompt", prompt,
+                "model", "gpt-4-turbo", // Updated to use GPT-4 Turbo
+                "messages", new Object[] { Map.of("role", "user", "content", prompt) },
                 "max_tokens", 150,
                 "temperature", 0.7
         ));
@@ -48,11 +50,26 @@ public class ChatGptService {
             os.flush();
         }
 
-        // Read the response
-        if (connection.getResponseCode() == 200) {
-            return new String(connection.getInputStream().readAllBytes());
+        // Read and process the response
+        int responseCode = connection.getResponseCode();
+        if (responseCode == 200) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                return response.toString();
+            }
         } else {
-            throw new RuntimeException("Failed to call ChatGPT API: HTTP " + connection.getResponseCode());
+            try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()))) {
+                StringBuilder errorResponse = new StringBuilder();
+                String line;
+                while ((line = errorReader.readLine()) != null) {
+                    errorResponse.append(line);
+                }
+                throw new RuntimeException("ChatGPT API Error: " + responseCode + " - " + errorResponse);
+            }
         }
     }
 
