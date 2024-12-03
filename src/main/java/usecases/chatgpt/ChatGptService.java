@@ -2,8 +2,6 @@ package usecases.chatgpt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -13,14 +11,14 @@ import java.util.Map;
  * Service to integrate ChatGPT API.
  */
 public class ChatGptService {
-    private static final String API_URL = "https://api.openai.com/v1/completions";
-    private static final String API_KEY = "";
+    private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
     /**
      * Sends a request to ChatGPT with the event description, player attributes, and choices.
+     *
      * @param eventDescription Description of the event.
      * @param playerAttributes Player's attributes as key-value pairs.
-     * @param choices Event choices.
+     * @param choices          Event choices.
      * @return The response from ChatGPT.
      * @throws Exception If an error occurs during the API call.
      */
@@ -38,8 +36,11 @@ public class ChatGptService {
         // Construct the request payload
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(Map.of(
-                "model", "gpt-4-turbo", // Updated to use GPT-4 Turbo
-                "messages", new Object[] { Map.of("role", "user", "content", prompt) },
+                "model", "gpt-4o-mini",
+                "messages", new Object[]{
+                        Map.of("role", "system", "content", "You are a helpful assistant that processes game events."),
+                        Map.of("role", "user", "content", prompt)
+                },
                 "max_tokens", 150,
                 "temperature", 0.7
         ));
@@ -50,34 +51,21 @@ public class ChatGptService {
             os.flush();
         }
 
-        // Read and process the response
-        int responseCode = connection.getResponseCode();
-        if (responseCode == 200) {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                return response.toString();
-            }
+        // Read the response
+        if (connection.getResponseCode() == 200) {
+            return new String(connection.getInputStream().readAllBytes());
         } else {
-            try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()))) {
-                StringBuilder errorResponse = new StringBuilder();
-                String line;
-                while ((line = errorReader.readLine()) != null) {
-                    errorResponse.append(line);
-                }
-                throw new RuntimeException("ChatGPT API Error: " + responseCode + " - " + errorResponse);
-            }
+            String errorResponse = new String(connection.getErrorStream().readAllBytes());
+            throw new RuntimeException("Failed to call ChatGPT API: HTTP " + connection.getResponseCode() + " | " + errorResponse);
         }
     }
 
     /**
      * Generates the prompt for ChatGPT.
+     *
      * @param eventDescription Description of the event.
      * @param playerAttributes Player's attributes.
-     * @param choices Event choices.
+     * @param choices          Event choices.
      * @return The formatted prompt.
      */
     private String generatePrompt(String eventDescription, Map<String, Integer> playerAttributes, Map<Integer, String> choices) {
