@@ -15,37 +15,35 @@ public class AmbushEventInteractor implements AmbushInputBoundary {
     private final AmbushDataAccessInterface dataAccess;
     private final AmbushOutputBoundary outputBoundary;
     private final ChatGptService chatGptService;
-    private final ChatGptResponseParser responseParser;
 
     public AmbushEventInteractor(AmbushDataAccessInterface dataAccess,
                                  AmbushOutputBoundary outputBoundary,
-                                 ChatGptService chatGptService,
-                                 ChatGptResponseParser responseParser) {
+                                 ChatGptService chatGptService) {
         this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
         this.chatGptService = chatGptService;
-        this.responseParser = responseParser;
     }
 
     @Override
     public void execute(AmbushInputData inputData) {
         EventAmbush ambushEvent = (EventAmbush) dataAccess.getEvent();
         Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributesAsMap();
-        Map<Integer, String> choices = ambushEvent.getchoices();
+        int playerChoice = inputData.getChoice();
 
         try {
-            // Call ChatGPT to generate a response
-            String chatResponse = chatGptService.getResponse(ambushEvent.getdescription(), playerAttributes, choices);
+            // Determine the choice description
+            String choiceDescription = ambushEvent.getchoices().get(playerChoice);
+
+            // Call ChatGPT to generate the event outcome
+            String chatResponse = chatGptService.getResponse(ambushEvent.getdescription(), playerAttributes, choiceDescription);
 
             // Parse the ChatGPT response
-            int chosenOption = responseParser.parseChoice(chatResponse);
-            String eventDescription = responseParser.parseDescription(chatResponse);
+            String eventOutcome = ChatGptResponseParser.parseEventOutcome(chatResponse);
 
-            // Handle game logic based on the chosen option
+            // Apply game logic based on the player's choice
             int foodChange = 0, waterChange = 0, weaponChange = 0, peopleChange = 0;
-
-            if (chosenOption == EntityConstants.FIRSTCHOICE) {
-                // Fight back
+            if (playerChoice == EntityConstants.FIRSTCHOICE) {
+                // Fight back logic
                 if (dataAccess.getInventory().getfirepower() >= EntityConstants.AMBUSHPOWER) {
                     foodChange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEFOOD;
                     waterChange = EntityConstants.AMBUSHFIGHTSUCCESSRESOURCEWATER;
@@ -57,22 +55,22 @@ public class AmbushEventInteractor implements AmbushInputBoundary {
                     weaponChange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
                     peopleChange = EntityConstants.AMBUSHFAILRESOURCEPEOPLE;
                 }
-            } else if (chosenOption == EntityConstants.SECONDCHOICE) {
-                // Pay the bandits
+            } else if (playerChoice == EntityConstants.SECONDCHOICE) {
+                // Pay the bandits logic
                 foodChange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
                 waterChange = EntityConstants.AMBUSHFAILRESOURCEWATER;
                 weaponChange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
-            } else if (chosenOption == EntityConstants.THIRDCHOICE) {
-                // Negotiate
+            } else if (playerChoice == EntityConstants.THIRDCHOICE) {
+                // Negotiate logic
                 if (playerAttributes.getOrDefault("Social", 0) >= EntityConstants.AMBUSHNEGOTIATE) {
-                    // Successful negotiation
+                    // Success logic
                 } else {
                     foodChange = EntityConstants.AMBUSHFAILRESOURCEFOOD;
                     waterChange = EntityConstants.AMBUSHFAILRESOURCEWATER;
                     weaponChange = EntityConstants.AMBUSHFAILRESOURCEWEAPON;
                 }
             } else {
-                throw new IllegalArgumentException("Invalid choice from ChatGPT: " + chosenOption);
+                throw new IllegalArgumentException("Invalid player choice: " + playerChoice);
             }
 
             // Apply inventory changes
@@ -83,7 +81,8 @@ public class AmbushEventInteractor implements AmbushInputBoundary {
             dataAccess.removeEvent();
 
             // Prepare output
-            AmbushOutputData outputData = new AmbushOutputData(eventDescription, foodChange, waterChange, weaponChange, peopleChange, "Resources updated.");
+            String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange + ".";
+            AmbushOutputData outputData = new AmbushOutputData(eventOutcome, foodChange, waterChange, weaponChange, peopleChange, inventoryMessage);
             outputBoundary.prepareSuccessView(outputData);
 
         } catch (Exception e) {

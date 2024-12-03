@@ -2,8 +2,6 @@ package usecases.chatgpt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -14,17 +12,17 @@ import java.util.Map;
  */
 public class ChatGptService {
     private static final String API_URL = "https://api.openai.com/v1/completions";
-    private static final String API_KEY = "";
 
     /**
-     * Sends a request to ChatGPT with the event description, player attributes, and choices.
+     * Sends a request to ChatGPT with the event description, player attributes, and player choice.
+     *
      * @param eventDescription Description of the event.
      * @param playerAttributes Player's attributes as key-value pairs.
-     * @param choices Event choices.
+     * @param playerChoice     The player's choice for the event.
      * @return The response from ChatGPT.
      * @throws Exception If an error occurs during the API call.
      */
-    public String getResponse(String eventDescription, Map<String, Integer> playerAttributes, Map<Integer, String> choices) throws Exception {
+    public String getResponse(String eventDescription, Map<String, Integer> playerAttributes, String playerChoice) throws Exception {
         URL url = new URL(API_URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -33,13 +31,13 @@ public class ChatGptService {
         connection.setDoOutput(true);
 
         // Build the prompt for ChatGPT
-        String prompt = generatePrompt(eventDescription, playerAttributes, choices);
+        String prompt = generatePrompt(eventDescription, playerAttributes, playerChoice);
 
         // Construct the request payload
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody = objectMapper.writeValueAsString(Map.of(
-                "model", "gpt-4-turbo", // Updated to use GPT-4 Turbo
-                "messages", new Object[] { Map.of("role", "user", "content", prompt) },
+                "model", "gpt-3.5-turbo",
+                "prompt", prompt,
                 "max_tokens", 150,
                 "temperature", 0.7
         ));
@@ -50,43 +48,28 @@ public class ChatGptService {
             os.flush();
         }
 
-        // Read and process the response
-        int responseCode = connection.getResponseCode();
-        if (responseCode == 200) {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                return response.toString();
-            }
+        // Read the response
+        if (connection.getResponseCode() == 200) {
+            return new String(connection.getInputStream().readAllBytes());
         } else {
-            try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()))) {
-                StringBuilder errorResponse = new StringBuilder();
-                String line;
-                while ((line = errorReader.readLine()) != null) {
-                    errorResponse.append(line);
-                }
-                throw new RuntimeException("ChatGPT API Error: " + responseCode + " - " + errorResponse);
-            }
+            throw new RuntimeException("Failed to call ChatGPT API: HTTP " + connection.getResponseCode());
         }
     }
 
     /**
      * Generates the prompt for ChatGPT.
+     *
      * @param eventDescription Description of the event.
      * @param playerAttributes Player's attributes.
-     * @param choices Event choices.
+     * @param playerChoice     The player's chosen option.
      * @return The formatted prompt.
      */
-    private String generatePrompt(String eventDescription, Map<String, Integer> playerAttributes, Map<Integer, String> choices) {
+    private String generatePrompt(String eventDescription, Map<String, Integer> playerAttributes, String playerChoice) {
         StringBuilder prompt = new StringBuilder();
         prompt.append("Event Description: ").append(eventDescription).append("\n");
         prompt.append("Player Attributes: ").append(playerAttributes).append("\n");
-        prompt.append("Choices:\n");
-        choices.forEach((key, value) -> prompt.append(key).append(". ").append(value).append("\n"));
-        prompt.append("Choose the best option and provide a short paragraph explaining the result.");
+        prompt.append("Player Choice: ").append(playerChoice).append("\n");
+        prompt.append("Provide a short paragraph describing the event outcome based on the player's choice.");
         return prompt.toString();
     }
 }
