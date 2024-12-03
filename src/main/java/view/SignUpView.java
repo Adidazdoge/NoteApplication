@@ -12,7 +12,7 @@ import java.io.IOException;
  * SignUpView handles the UI for user registration and integrates with the SignupApplication.
  */
 public class SignUpView extends JFrame implements SignupInterface {
-    private final JLabel nameLabel = new JLabel("Group Project", JLabel.CENTER);
+    private final JLabel nameLabel = new JLabel("60 Days to Survive", JLabel.CENTER);
     private final SpringLayout springLayout = new SpringLayout();
     private final JPanel centerPanel = new JPanel(springLayout);
     private final JLabel userNameLabel = new JLabel("Username:");
@@ -21,8 +21,8 @@ public class SignUpView extends JFrame implements SignupInterface {
     private final JPasswordField passwordText = new JPasswordField();
     private final JLabel againLabel = new JLabel("Confirm Password:");
     private final JPasswordField againText = new JPasswordField();
-    private final JButton registerButton = new JButton("Sign Up");
-    private final JButton loginButton = new JButton("Back to Login");
+    private final JButton registerButton = new JButton("Sign up");
+    private final JButton loginButton = new JButton("Back to login");
 
     private final SignupController signupController;
 
@@ -38,12 +38,16 @@ public class SignUpView extends JFrame implements SignupInterface {
         this.signupController = SignupApplication.initializeSignup(this);
 
         final Container contentPane = getContentPane();
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, Constants.FORTY));
-        userNameLabel.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        passwordLabel.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        againLabel.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        nameLabel.setFont(new Font("Impact", Font.BOLD, Constants.FIFTY));
+        userNameLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
+        againLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
         registerButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        registerButton.setBackground(Color.WHITE);
+        registerButton.setForeground(new Color(139, 69, 19));
         loginButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        loginButton.setBackground(new Color(139, 69, 19));
+        loginButton.setForeground(Color.WHITE);
 
         userText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
         passwordText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
@@ -60,7 +64,7 @@ public class SignUpView extends JFrame implements SignupInterface {
         final Spring titleTextWidth = Spring.width(userText);
         final Spring spaceWidth = Spring.constant(20);
         final Spring childWidth = Spring.sum(Spring.sum(titleLabelWidth, titleTextWidth), spaceWidth);
-        final int offsetX = childWidth.getValue() / 2;
+        final int offsetX = (childWidth.getValue() + 40) / 2;
         // set userNameLabel location
         extracted(offsetX);
 
@@ -68,7 +72,8 @@ public class SignUpView extends JFrame implements SignupInterface {
         loginButton.addActionListener(e -> {
             dispose();
             try {
-                new LoginView();
+                final LoginView loginView = new LoginView();
+                loginView.render();
             }
             catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error navigating to LoginView.",
@@ -81,7 +86,6 @@ public class SignUpView extends JFrame implements SignupInterface {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
-        setVisible(true);
     }
 
     private void extracted() {
@@ -97,30 +101,30 @@ public class SignUpView extends JFrame implements SignupInterface {
 
     private void extracted(int offsetX) {
         springLayout.putConstraint(SpringLayout.WEST, userNameLabel, -offsetX, SpringLayout.HEIGHT, centerPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, userNameLabel, Constants.TWENTY, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.NORTH, userNameLabel, Constants.FIFTY, SpringLayout.NORTH,
                 centerPanel);
         // set userText location
         springLayout.putConstraint(SpringLayout.WEST, userText, Constants.TEN, SpringLayout.EAST, userNameLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, userText, 0, SpringLayout.NORTH, userNameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, userText, -Constants.FIVE, SpringLayout.NORTH, userNameLabel);
         // set passwordLabel location
         springLayout.putConstraint(SpringLayout.EAST, passwordLabel, 0, SpringLayout.EAST, userNameLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TEN, SpringLayout.SOUTH, userNameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TWENTY, SpringLayout.SOUTH, userNameLabel);
         // set passwordText location
         springLayout.putConstraint(SpringLayout.WEST, passwordText, Constants.TEN, SpringLayout.EAST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordText, 0, SpringLayout.NORTH, passwordLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordText, -Constants.FIVE, SpringLayout.NORTH, passwordLabel);
         // set loginButton location
-        springLayout.putConstraint(SpringLayout.WEST, loginButton, Constants.FIFTY, SpringLayout.WEST, passwordLabel);
+        springLayout.putConstraint(SpringLayout.WEST, loginButton, Constants.TEN, SpringLayout.WEST, passwordLabel);
         springLayout.putConstraint(SpringLayout.NORTH, loginButton, Constants.EIGHTY, SpringLayout.SOUTH,
                 passwordLabel);
         // set registerButton location
-        springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.SIXTY, SpringLayout.EAST, loginButton);
-        springLayout.putConstraint(SpringLayout.NORTH, registerButton, 0, SpringLayout.NORTH, loginButton);
+        springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.FORTY, SpringLayout.EAST, loginButton);
+        springLayout.putConstraint(SpringLayout.NORTH, registerButton, -Constants.FIVE, SpringLayout.NORTH, loginButton);
         // set againLabel location
         springLayout.putConstraint(SpringLayout.EAST, againLabel, 0, SpringLayout.EAST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, againLabel, Constants.TEN, SpringLayout.SOUTH, passwordLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, againLabel, Constants.TWENTY, SpringLayout.SOUTH, passwordLabel);
         // set againText location
         springLayout.putConstraint(SpringLayout.WEST, againText, Constants.TEN, SpringLayout.EAST, againLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, againText, 0, SpringLayout.NORTH, againLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, againText, -Constants.FIVE, SpringLayout.NORTH, againLabel);
     }
 
     private void handleSignup() {
@@ -130,6 +134,8 @@ public class SignUpView extends JFrame implements SignupInterface {
 
         if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+            passwordText.setText("");
+            againText.setText("");
             return;
         }
 
@@ -150,22 +156,30 @@ public class SignUpView extends JFrame implements SignupInterface {
             dispose();
             try {
                 // Navigate to login page
-                new LoginView();
+                final LoginView loginView = new LoginView();
+                loginView.render();
             }
             catch (IOException e) {
+                userText.setText("");
+                passwordText.setText("");
+                againText.setText("");
                 JOptionPane.showMessageDialog(this, "Error navigating to LoginView.",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+        userText.setText("");
+        passwordText.setText("");
+        againText.setText("");
     }
 
-    public static void main(String[] args) {
-        try {
-            new SignUpView();
-        }
-        catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error initializing signup system.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    // Add render method
+    public void render() {
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) throws IOException {
+        final SignUpView signUpView = new SignUpView();
+        signUpView.render();
     }
 }

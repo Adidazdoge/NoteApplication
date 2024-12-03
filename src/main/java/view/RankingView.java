@@ -17,7 +17,7 @@ import java.util.List;
 public class RankingView extends JFrame implements RankingInterface {
     private final JTable rankingTable;
     private final DefaultTableModel tableModel;
-    private final JLabel errorLabel;
+    private final JButton backButton;
     private final RankingController rankingController;
     /**
      * Constructs the RankingView and sets up the UI components.
@@ -51,10 +51,10 @@ public class RankingView extends JFrame implements RankingInterface {
         container.add(new JScrollPane(rankingTable), BorderLayout.CENTER);
 
         // Error label
-        errorLabel = new JLabel("", JLabel.CENTER);
-        errorLabel.setForeground(Color.RED);
-        errorLabel.setFont(new Font("Serif", Font.ITALIC, 16));
-        container.add(errorLabel, BorderLayout.SOUTH);
+        backButton = new JButton("Back to Main Memu");
+        backButton.setForeground(Color.BLACK);
+        backButton.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
+        container.add(backButton, BorderLayout.SOUTH);
 
         // Fetch and display rankings via the controller
         rankingController.handleRanking(Constants.TEN);
@@ -95,9 +95,6 @@ public class RankingView extends JFrame implements RankingInterface {
                 statuses.get(i),
             });
         }
-
-        // Clear the error message
-        errorLabel.setText("");
     }
 
     /**
@@ -119,6 +116,7 @@ public class RankingView extends JFrame implements RankingInterface {
     }
 
     public static void main(String[] args) {
-        new RankingView();
+        final RankingView rankingView = new RankingView();
+        rankingView.render();
     }
 }
