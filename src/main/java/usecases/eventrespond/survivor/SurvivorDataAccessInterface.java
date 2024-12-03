@@ -2,19 +2,26 @@ package usecases.eventrespond.survivor;
 
 import entities.Event;
 import entities.Inventory;
-import entities.PlayerAttributes;
+
+import java.util.Map;
 
 /**
- * Interface for data access in the Survivor event.
+ * Interface for data access in the Survivor Encounter event.
  */
 public interface SurvivorDataAccessInterface {
     Event getEvent();
     void removeEvent();
     Inventory getInventory();
-    PlayerAttributes getPlayerAttributes();
+
+    /**
+     * Returns player attributes as a map.
+     * Key: Attribute name (e.g., "Social").
+     * Value: Attribute value.
+     * @return Map of player attributes.
+     */
+    Map<String, Integer> getPlayerAttributes();
 
     void changeFood(int amount);
-    void changeWater(int amount);
     void changeWeapon(int amount);
     void changePeople(int amount);
 }

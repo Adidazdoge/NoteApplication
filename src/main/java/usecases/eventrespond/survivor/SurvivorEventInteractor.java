@@ -2,66 +2,81 @@ package usecases.eventrespond.survivor;
 
 import entities.EntityConstants;
 import entities.EventSurvivorJoins;
-import usecases.eventrespond.survivor.SurvivorInputData;
-import usecases.eventrespond.survivor.SurvivorOutputBoundary;
-import usecases.eventrespond.survivor.SurvivorDataAccessInterface;
+import usecases.chatgpt.ChatGptService;
+import usecases.chatgpt.ChatGptResponseParser;
+
+import java.util.Map;
 
 /**
  * Interactor for handling player responses to a Survivor Encounter event.
- * Implements the SurvivorInputBoundary interface.
+ * Delegates response generation to ChatGPT and applies game logic based on the response.
  */
 public class SurvivorEventInteractor implements SurvivorInputBoundary {
     private final SurvivorDataAccessInterface dataAccess;
     private final SurvivorOutputBoundary outputBoundary;
+    private final ChatGptService chatGptService;
+    private final ChatGptResponseParser responseParser;
 
-    public SurvivorEventInteractor(SurvivorDataAccessInterface dataAccess, SurvivorOutputBoundary outputBoundary) {
+    public SurvivorEventInteractor(SurvivorDataAccessInterface dataAccess,
+                                   SurvivorOutputBoundary outputBoundary,
+                                   ChatGptService chatGptService,
+                                   ChatGptResponseParser responseParser) {
         this.dataAccess = dataAccess;
         this.outputBoundary = outputBoundary;
+        this.chatGptService = chatGptService;
+        this.responseParser = responseParser;
     }
 
     @Override
     public void execute(SurvivorInputData inputData) {
         EventSurvivorJoins survivorEvent = (EventSurvivorJoins) dataAccess.getEvent();
-        int choice = inputData.getChoice();
+        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributes();
+        Map<Integer, String> choices = survivorEvent.getchoices();
 
-        int foodChange = 0, waterChange = 0, suppliesChange = 0, peopleChange = 0;
-        String message;
+        try {
+            // Call ChatGPT to generate a response
+            String chatResponse = chatGptService.getResponse(survivorEvent.getdescription(), playerAttributes, choices);
 
-        switch (choice) {
-            case EntityConstants.FIRSTCHOICE: // Accept survivors
+            // Parse the ChatGPT response
+            int chosenOption = responseParser.parseChoice(chatResponse);
+            String eventDescription = responseParser.parseDescription(chatResponse);
+
+            // Handle game logic based on the chosen option
+            int foodChange = 0, waterChange = 0, suppliesChange = 0, peopleChange = 0;
+
+            if (chosenOption == EntityConstants.FIRSTCHOICE) {
+                // Accept survivors
                 peopleChange = EntityConstants.SURVIVORACCEPTPEOPLEGAIN;
-                message = survivorEvent.getAcceptoutcome();
-                break;
-            case EntityConstants.SECONDCHOICE: // Reject survivors
-                message = survivorEvent.getRejectoutcome();
-                break;
-            case EntityConstants.THIRDCHOICE: // Attempt to rob survivors
+            } else if (chosenOption == EntityConstants.SECONDCHOICE) {
+                // Politely reject survivors
+                // No resource changes
+            } else if (chosenOption == EntityConstants.THIRDCHOICE) {
+                // Attempt to rob survivors
                 if (dataAccess.getInventory().getfirepower() >= EntityConstants.SURVIVORROBBERYPOWER) {
                     foodChange = EntityConstants.SURVIVORROBBERYGAINFOOD;
                     suppliesChange = EntityConstants.SURVIVORROBBERYGAINSUPPLIES;
-                    message = survivorEvent.getRoboutcomesuccess();
                 } else {
                     foodChange = EntityConstants.SURVIVORROBBERYFAILLOSSFOOD;
                     peopleChange = EntityConstants.SURVIVORROBBERYFAILLOSSPEOPLE;
-                    message = survivorEvent.getRoboutcomefail();
                 }
-                break;
-            default: // Invalid choice
-                outputBoundary.prepareFailureView("Invalid choice provided.");
-                return;
+            } else {
+                throw new IllegalArgumentException("Invalid choice from ChatGPT: " + chosenOption);
+            }
+
+            // Apply inventory changes
+            dataAccess.changeFood(foodChange);
+            dataAccess.changeWeapon(suppliesChange);
+            dataAccess.changePeople(peopleChange);
+            dataAccess.removeEvent();
+
+            // Prepare output
+            String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +
+                                    ", Supplies " + suppliesChange + ", People " + peopleChange + ".";
+            SurvivorOutputData outputData = new SurvivorOutputData(eventDescription, foodChange, waterChange, suppliesChange, peopleChange, inventoryMessage);
+            outputBoundary.prepareSuccessView(outputData);
+
+        } catch (Exception e) {
+            outputBoundary.prepareFailureView("Failed to process ChatGPT response: " + e.getMessage());
         }
-
-        // Apply changes to inventory
-        dataAccess.changeFood(foodChange);
-        dataAccess.changeWater(waterChange);
-        dataAccess.changeWeapon(suppliesChange);
-        dataAccess.changePeople(peopleChange);
-        dataAccess.removeEvent();
-
-        // Prepare output
-        String inventoryMessage = "Resources changed: Food " + foodChange + ", Water " + waterChange +
-                                  ", Supplies " + suppliesChange + ", People " + peopleChange + ".";
-        SurvivorOutputData outputData = new SurvivorOutputData(message, foodChange, waterChange, suppliesChange, peopleChange, inventoryMessage);
-        outputBoundary.prepareSuccessView(outputData);
     }
 }

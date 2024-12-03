@@ -158,6 +158,9 @@ public class GameMainApplication {
         final NevagateAllowcateController nevagateAllowcateController = new NevagateAllowcateController(
                 nevagateAllowcateInteractor);
 
+        final ChatGptService chatGptService = new ChatGptService();
+        final ChatGptResponseParser responseParser = new ChatGptResponseParser();
+
         mainView.render();
         // Allowcate points ussecase.
         final AllowcatePresenter allowcatePresenter = new AllowcatePresenter(attributeview, navigationManager);
