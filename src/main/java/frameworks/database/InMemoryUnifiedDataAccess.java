@@ -18,11 +18,13 @@ import usecases.eventrespond.survivor.SurvivorDataAccessInterface;
 import usecases.eventrespond.trader.TraderDataAccessInterface;
 import usecases.fetchcurrentevent.CurrentEventDataAccessInterface;
 import usecases.fetchresource.FetchDataAccessInterface;
+import usecases.gamelosedetecter.LoseDataAccessInterface;
 import usecases.gameminimap.MinimapDataAccessInterface;
 import usecases.gamenewday.NewdayDataAccessInterface;
 import usecases.gameplacedescription.PlaceDescriptionDataAccessInterface;
 import usecases.nevagateAllowcatePage.NevagateAllowcateDataAccessInterface;
 import usecases.nevagategame.NevagateGameDataAccessInterface;
+import usecases.nevagategameover.NevagateGameOverDataAccessInterface;
 import usecases.nevagatemain.NevagateMainDataAccessInterface;
 import usecases.startallowcate.AllowcateDataAccessInterface;
 
@@ -50,7 +52,9 @@ public class InMemoryUnifiedDataAccess implements
         NevagateMainDataAccessInterface,
         NevagateEventDataAccessInterface,
         CurrentEventDataAccessInterface,
-        NevagateGameDataAccessInterface {
+        NevagateGameDataAccessInterface,
+        LoseDataAccessInterface,
+        NevagateGameOverDataAccessInterface {
     // Shared game data
     private PlayerAttributes playerAttributes;
     private Inventory inventory;
@@ -146,6 +150,11 @@ public class InMemoryUnifiedDataAccess implements
     @Override
     public void setDecidedEvents(ArrayList<Event> decidedevents) {
         this.unprocessedevents = new ArrayList<>(decidedevents);
+    }
+
+    @Override
+    public ArrayList<Event> getUnprocessedEvents() {
+        return unprocessedevents;
     }
 
     @Override

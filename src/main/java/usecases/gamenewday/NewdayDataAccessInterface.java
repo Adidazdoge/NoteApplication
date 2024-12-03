@@ -2,6 +2,8 @@ package usecases.gamenewday;
 
 import entities.*;
 
+import java.util.ArrayList;
+
 /**
  * Newday data access, require player's info because we care and need to update days and score.
  * Require inventory because this part is for updating recources, how many lose, how many found depended on people num.
@@ -73,4 +75,16 @@ public interface NewdayDataAccessInterface {
      * @return return the description of the horde.
      */
     Horde getHorde();
+
+    /**
+     * Reset to 3 action point.
+     * @param actionPoints action points.
+     */
+    void setActionPoint(int actionPoints);
+
+    /**
+     * Get unprocessed events to see if player is capable of skipping.
+     * @return unprocessed events.
+     */
+    ArrayList<Event> getUnprocessedEvents();
 }

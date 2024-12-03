@@ -80,10 +80,9 @@ public class LoginView extends JFrame implements LoginInterface {
             }
         });
 
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setLocation(Constants.FOUR_HUNDRED, Constants.TWO_HUNDRED);
     }
 
     private void layout(int offsetX) {
@@ -122,19 +121,19 @@ public class LoginView extends JFrame implements LoginInterface {
             // Close login window
             dispose();
             // Navigate to the game view
-            MainView mainView = new MainView();
+            final MainView mainView = new MainView();
             mainView.render();
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            new LoginView();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error initializing the login system.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    // Add render method
+    public void render() {
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) throws IOException {
+        final LoginView loginView = new LoginView();
+        loginView.render();
     }
 }

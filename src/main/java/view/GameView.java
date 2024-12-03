@@ -1,19 +1,33 @@
 package view;
 
+import interface_adapters.NavigationManager;
 import interface_adapters.broadcast.BroadcastController;
 import interface_adapters.broadcast.BroadcastInterface;
 import interface_adapters.dailygather.DailyGatherController;
 import interface_adapters.dailygather.DailyGatherInterface;
 import interface_adapters.dailymove.DailyMoveController;
 import interface_adapters.dailymove.DailyMoveInterface;
+import interface_adapters.endprocesshorde.HordeController;
+import interface_adapters.endprocesshorde.HordeInterface;
+import interface_adapters.endprocesshorde.HordeInterfaceNavigate;
 import interface_adapters.eventdecide.EventDecideController;
 import interface_adapters.eventdecide.EventDecideInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
+import interface_adapters.gamelosedetecter.LoseController;
+import interface_adapters.gamelosedetecter.LoseInterface;
+import interface_adapters.gamelosedetecter.LoseInterfaceNavigate;
+import interface_adapters.gameminimap.MinimapController;
+import interface_adapters.gameminimap.MinimapInterface;
+import interface_adapters.gamenewday.NewdayController;
+import interface_adapters.gamenewday.NewdayInterface;
 import interface_adapters.gameplacedescription.PlaceDescriptionController;
 import interface_adapters.gameplacedescription.PlaceDescriptionInterface;
 import interface_adapters.nevagateevent.NevagateEventController;
 import interface_adapters.nevagateevent.NevagateEventInterface;
+import interface_adapters.nevagategame.NevagateGameController;
+import interface_adapters.nevagategameover.NevagateGameOverController;
+import interface_adapters.nevagategameover.NevagateGameOverInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +38,9 @@ import java.util.ArrayList;
 
 public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface,
         PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface,
-        EventDecideInterface, NevagateEventInterface {
+        EventDecideInterface, NevagateEventInterface, NewdayInterface, MinimapInterface,
+        LoseInterfaceNavigate, HordeInterfaceNavigate,
+        NevagateGameOverInterface {
     private int day;
     private int food;
     private int water;
@@ -50,6 +66,11 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     private DailyMoveController dailyMoveController;
     private EventDecideController eventDecideController;
     private NevagateEventController nevagateEventController;
+    private NewdayController newdayController;
+    private MinimapController minimapController;
+    private LoseController loseController;
+    private HordeController hordeController;
+    private NevagateGameOverController nevagateGameOverController;
 
     private final PropertyChangeSupport propertyChangeSupport;
 
@@ -94,8 +115,12 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         final JScrollPane infoScrollPane = new JScrollPane(infoBox);
         infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+<<<<<<< HEAD
         // Adjusted smaller width and fixed height
         infoScrollPane.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
+=======
+        infoScrollPane.setPreferredSize(new Dimension(200, 200));
+>>>>>>> a9b305d6b6d0ec21289be47be19c6e2be3d54808
         container.add(infoScrollPane);
         infoBox.setLineWrap(true);
         infoBox.setWrapStyleWord(true);
@@ -140,21 +165,25 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         upButton.addActionListener(e -> {
             dailyMoveController.execute("up");
             fetchController.execute();
+            minimapController.execute();
         });
 
         downButton.addActionListener(e -> {
             dailyMoveController.execute("down");
             fetchController.execute();
+            minimapController.execute();
         });
 
         leftButton.addActionListener(e -> {
             dailyMoveController.execute("left");
             fetchController.execute();
+            minimapController.execute();
         });
 
         rightButton.addActionListener(e -> {
             dailyMoveController.execute("right");
             fetchController.execute();
+            minimapController.execute();
         });
 
         eventButton.addActionListener(e -> {
@@ -162,7 +191,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         });
 
         nextDayButton.addActionListener(e -> {
-            eventDecideController.execute();
+            newdayController.execute();
+            fetchController.execute();
         });
 
         // Add ActionListeners
@@ -191,7 +221,10 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                               PlaceDescriptionController placeDescriptionController,
                               DailyGatherController dailyGatherController, DailyMoveController dailyMoveController,
                               NevagateEventController nevagateEventController,
-                              EventDecideController eventDecideController) {
+                              EventDecideController eventDecideController, NewdayController newdayController,
+                              MinimapController minimapController,
+                              LoseController loseController, HordeController hordeController,
+                              NevagateGameOverController nevagateGameOverController) {
         this.fetchController = fetchController;
         this.broadcastController = broadcastController;
         this.placeDescriptionController = placeDescriptionController;
@@ -199,6 +232,11 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         this.dailyMoveController = dailyMoveController;
         this.nevagateEventController = nevagateEventController;
         this.eventDecideController = eventDecideController;
+        this.newdayController = newdayController;
+        this.minimapController = minimapController;
+        this.loseController = loseController;
+        this.hordeController = hordeController;
+        this.nevagateGameOverController = nevagateGameOverController;
     }
 
     /**
@@ -207,6 +245,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     public void render() {
         placeDescriptionController.execute();
         fetchController.execute();
+        minimapController.execute();
+        loseController.execute();
         setVisible(true);
     }
 
@@ -359,6 +399,40 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     }
 
     @Override
+    public void updateUiMinimap(ArrayList<ArrayList<String>> grid) {
+        // Validate input
+        if (grid == null || grid.isEmpty() || grid.get(0).isEmpty()) {
+            mapPanel.setText("Invalid map data.");
+            return;
+        }
+
+        final int rows = grid.size();
+        final int cols = grid.get(0).size();
+
+        // Find the center and set a marker (e.g., @) for the player's position
+        final int centerRow = rows / 2;
+        final int centerCol = cols / 2;
+
+        StringBuilder mapBuilder = new StringBuilder();
+
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (r == centerRow && c == centerCol) {
+                    mapBuilder.append("@  ");
+                } else {
+                    mapBuilder.append(grid.get(r).get(c)).append("  ");
+                }
+            }
+            mapBuilder.append("\n");
+        }
+
+        // Set text to mapPanel with fixed font and centered scroll
+        mapPanel.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        mapPanel.setText(mapBuilder.toString());
+        mapPanel.setCaretPosition(0);
+    }
+
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final String propertyName = evt.getPropertyName();
 
@@ -389,6 +463,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
 
     @Override
     public void updateUiResource(int food, int water, int people, int weapon, int day, int actionpoint) {
+        loseController.execute();
+        // check if player lose on update.
         setFood(food);
         setWater(water);
         setPeople(people);
@@ -400,7 +476,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiBroadcast(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n");
+            infoBox.append(message + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -418,7 +494,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiGather(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n");
+            infoBox.append(message + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -436,7 +512,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiMove(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n");
+            infoBox.append(message + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -454,7 +530,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiPlaceDescription(String placeDescription) {
         if (infoBox != null) {
-            infoBox.append(placeDescription + "\n");
+            infoBox.append(placeDescription + "\n\n");
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -474,7 +550,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         if (infoBox != null) {
             if (eventNames.isEmpty()) {
                 // No events
-                infoBox.append("No events happened today.\n");
+                infoBox.append("No events happened today.\n\n");
             }
             else {
                 // Display the events
@@ -505,5 +581,36 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                 "Unable to go to event page!",
                 JOptionPane.ERROR_MESSAGE
         );
+    }
+
+    @Override
+    public void updateUiNewday(String message) {
+        // only message is needed.
+        if (infoBox != null) {
+            infoBox.append(message + "\n\n");
+            System.out.println("newday message prointed");
+            infoBox.setCaretPosition(infoBox.getDocument().getLength());
+        }
+        eventDecideController.execute();
+    }
+
+    @Override
+    public void failureNewday(String message) {
+        JOptionPane.showMessageDialog(
+                this,
+                message,
+                "Unable to go to next day!",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    @Override
+    public void navigateGameOver(NavigationManager navigationManager) {
+        navigationManager.showGameOverView();
+    }
+
+    @Override
+    public void NavigateHordeGameOver(NavigationManager manager) {
+        manager.showGameOverView();
     }
 }
