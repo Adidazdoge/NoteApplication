@@ -30,7 +30,7 @@ public class SurvivorEventInteractor implements SurvivorInputBoundary {
     @Override
     public void execute(SurvivorInputData inputData) {
         EventSurvivorJoins survivorEvent = (EventSurvivorJoins) dataAccess.getEvent();
-        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributes();
+        Map<String, Integer> playerAttributes = dataAccess.getPlayerAttributesAsMap();
         Map<Integer, String> choices = survivorEvent.getchoices();
 
         try {

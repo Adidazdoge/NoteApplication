@@ -14,9 +14,10 @@ import interface_adapters.startallowcatepoint.AllowcateController;
 import interface_adapters.startallowcatepoint.AllowcateInterface;
 
 /**
- * Character creation view.
+ * Character creation view that allows players to allocate points to various attributes
+ * such as Social, Luck, Mobilization, Thrift, and Generalship.
+ * This view also provides navigation to the main menu and starting the game.
  */
-
 public class CharacterCreationView extends JFrame implements AllowcateInterface {
     public static final String TEXT_SOCIAL = "Social";
     public static final String TEXT_LUCK = "Luck";
@@ -119,6 +120,15 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         this.nevagateMainController = NevagateMainController;
     }
 
+    /**
+     * Adds action listeners to the buttons for allocating points to attributes.
+     *
+     * @param socialButton       Button to increase Social attribute.
+     * @param luckButton         Button to increase Luck attribute.
+     * @param mobilizationButton Button to increase Mobilization attribute.
+     * @param thriftButton       Button to increase Thrift attribute.
+     * @param generalshipButton  Button to increase Generalship attribute.
+     */
     @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     private void addListeners(JButton socialButton, JButton luckButton, JButton mobilizationButton,
                               JButton thriftButton, JButton generalshipButton) {
@@ -169,6 +179,12 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         layout.putConstraint(SpringLayout.SOUTH, startGameButton, -Constants.TWENTY, SpringLayout.SOUTH, container);
     }
 
+    /**
+     * Creates a button with a given label and font style.
+     *
+     * @param text The text to display on the button.
+     * @return A new JButton instance.
+     */
     private JButton createButton(String text) {
         final JButton button = new JButton("+");
         button.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
@@ -176,6 +192,11 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         return button;
     }
 
+    /**
+     * Updates the points allocation for a specific attribute.
+     *
+     * @param attribute The name of the attribute to update.
+     */
     private void updatePoints(String attribute) {
         if (points > 0) {
             switch (attribute) {
@@ -230,6 +251,11 @@ public class CharacterCreationView extends JFrame implements AllowcateInterface 
         setVisible(false);
     }
 
+    /**
+     * Displays a failure message when allocation fails.
+     *
+     * @param message The error message to display.
+     */
     @Override
     public void failureAllowcate(String message) {
         // Display the failure message in a dialog box

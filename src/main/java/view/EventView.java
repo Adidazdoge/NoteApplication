@@ -20,7 +20,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
- * Event view.
+ * Represents the view for displaying and interacting with events in the game.
  */
 public class EventView extends JFrame implements EventInitializerInterface,
         AmbushResponseInterface, BlizzardResponseInterface, TraderResponseInterface,
@@ -41,6 +41,13 @@ public class EventView extends JFrame implements EventInitializerInterface,
     private FetchEventController fetchEventController;
     private NevagateGameController nevagateGameController;
 
+    /**
+     * Sets the controllers required for handling events and navigation.
+     *
+     * @param eventInitializerController Controller for event initialization.
+     * @param fetchEventController       Controller for fetching event details.
+     * @param nevagateGameController     Controller for game navigation.
+     */
     public void setController(EventInitializerController eventInitializerController,
                               FetchEventController fetchEventController,
                               NevagateGameController nevagateGameController) {
@@ -49,15 +56,23 @@ public class EventView extends JFrame implements EventInitializerInterface,
         this.nevagateGameController = nevagateGameController;
     }
 
+    /**
+     * Sets the event manager responsible for handling event-related data.
+     *
+     * @param eventManager The event manager instance.
+     */
     public void setManager(EventManager eventManager) {
         this.eventManager = eventManager;
     }
 
+    /**
+     * Constructs the EventView UI and initializes components.
+     */
     public EventView() {
         super("Event");
 
         // Initialize the container and layout
-        Container container = getContentPane();
+        final Container container = getContentPane();
         layout = new SpringLayout();
         container.setLayout(layout);
 
@@ -74,10 +89,11 @@ public class EventView extends JFrame implements EventInitializerInterface,
         descriptionArea.setWrapStyleWord(true);
 
         // Wrap the description area in a scroll pane
-        descriptionScrollPane = new JScrollPane(descriptionArea); // Now it's an instance variable
+        // Now it's an instance variable
+        descriptionScrollPane = new JScrollPane(descriptionArea);
         descriptionScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         descriptionScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        descriptionScrollPane.setPreferredSize(new Dimension(400, 100));
+        descriptionScrollPane.setPreferredSize(new Dimension(Constants.FOUR_HUNDRED, Constants.ONE_HUNDRED));
 
         // Buttons
         fightButton = new JButton("Fight");
@@ -87,7 +103,8 @@ public class EventView extends JFrame implements EventInitializerInterface,
 
         // Add components to container
         container.add(eventLabel);
-        container.add(descriptionScrollPane); // Add the scroll pane, not just the text area
+        // Add the scroll pane, not just the text area
+        container.add(descriptionScrollPane);
         container.add(fightButton);
         container.add(negotiateButton);
         container.add(fleeButton);
