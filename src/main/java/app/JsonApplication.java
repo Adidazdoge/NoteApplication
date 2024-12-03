@@ -159,6 +159,27 @@ public class JsonApplication {
         gameApplication(mainView, navigationManagerJson);
     }
 
+    /**
+     * Ends the game by updating the ranking data for the player.
+     * This method writes the player's final game data to the JSON file.
+     *
+     * @param filePath     The path to the JSON file storing ranking data.
+     * @param username     The username of the player.
+     * @param score        The final score of the player.
+     * @param daysSurvived The number of days the player survived.
+     * @param won          Whether the player won the game.
+     */
+    public static void endGame(String filePath, String username, int score, int daysSurvived, boolean won) {
+        try {
+            final JsonRankingDataAccess rankingDataAccess = new JsonRankingDataAccess(filePath);
+            rankingDataAccess.updateRankingData(username, score, daysSurvived, won);
+            // System.out.println("Game results saved to ranking.json!");
+        }
+        catch (IOException e) {
+            System.err.println("Failed to update ranking data: " + e.getMessage());
+        }
+    }
+
     private void gameApplication(MainView mainView, NavigationManagerJson navigationManagerJson) {
         // initialized map
         final ArrayList<String> environments = new ArrayList<>(Arrays.asList(EntityConstants.PLAIN,
@@ -172,6 +193,7 @@ public class JsonApplication {
         // initialize player and their info.
         final PlayerAttributes playerAttributes = new PlayerAttributes();
         final PlayerInfo playerInfo = new PlayerInfo("Currentplayer");
+        restartGameController.setPlayerInfo(playerInfo);
         final PlayerLocation playerLocation = new PlayerLocation();
         final Inventory playerInventory = new Inventory();
         final Location currentlocation = grids.get(playerLocation.getYcoordinate())

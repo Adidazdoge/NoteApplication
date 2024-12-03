@@ -1,27 +1,17 @@
 package entities;
 
-/**
- * Represents an entry in the ranking list.
- * Contains the player's name, score, days survived, and whether they won.
- */
 public class PlayerRankingEntry {
-    // Player's username
-    private final String name;
-    // Player's score
+    private String name;
     private int score;
-    // Number of days the player survived
     private int daysSurvived;
-    // Whether the player won the game
     private boolean won;
 
-    /**
-     * Constructs a new RankingEntry with the specified attributes.
-     *
-     * @param name The player's username.
-     * @param score The player's score.
-     * @param daysSurvived The number of days the player survived.
-     * @param won Whether the player won the game.
-     */
+    // Default constructor
+    public PlayerRankingEntry() {
+
+    }
+
+    // All-args constructor
     public PlayerRankingEntry(String name, int score, int daysSurvived, boolean won) {
         this.name = name;
         this.score = score;
@@ -29,31 +19,36 @@ public class PlayerRankingEntry {
         this.won = won;
     }
 
+    // Getters and setters
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getScore() {
         return score;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public int getDaysSurvived() {
         return daysSurvived;
+    }
+
+    public void setDaysSurvived(int daysSurvived) {
+        this.daysSurvived = daysSurvived;
     }
 
     public boolean isWon() {
         return won;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public void setWon(boolean won) {
         this.won = won;
-    }
-
-    public void setDaysSurvived(int daysSurvived) {
-        this.daysSurvived = daysSurvived;
     }
 }

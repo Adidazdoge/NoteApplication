@@ -114,6 +114,8 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
     }
 
     public void render() {
+        restartGameController.saveRecord();
+        System.out.println("Record saved.");
         setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setVisible(true);
     }
