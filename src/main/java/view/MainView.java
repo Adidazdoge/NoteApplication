@@ -1,18 +1,21 @@
 package view;
 
-import app.GameMainApplication;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SpringLayout;
+
 import app.JsonApplication;
-import app.RankingApplication;
 import app.RestartGameController;
 import interface_adapters.NavigationManagerJson;
 import interface_adapters.nevagateallowcatepage.NevagateAllowcateController;
-import interface_adapters.rankinglist.RankingInterface;
-import interface_adapters.rankinglist.RankingController;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Main view.
@@ -36,29 +39,12 @@ public class MainView extends JFrame {
 
         // Title
         final JLabel titleLabel = new JLabel("Main Menu");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, Constants.THIRTY));
+        final String fontname = new String("Arial");
+        titleLabel.setFont(new Font(fontname, Font.BOLD, Constants.THIRTY));
         container.add(titleLabel);
 
         // Set button fonts
-        newGameButton.setFont(new Font("Arial", Font.BOLD, Constants.TWENTY));
-        rankingButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        quitButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        logoutButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-
-        newGameButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
-        rankingButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
-        quitButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FORTY));
-        logoutButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
-
-        newGameButton.setBackground(Constants.THEME_COLOR);
-        rankingButton.setBackground(Color.WHITE);
-        quitButton.setBackground(Color.WHITE);
-        logoutButton.setBackground(Color.WHITE);
-
-        newGameButton.setForeground(Color.WHITE);
-        rankingButton.setForeground(Constants.THEME_COLOR);
-        quitButton.setForeground(Constants.THEME_COLOR);
-        logoutButton.setForeground(Constants.THEME_COLOR);
+        buttonSetting(fontname);
 
         // Add buttons to the container
         container.add(newGameButton);
@@ -97,6 +83,37 @@ public class MainView extends JFrame {
         setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
     }
 
+    private void buttonSetting(String fontname) {
+        newGameButton.setFont(new Font(fontname, Font.BOLD, Constants.TWENTY));
+        rankingButton.setFont(new Font(fontname, Font.PLAIN, Constants.TWENTY));
+        quitButton.setFont(new Font(fontname, Font.PLAIN, Constants.TWENTY));
+        logoutButton.setFont(new Font(fontname, Font.PLAIN, Constants.TWENTY));
+
+        newGameButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
+        rankingButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
+        quitButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FORTY));
+        logoutButton.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.FIFTY));
+
+        newGameButton.setBackground(Constants.THEME_COLOR);
+        rankingButton.setBackground(Color.WHITE);
+        quitButton.setBackground(Color.WHITE);
+        logoutButton.setBackground(Color.WHITE);
+
+        newGameButton.setForeground(Color.WHITE);
+        rankingButton.setForeground(Constants.THEME_COLOR);
+        quitButton.setForeground(Constants.THEME_COLOR);
+        logoutButton.setForeground(Constants.THEME_COLOR);
+    }
+
+    /**
+     * Sets the {@code NevigateAllowcateController} for this instance.
+     *
+     * <p>This method associates a {@code NevigateAllowcateController} with the current
+     * instance of the {@code MainView} and logs the instance's identity hash code for
+     * debugging purposes.</p>
+     *
+     * @param nevagateAllowcateController the {@code NevigateAllowcateController} to be set
+     */
     public void setNevagateAllowcateController(NevagateAllowcateController nevagateAllowcateController) {
         System.out.println("MainView instance in setNevagateAllowcateController: " + System.identityHashCode(this));
         this.nevagateAllowcateController = nevagateAllowcateController;
@@ -109,42 +126,44 @@ public class MainView extends JFrame {
     // Add ActionListener to buttons
     private void addListeners() {
         // Switch to GameView when "New Game" is clicked
-        newGameButton.addActionListener(e -> {
+        final String error = new String("Error");
+        newGameButton.addActionListener(event -> {
             restartGameController.resetGame();
             if (nevagateAllowcateController != null) {
                 nevagateAllowcateController.execute();
             }
             else {
                 JOptionPane.showMessageDialog(this, "Navigation controller not initialized.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        error, JOptionPane.ERROR_MESSAGE);
             }
         });
 
         // Switch to RankView when "Ranking" is clicked
-        rankingButton.addActionListener(e -> {
+        rankingButton.addActionListener(event -> {
             if (navigationManager != null) {
                 navigationManager.showRankingView();
-            } else {
+            }
+            else {
                 JOptionPane.showMessageDialog(this,
                         "Navigation Manager is not initialized. Cannot navigate to Ranking View.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        error, JOptionPane.ERROR_MESSAGE);
             }
         });
 
         // Exit the game when "Quit" is clicked
-        quitButton.addActionListener(e -> {
+        quitButton.addActionListener(event -> {
             System.exit(0);
         });
 
         // Switch to LoginView when "Logout" is clicked
-        logoutButton.addActionListener(e -> {
+        logoutButton.addActionListener(event -> {
             if (navigationManager != null) {
                 navigationManager.showLoginView();
             }
             else {
                 JOptionPane.showMessageDialog(this,
                         "Error navigating to LoginView.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        error, JOptionPane.ERROR_MESSAGE);
             }
         });
     }
@@ -159,10 +178,22 @@ public class MainView extends JFrame {
     }
 
     // Add render method
+    /**
+     * Renders the component by making it visible to the user.
+     *
+     * <p>This method sets the visibility of the component to {@code true},
+     * ensuring it is displayed on the screen.</p>
+     */
     public void render() {
         setVisible(true);
     }
 
+    /**
+     * Hides the component by making it invisible to the user.
+     *
+     * <p>This method sets the visibility of the component to {@code false},
+     * ensuring it is not displayed on the screen.</p>
+     */
     public void disrender() {
         setVisible(false);
     }
@@ -171,8 +202,8 @@ public class MainView extends JFrame {
         try {
             new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException event) {
+            event.printStackTrace();
         }
     }
 }

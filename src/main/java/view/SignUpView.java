@@ -1,13 +1,26 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.Spring;
+import javax.swing.SpringLayout;
+
 import app.JsonApplication;
 import interface_adapters.NavigationManagerJson;
 import interface_adapters.signup.SignupController;
 import interface_adapters.signup.SignupInterface;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
 
 /**
  * SignUpView handles the UI for user registration and integrates with the SignupApplication.
@@ -37,16 +50,9 @@ public class SignUpView extends JFrame implements SignupInterface {
         super("Sign Up");
 
         final Container contentPane = getContentPane();
-        nameLabel.setFont(new Font("Impact", Font.BOLD, Constants.FIFTY));
-        userNameLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
-        passwordLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
-        againLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
-        registerButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        registerButton.setBackground(Color.WHITE);
-        registerButton.setForeground(Constants.THEME_COLOR);
-        loginButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
-        loginButton.setBackground(Constants.THEME_COLOR);
-        loginButton.setForeground(Color.WHITE);
+        final String fontname = new String("Arial");
+        final String error = new String("error");
+        setFont(fontname);
 
         userText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
         passwordText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
@@ -67,15 +73,15 @@ public class SignUpView extends JFrame implements SignupInterface {
         // set userNameLabel location
         extracted(offsetX);
 
-        registerButton.addActionListener(e -> handleSignup());
+        registerButton.addActionListener(event -> handleSignup());
 
-        loginButton.addActionListener(e -> {
+        loginButton.addActionListener(event -> {
             try {
                 navigationManager.showLoginView();
             }
             catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error navigating to LoginView.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        error, JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         });
@@ -85,6 +91,19 @@ public class SignUpView extends JFrame implements SignupInterface {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
+    }
+
+    private void setFont(String fontname) {
+        nameLabel.setFont(new Font("Impact", Font.BOLD, Constants.FIFTY));
+        userNameLabel.setFont(new Font(fontname, Font.BOLD, Constants.FIFTEEN));
+        passwordLabel.setFont(new Font(fontname, Font.BOLD, Constants.FIFTEEN));
+        againLabel.setFont(new Font(fontname, Font.BOLD, Constants.FIFTEEN));
+        registerButton.setFont(new Font(fontname, Font.PLAIN, Constants.TWENTY));
+        registerButton.setBackground(Color.WHITE);
+        registerButton.setForeground(Constants.THEME_COLOR);
+        loginButton.setFont(new Font(fontname, Font.PLAIN, Constants.TWENTY));
+        loginButton.setBackground(Constants.THEME_COLOR);
+        loginButton.setForeground(Color.WHITE);
     }
 
     private void extracted() {
@@ -107,17 +126,20 @@ public class SignUpView extends JFrame implements SignupInterface {
         springLayout.putConstraint(SpringLayout.NORTH, userText, -Constants.FIVE, SpringLayout.NORTH, userNameLabel);
         // set passwordLabel location
         springLayout.putConstraint(SpringLayout.EAST, passwordLabel, 0, SpringLayout.EAST, userNameLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TWENTY, SpringLayout.SOUTH, userNameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TWENTY, SpringLayout.SOUTH,
+                userNameLabel);
         // set passwordText location
         springLayout.putConstraint(SpringLayout.WEST, passwordText, Constants.TEN, SpringLayout.EAST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordText, -Constants.FIVE, SpringLayout.NORTH, passwordLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordText, -Constants.FIVE, SpringLayout.NORTH,
+                passwordLabel);
         // set loginButton location
         springLayout.putConstraint(SpringLayout.WEST, loginButton, Constants.TEN, SpringLayout.WEST, passwordLabel);
         springLayout.putConstraint(SpringLayout.NORTH, loginButton, Constants.EIGHTY, SpringLayout.SOUTH,
                 passwordLabel);
         // set registerButton location
         springLayout.putConstraint(SpringLayout.WEST, registerButton, Constants.FORTY, SpringLayout.EAST, loginButton);
-        springLayout.putConstraint(SpringLayout.NORTH, registerButton, -Constants.FIVE, SpringLayout.NORTH, loginButton);
+        springLayout.putConstraint(SpringLayout.NORTH, registerButton, -Constants.FIVE, SpringLayout.NORTH,
+                loginButton);
         // set againLabel location
         springLayout.putConstraint(SpringLayout.EAST, againLabel, 0, SpringLayout.EAST, passwordLabel);
         springLayout.putConstraint(SpringLayout.NORTH, againLabel, Constants.TWENTY, SpringLayout.SOUTH, passwordLabel);
@@ -187,10 +209,22 @@ public class SignUpView extends JFrame implements SignupInterface {
     }
 
     // Add render method
+    /**
+     * Renders the component by making it visible to the user.
+     *
+     * <p>This method sets the visibility of the component to {@code true},
+     * ensuring it is displayed on the screen.</p>
+     */
     public void render() {
         setVisible(true);
     }
 
+    /**
+     * Hides the component by making it invisible to the user.
+     *
+     * <p>This method sets the visibility of the component to {@code false},
+     * ensuring it is not displayed on the screen.</p>
+     */
     public void disrender() {
         setVisible(false);
     }
@@ -199,8 +233,8 @@ public class SignUpView extends JFrame implements SignupInterface {
         try {
             new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException event) {
+            event.printStackTrace();
         }
     }
 }

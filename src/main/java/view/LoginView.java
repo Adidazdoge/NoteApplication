@@ -1,13 +1,26 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.Spring;
+import javax.swing.SpringLayout;
+
 import app.JsonApplication;
 import interface_adapters.NavigationManagerJson;
 import interface_adapters.login.LoginController;
 import interface_adapters.login.LoginInterface;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
 
 /**
  * LoginView handles the UI for user login and integrates with the LoginApplication.
@@ -35,25 +48,21 @@ public class LoginView extends JFrame implements LoginInterface {
         super("Login");
 
         final Container contentPane = getContentPane();
+        final String fontname = new String("Arial");
         nameLabel.setFont(new Font("Impact", Font.BOLD, Constants.FIFTY));
-        userNameLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
-        passwordLabel.setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
-        loginButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        userNameLabel.setFont(new Font(fontname, Font.BOLD, Constants.FIFTEEN));
+        passwordLabel.setFont(new Font(fontname, Font.BOLD, Constants.FIFTEEN));
+        loginButton.setFont(new Font(fontname, Font.PLAIN, Constants.TWENTY));
         loginButton.setBackground(Constants.THEME_COLOR);
         loginButton.setForeground(Color.WHITE);
-        registerButton.setFont(new Font("Arial", Font.PLAIN, Constants.TWENTY));
+        registerButton.setFont(new Font(fontname, Font.PLAIN, Constants.TWENTY));
         registerButton.setBackground(Color.WHITE);
         registerButton.setForeground(Constants.THEME_COLOR);
 
         userText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
         passwordText.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.THIRTY));
 
-        centerPanel.add(userNameLabel);
-        centerPanel.add(userText);
-        centerPanel.add(passwordLabel);
-        centerPanel.add(passwordText);
-        centerPanel.add(loginButton);
-        centerPanel.add(registerButton);
+        containerContent();
 
         contentPane.add(nameLabel, BorderLayout.NORTH);
         contentPane.add(centerPanel, BorderLayout.CENTER);
@@ -66,7 +75,7 @@ public class LoginView extends JFrame implements LoginInterface {
         final int offsetX = (childWidth.getValue() + 40) / 2;
         layout(offsetX);
 
-        loginButton.addActionListener(e -> {
+        loginButton.addActionListener(event -> {
             final String username = userText.getText();
             final String password = new String(passwordText.getPassword());
             userText.setText("");
@@ -74,7 +83,7 @@ public class LoginView extends JFrame implements LoginInterface {
             loginController.handleLogin(username, password);
         });
 
-        registerButton.addActionListener(e -> {
+        registerButton.addActionListener(event -> {
             if (navigationManager != null) {
                 // Navigate to SignUpView
                 navigationManager.showSignUpView();
@@ -84,6 +93,15 @@ public class LoginView extends JFrame implements LoginInterface {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocation(Constants.FIVE_HUNDRED, Constants.THREE_HUNDRED);
+    }
+
+    private void containerContent() {
+        centerPanel.add(userNameLabel);
+        centerPanel.add(userText);
+        centerPanel.add(passwordLabel);
+        centerPanel.add(passwordText);
+        centerPanel.add(loginButton);
+        centerPanel.add(registerButton);
     }
 
     private void layout(int offsetX) {
@@ -96,10 +114,12 @@ public class LoginView extends JFrame implements LoginInterface {
         springLayout.putConstraint(SpringLayout.NORTH, userText, -Constants.FIVE, SpringLayout.NORTH, userNameLabel);
         // set passwordLabel location
         springLayout.putConstraint(SpringLayout.EAST, passwordLabel, 0, SpringLayout.EAST, userNameLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TWENTY, SpringLayout.SOUTH, userNameLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordLabel, Constants.TWENTY, SpringLayout.SOUTH,
+                userNameLabel);
         // set passwordText location
         springLayout.putConstraint(SpringLayout.WEST, passwordText, Constants.TEN, SpringLayout.EAST, passwordLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, passwordText, -Constants.FIVE, SpringLayout.NORTH, passwordLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordText, -Constants.FIVE, SpringLayout.NORTH,
+                passwordLabel);
         // set loginButton location
         springLayout.putConstraint(SpringLayout.WEST, loginButton, Constants.FIFTY, SpringLayout.WEST, passwordLabel);
         springLayout.putConstraint(SpringLayout.NORTH, loginButton, Constants.FORTY,
@@ -149,10 +169,22 @@ public class LoginView extends JFrame implements LoginInterface {
         }
     }
 
+    /**
+     * Renders the component by making it visible to the user.
+     *
+     * <p>This method sets the visibility of the component to {@code true},
+     * ensuring it is displayed on the screen.</p>
+     */
     public void render() {
         setVisible(true);
     }
 
+    /**
+     * Hides the component by making it invisible to the user.
+     *
+     * <p>This method sets the visibility of the component to {@code false},
+     * ensuring it is not displayed on the screen.</p>
+     */
     public void disrender() {
         setVisible(false);
     }
@@ -161,8 +193,8 @@ public class LoginView extends JFrame implements LoginInterface {
         try {
             new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException event) {
+            event.printStackTrace();
         }
     }
 }

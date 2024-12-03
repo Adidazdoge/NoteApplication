@@ -1,15 +1,24 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.io.IOException;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import app.JsonApplication;
 import interface_adapters.NavigationManagerJson;
 import interface_adapters.rankinglist.RankingController;
 import interface_adapters.rankinglist.RankingInterface;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Ranking view class that implements RankingInterface to display the leaderboard.
@@ -32,10 +41,11 @@ public class RankingView extends JFrame implements RankingInterface {
         // Main container layout
         final Container container = getContentPane();
         container.setLayout(new BorderLayout());
+        final String fontname = new String("Arial");
 
         // Title
         final JLabel titleLabel = new JLabel("Ranking List", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, Constants.THIRTY));
+        titleLabel.setFont(new Font(fontname, Font.BOLD, Constants.THIRTY));
         container.add(titleLabel, BorderLayout.NORTH);
 
         // Table to display rankings
@@ -44,8 +54,8 @@ public class RankingView extends JFrame implements RankingInterface {
         rankingTable = new JTable(tableModel);
         // Make table non-editable
         rankingTable.setEnabled(false);
-        rankingTable.setFont(new Font("Arial", Font.PLAIN, Constants.FIFTEEN));
-        rankingTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, Constants.FIFTEEN));
+        rankingTable.setFont(new Font(fontname, Font.PLAIN, Constants.FIFTEEN));
+        rankingTable.getTableHeader().setFont(new Font(fontname, Font.BOLD, Constants.FIFTEEN));
         rankingTable.setRowHeight(Constants.TWENTYFIVE);
         container.add(new JScrollPane(rankingTable), BorderLayout.CENTER);
 
@@ -53,11 +63,11 @@ public class RankingView extends JFrame implements RankingInterface {
         backButton = new JButton("Back to Main Memu");
         backButton.setBackground(Color.WHITE);
         backButton.setForeground(Constants.THEME_COLOR);
-        backButton.setFont(new Font("Arial", Font.BOLD, Constants.TWENTY));
+        backButton.setFont(new Font(fontname, Font.BOLD, Constants.TWENTY));
         container.add(backButton, BorderLayout.SOUTH);
 
         // Add ActionListener to navigate back to the main menu
-        backButton.addActionListener(e -> {
+        backButton.addActionListener(event -> {
             if (navigationManager != null) {
                 navigationManager.showMainView();
             }
@@ -145,16 +155,23 @@ public class RankingView extends JFrame implements RankingInterface {
         }
     }
 
+    /**
+     * Hides the component by making it invisible to the user.
+     *
+     * <p>This method sets the visibility of the component to {@code false},
+     * ensuring it is not displayed on the screen.</p>
+     */
     public void disrender() {
         setVisible(false);
     }
+
 
     public static void main(String[] args) {
         try {
             new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (IOException event) {
+            event.printStackTrace();
         }
     }
 }

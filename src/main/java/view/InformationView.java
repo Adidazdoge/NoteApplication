@@ -1,7 +1,15 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
 
 /**
  * Information view.
@@ -57,11 +65,26 @@ public class InformationView extends JFrame {
         setVisible(false);
     }
 
+    /**
+     * Renders the component by initializing required events, setting its size,
+     * and making it visible.
+     *
+     * <p>This method triggers the execution of the eventInitializerController
+     * and adjusts the component's size to a predefined value. Finally, it makes
+     * the component visible to the user.</p>
+     */
     public void render() {
         setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setVisible(true);
     }
 
+    /**
+     * Disables the rendering of the component by maintaining its size but
+     * making it invisible.
+     *
+     * <p>This method adjusts the component's size to a predefined value but
+     * ensures that it is not visible to the user.</p>
+     */
     public void disrender() {
         setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(false);

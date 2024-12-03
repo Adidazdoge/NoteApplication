@@ -1,5 +1,23 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
+
 import interface_adapters.NavigationManager;
 import interface_adapters.broadcast.BroadcastController;
 import interface_adapters.broadcast.BroadcastInterface;
@@ -8,14 +26,12 @@ import interface_adapters.dailygather.DailyGatherInterface;
 import interface_adapters.dailymove.DailyMoveController;
 import interface_adapters.dailymove.DailyMoveInterface;
 import interface_adapters.endprocesshorde.HordeController;
-import interface_adapters.endprocesshorde.HordeInterface;
 import interface_adapters.endprocesshorde.HordeInterfaceNavigate;
 import interface_adapters.eventdecide.EventDecideController;
 import interface_adapters.eventdecide.EventDecideInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
 import interface_adapters.gamelosedetecter.LoseController;
-import interface_adapters.gamelosedetecter.LoseInterface;
 import interface_adapters.gamelosedetecter.LoseInterfaceNavigate;
 import interface_adapters.gameminimap.MinimapController;
 import interface_adapters.gameminimap.MinimapInterface;
@@ -25,17 +41,13 @@ import interface_adapters.gameplacedescription.PlaceDescriptionController;
 import interface_adapters.gameplacedescription.PlaceDescriptionInterface;
 import interface_adapters.nevagateevent.NevagateEventController;
 import interface_adapters.nevagateevent.NevagateEventInterface;
-import interface_adapters.nevagategame.NevagateGameController;
 import interface_adapters.nevagategameover.NevagateGameOverController;
 import interface_adapters.nevagategameover.NevagateGameOverInterface;
 
-import javax.swing.*;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-
+/**
+ * Represents the Game view in the application.
+ * Provides UI components for displaying the game result and returning to the main menu.
+ */
 public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface,
         PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface,
         EventDecideInterface, NevagateEventInterface, NewdayInterface, MinimapInterface,
@@ -73,6 +85,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     private NevagateGameOverController nevagateGameOverController;
 
     private final PropertyChangeSupport propertyChangeSupport;
+    private final String changeline = new String("\n\n");
 
     public GameView() {
         super("Game");
@@ -94,25 +107,160 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         weaponLabel = new JLabel("Weapon: " + weapon);
         actionAvailableLabel = new JLabel("Action Available: " + action);
 
+        containerContent(container);
+
+        // MiniMap Panel
+        mapPanel = new JTextArea("Mini Map\nabcdefghijklm\nnuvwxyz");
+        mapPanelSetteings();
+        container.add(mapPanel);
+
+        // Wrap infoBox in a JScrollPane (top-left position, smaller width)
+        final JScrollPane infoScrollPane = new JScrollPane(infoBox);
+        infoScrollPaneSettings(infoScrollPane, container, layout);
+
+        // Buttons
+        final JButton broadcastButton = new JButton("Broadcast");
+        final JButton gatherButton = new JButton("Gather");
+        final JButton upButton = new JButton("Up");
+        final JButton downButton = new JButton("Down");
+        final JButton leftButton = new JButton("Left");
+        final JButton rightButton = new JButton("Right");
+        final JButton eventButton = new JButton("Event");
+        final JButton nextDayButton = new JButton("Next Day");
+        final JButton infoButton = new JButton("Log");
+
+        containerContent(container, broadcastButton, gatherButton, upButton, downButton, leftButton,
+                rightButton, eventButton, nextDayButton, infoButton);
+
+        broadcastButtonListener(broadcastButton);
+
+        gatherButtonListener(gatherButton);
+
+        upButtonListener(upButton);
+
+        downButtonListener(downButton);
+
+        leftButtonListener(leftButton);
+
+        rightButtonListener(rightButton);
+
+        eventButtonListener(eventButton);
+
+        nextdayButtonListener(nextDayButton);
+
+        // Add ActionListeners
+        infoButtonListener(infoButton, nextDayButton);
+
+        // Layout Constraints
+        applyLayoutConstraints(layout, container, dayLabel, foodLabel, waterLabel, peopleLabel, weaponLabel,
+                actionAvailableLabel, mapPanel, infoBox, broadcastButton, gatherButton, upButton, downButton,
+                leftButton, rightButton, eventButton, nextDayButton, infoButton);
+
+        // Set frame properties
+        frameSettings();
+
+        // Register this as a listener for property changes
+        propertyChangeSupport.addPropertyChangeListener(this);
+    }
+
+    private void frameSettings() {
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+    }
+
+    private void infoButtonListener(JButton infoButton, JButton nextDayButton) {
+        infoButton.addActionListener(event -> toggleInfoBox());
+        nextDayButton.addActionListener(event -> {
+            if (fetchController != null) {
+                fetchController.execute();
+            }
+        });
+    }
+
+    private void nextdayButtonListener(JButton nextDayButton) {
+        nextDayButton.addActionListener(event -> {
+            newdayController.execute();
+            fetchController.execute();
+        });
+    }
+
+    private void eventButtonListener(JButton eventButton) {
+        eventButton.addActionListener(event -> {
+            nevagateEventController.execute();
+        });
+    }
+
+    private void rightButtonListener(JButton rightButton) {
+        rightButton.addActionListener(event -> {
+            dailyMoveController.execute("right");
+            fetchController.execute();
+            minimapController.execute();
+        });
+    }
+
+    private void leftButtonListener(JButton leftButton) {
+        leftButton.addActionListener(event -> {
+            dailyMoveController.execute("left");
+            fetchController.execute();
+            minimapController.execute();
+        });
+    }
+
+    private void downButtonListener(JButton downButton) {
+        downButton.addActionListener(event -> {
+            dailyMoveController.execute("down");
+            fetchController.execute();
+            minimapController.execute();
+        });
+    }
+
+    private void upButtonListener(JButton upButton) {
+        upButton.addActionListener(event -> {
+            dailyMoveController.execute("up");
+            fetchController.execute();
+            minimapController.execute();
+        });
+    }
+
+    private void gatherButtonListener(JButton gatherButton) {
+        gatherButton.addActionListener(event -> {
+            dailyGatherController.execute();
+            fetchController.execute();
+        });
+    }
+
+    private void broadcastButtonListener(JButton broadcastButton) {
+        broadcastButton.addActionListener(event -> {
+            broadcastController.execute();
+            fetchController.execute();
+        });
+    }
+
+    private static void containerContent(Container container, JButton broadcastButton, JButton gatherButton,
+                                         JButton upButton, JButton downButton, JButton leftButton, JButton rightButton,
+                                         JButton eventButton, JButton nextDayButton, JButton infoButton) {
+        container.add(broadcastButton);
+        container.add(gatherButton);
+        container.add(upButton);
+        container.add(downButton);
+        container.add(leftButton);
+        container.add(rightButton);
+        container.add(eventButton);
+        container.add(nextDayButton);
+        container.add(infoButton);
+    }
+
+    private void containerContent(Container container) {
         container.add(dayLabel);
         container.add(foodLabel);
         container.add(waterLabel);
         container.add(peopleLabel);
         container.add(weaponLabel);
         container.add(actionAvailableLabel);
+    }
 
-        // MiniMap Panel
-        mapPanel = new JTextArea("Mini Map\nabcdefghijklm\nnuvwxyz");
-        mapPanel.setEditable(false);
-        mapPanel.setLineWrap(true);
-        mapPanel.setWrapStyleWord(true);
-        mapPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        mapPanel.setBackground(Color.LIGHT_GRAY);
-        mapPanel.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
-        container.add(mapPanel);
-
-        // Wrap infoBox in a JScrollPane (top-left position, smaller width)
-        final JScrollPane infoScrollPane = new JScrollPane(infoBox);
+    private void infoScrollPaneSettings(JScrollPane infoScrollPane, Container container, SpringLayout layout) {
         infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         // Adjusted smaller width and fixed height
@@ -126,101 +274,45 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         // Update Layout Constraints for infoScrollPane (top-left, same as minimap)
         layout.putConstraint(SpringLayout.EAST, infoScrollPane, -Constants.TWENTY, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, infoScrollPane, Constants.TWENTY, SpringLayout.NORTH, container);
-
-        // Buttons
-        final JButton broadcastButton = new JButton("Broadcast");
-        final JButton gatherButton = new JButton("Gather");
-        final JButton upButton = new JButton("Up");
-        final JButton downButton = new JButton("Down");
-        final JButton leftButton = new JButton("Left");
-        final JButton rightButton = new JButton("Right");
-        final JButton eventButton = new JButton("Event");
-        final JButton nextDayButton = new JButton("Next Day");
-        final JButton infoButton = new JButton("Log");
-
-        container.add(broadcastButton);
-        container.add(gatherButton);
-        container.add(upButton);
-        container.add(downButton);
-        container.add(leftButton);
-        container.add(rightButton);
-        container.add(eventButton);
-        container.add(nextDayButton);
-        container.add(infoButton);
-
-        broadcastButton.addActionListener(e -> {
-            broadcastController.execute();
-            fetchController.execute();
-        });
-
-        gatherButton.addActionListener(e -> {
-            dailyGatherController.execute();
-            fetchController.execute();
-        });
-
-        upButton.addActionListener(e -> {
-            dailyMoveController.execute("up");
-            fetchController.execute();
-            minimapController.execute();
-        });
-
-        downButton.addActionListener(e -> {
-            dailyMoveController.execute("down");
-            fetchController.execute();
-            minimapController.execute();
-        });
-
-        leftButton.addActionListener(e -> {
-            dailyMoveController.execute("left");
-            fetchController.execute();
-            minimapController.execute();
-        });
-
-        rightButton.addActionListener(e -> {
-            dailyMoveController.execute("right");
-            fetchController.execute();
-            minimapController.execute();
-        });
-
-        eventButton.addActionListener(e -> {
-            nevagateEventController.execute();
-        });
-
-        nextDayButton.addActionListener(e -> {
-            newdayController.execute();
-            fetchController.execute();
-        });
-
-        // Add ActionListeners
-        infoButton.addActionListener(e -> toggleInfoBox());
-        nextDayButton.addActionListener(e -> {
-            if (fetchController != null) {
-                fetchController.execute();
-            }
-        });
-
-        // Layout Constraints
-        applyLayoutConstraints(layout, container, dayLabel, foodLabel, waterLabel, peopleLabel, weaponLabel,
-                actionAvailableLabel, mapPanel, infoBox, broadcastButton, gatherButton, upButton, downButton,
-                leftButton, rightButton, eventButton, nextDayButton, infoButton);
-
-        // Set frame properties
-        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-
-        // Register this as a listener for property changes
-        propertyChangeSupport.addPropertyChangeListener(this);
     }
 
-    public void setController(FetchController fetchController, BroadcastController broadcastController,
-                              PlaceDescriptionController placeDescriptionController,
-                              DailyGatherController dailyGatherController, DailyMoveController dailyMoveController,
-                              NevagateEventController nevagateEventController,
-                              EventDecideController eventDecideController, NewdayController newdayController,
-                              MinimapController minimapController,
-                              LoseController loseController, HordeController hordeController,
-                              NevagateGameOverController nevagateGameOverController) {
+    private void mapPanelSetteings() {
+        mapPanel.setEditable(false);
+        mapPanel.setLineWrap(true);
+        mapPanel.setWrapStyleWord(true);
+        mapPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        mapPanel.setBackground(Color.LIGHT_GRAY);
+        mapPanel.setPreferredSize(new Dimension(Constants.TWO_HUNDRED, Constants.TWO_HUNDRED));
+    }
+
+    /**
+     * Sets the controllers for managing various aspects of the application.
+     *
+     * <p>This method initializes the required controllers by associating the provided
+     * controller instances with the corresponding fields in this class. Each controller
+     * is responsible for handling specific functionality within the application.</p>
+     *
+     * @param inifetchController the controller responsible for fetching data
+     * @param inibroadcastController the controller responsible for broadcasting updates
+     * @param iniplaceDescriptionController the controller responsible for handling place descriptions
+     * @param inidailyGatherController the controller for managing daily gathering operations
+     * @param inidailyMoveController the controller for managing daily movement operations
+     * @param ininevagateEventController the controller for navigating events
+     * @param inieventDecideController the controller for handling event decision logic
+     * @param ininewdayController the controller responsible for handling new day transitions
+     * @param iniminimapController the controller for managing the minimap
+     * @param iniloseController the controller responsible for handling game loss conditions
+     * @param inihordeController the controller for managing hordes in the application
+     * @param ininevagateGameOverController the controller for managing the game-over navigation process
+     */
+    public void setController(FetchController inifetchController, BroadcastController inibroadcastController,
+                              PlaceDescriptionController iniplaceDescriptionController,
+                              DailyGatherController inidailyGatherController, DailyMoveController inidailyMoveController,
+                              NevagateEventController ininevagateEventController,
+                              EventDecideController inieventDecideController, NewdayController ininewdayController,
+                              MinimapController iniminimapController,
+                              LoseController iniloseController, HordeController inihordeController,
+                              NevagateGameOverController ininevagateGameOverController) {
         this.fetchController = fetchController;
         this.broadcastController = broadcastController;
         this.placeDescriptionController = placeDescriptionController;
@@ -424,7 +516,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         }
 
         // Set text to mapPanel with fixed font and centered scroll
-        mapPanel.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        mapPanel.setFont(new Font("Monospaced", Font.PLAIN, Constants.FIFTEEN));
         mapPanel.setText(mapBuilder.toString());
         mapPanel.setCaretPosition(0);
     }
@@ -459,7 +551,8 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     }
 
     @Override
-    public void updateUiResource(int food, int water, int people, int weapon, int day, int actionpoint) {
+    public void updateUiResource(int inifood, int iniwater, int inipeople, int iniweapon, int iniday,
+                                 int iniactionpoint) {
         loseController.execute();
         // check if player lose on update.
         setFood(food);
@@ -467,13 +560,13 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         setPeople(people);
         setWeapon(weapon);
         setDay(day);
-        setAction(actionpoint);
+        setAction(iniactionpoint);
     }
 
     @Override
     public void updateUiBroadcast(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n\n");
+            infoBox.append(message + changeline);
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -491,7 +584,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiGather(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n\n");
+            infoBox.append(message + changeline);
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -509,7 +602,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiMove(String message) {
         if (infoBox != null) {
-            infoBox.append(message + "\n\n");
+            infoBox.append(message + changeline);
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }
@@ -527,7 +620,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     @Override
     public void updateUiPlaceDescription(String placeDescription) {
         if (infoBox != null) {
-            infoBox.append(placeDescription + "\n\n");
+            infoBox.append(placeDescription + changeline);
             infoBox.setCaretPosition(infoBox.getDocument().getLength());
         }
     }

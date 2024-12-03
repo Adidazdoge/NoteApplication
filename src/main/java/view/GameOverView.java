@@ -1,16 +1,22 @@
 package view;
 
-import app.GameMainApplication;
-import app.JsonApplication;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
+
 import app.RestartGameController;
 import interface_adapters.NavigationManagerJson;
 import interface_adapters.endprocesshorde.HordeInterface;
 import interface_adapters.gamelosedetecter.LoseInterface;
 import interface_adapters.nevagatemainview.NevagateMainController;
 import interface_adapters.nevagatemainview.NevagateMainInterface;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * Represents the "Game Over" view in the application.
@@ -26,26 +32,8 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
     private RestartGameController restartGameController;
 
     /**
-     * Sets the navigation controller for this view.
-     *
-     * @param nevagateMainController The navigation controller instance.
-     */
-    public void setController(NevagateMainController nevagateMainController) {
-        this.nevagateMainController = nevagateMainController;
-    }
-
-    public void setNavigationManager(NavigationManagerJson navigationManager) {
-        this.navigationManager = navigationManager;
-    }
-
-    public void setRestartGameController(RestartGameController restartGameController) {
-        this.restartGameController = restartGameController;
-    }
-
-    /**
      * Constructs the GameOverView UI and initializes all components.
      */
-    @SuppressWarnings({"checkstyle:LambdaParameterName", "checkstyle:SuppressWarnings"})
     public GameOverView() {
         super("Game Over");
 
@@ -83,7 +71,7 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
         extracted(layout, titleLabel, container, scoreLabel, descriptionArea, mainMenuButton);
 
         // Add action listener to "Main Menu" button
-        mainMenuButton.addActionListener(e -> {
+        mainMenuButton.addActionListener(event -> {
             restartGameController.resetGame();
             navigationManager.showMainView();
             dispose();
@@ -94,6 +82,18 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(false);
+    }
+
+    public void setController(NevagateMainController ininevagateMainController) {
+        this.nevagateMainController = ininevagateMainController;
+    }
+
+    public void setNavigationManager(NavigationManagerJson navigationManager) {
+        this.navigationManager = navigationManager;
+    }
+
+    public void setRestartGameController(RestartGameController restartGameController) {
+        this.restartGameController = restartGameController;
     }
 
     private static void extracted(SpringLayout layout, JLabel titleLabel, Container container, JLabel scoreLabel,
@@ -107,17 +107,34 @@ public class GameOverView extends JFrame implements LoseInterface, HordeInterfac
         layout.putConstraint(SpringLayout.WEST, descriptionArea, Constants.TWENTY, SpringLayout.WEST, container);
         layout.putConstraint(SpringLayout.EAST, descriptionArea, -Constants.TWENTY, SpringLayout.EAST, container);
         layout.putConstraint(SpringLayout.NORTH, descriptionArea, Constants.TWENTY, SpringLayout.SOUTH, scoreLabel);
-        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH, container);
+        layout.putConstraint(SpringLayout.SOUTH, descriptionArea, -Constants.ONE_HUNDRED, SpringLayout.SOUTH,
+                container);
 
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, mainMenuButton, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, mainMenuButton, 0, SpringLayout.HORIZONTAL_CENTER,
+                container);
         layout.putConstraint(SpringLayout.NORTH, mainMenuButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionArea);
     }
 
+    /**
+     * Renders the component by initializing required events, setting its size,
+     * and making it visible.
+     *
+     * <p>This method triggers the execution of the eventInitializerController
+     * and adjusts the component's size to a predefined value. Finally, it makes
+     * the component visible to the user.</p>
+     */
     public void render() {
         setSize(Constants.FOUR_HUNDRED, Constants.SIX_HUNDRED);
         setVisible(true);
     }
 
+    /**
+     * Disables the rendering of the component by maintaining its size but
+     * making it invisible.
+     *
+     * <p>This method adjusts the component's size to a predefined value but
+     * ensures that it is not visible to the user.</p>
+     */
     public void disrender() {
         setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(false);

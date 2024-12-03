@@ -1,6 +1,20 @@
 package view;
 
-import entities.Event;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SpringLayout;
+
 import interface_adapters.EventManager;
 import interface_adapters.eventinitializer.EventInitializerController;
 import interface_adapters.eventinitializer.EventInitializerInterface;
@@ -13,11 +27,6 @@ import interface_adapters.fetchcurrentevent.FetchEventController;
 import interface_adapters.fetchcurrentevent.FetchEventInterface;
 import interface_adapters.nevagategame.NevagateGameController;
 import interface_adapters.nevagategame.NevagateGameInterface;
-import interface_adapters.nevagatemainview.NevagateMainController;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
 
 /**
  * Represents the view for displaying and interacting with events in the game.
@@ -42,30 +51,6 @@ public class EventView extends JFrame implements EventInitializerInterface,
     private NevagateGameController nevagateGameController;
 
     /**
-     * Sets the controllers required for handling events and navigation.
-     *
-     * @param eventInitializerController Controller for event initialization.
-     * @param fetchEventController       Controller for fetching event details.
-     * @param nevagateGameController     Controller for game navigation.
-     */
-    public void setController(EventInitializerController eventInitializerController,
-                              FetchEventController fetchEventController,
-                              NevagateGameController nevagateGameController) {
-        this.eventInitializerController = eventInitializerController;
-        this.fetchEventController = fetchEventController;
-        this.nevagateGameController = nevagateGameController;
-    }
-
-    /**
-     * Sets the event manager responsible for handling event-related data.
-     *
-     * @param eventManager The event manager instance.
-     */
-    public void setManager(EventManager eventManager) {
-        this.eventManager = eventManager;
-    }
-
-    /**
      * Constructs the EventView UI and initializes components.
      */
     public EventView() {
@@ -78,7 +63,7 @@ public class EventView extends JFrame implements EventInitializerInterface,
 
         // Initialize UI components
         eventLabel = new JLabel("Event:");
-        eventLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        eventLabel.setFont(new Font("Serif", Font.BOLD, Constants.TWENTY));
 
         // Initialize the description area
         descriptionArea = new JTextArea("Event description goes here...");
@@ -102,6 +87,66 @@ public class EventView extends JFrame implements EventInitializerInterface,
         backButton = new JButton("Back");
 
         // Add components to container
+        containerContent(container);
+
+        // Call applyLayoutConstraints to position components
+        applyLayoutConstraints(container);
+
+        // Add button listeners
+        fightButton.addActionListener(event -> {
+            fetchEventController.execute();
+            // also reset event manager event string.
+            eventManager.execute(1);
+        });
+
+        negotiateButton.addActionListener(event -> {
+            fetchEventController.execute();
+            // also reset event manager event string.
+            eventManager.execute(2);
+        });
+
+        fleeButton.addActionListener(event -> {
+            fetchEventController.execute();
+            // also reset event manager event string.
+            eventManager.execute(Constants.THREE);
+        });
+
+        backButton.addActionListener(event -> {
+            nevagateGameController.execute();
+        });
+
+        // Window settings
+        setSize(Constants.SIX_HUNDRED, Constants.FOUR_HUNDRED);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(false);
+    }
+
+    /**
+     * Sets the controllers required for handling events and navigation.
+     *
+     * @param inieventInitializerController Controller for event initialization.
+     * @param inifetchEventController       Controller for fetching event details.
+     * @param ininevagateGameController     Controller for game navigation.
+     */
+    public void setController(EventInitializerController inieventInitializerController,
+                              FetchEventController inifetchEventController,
+                              NevagateGameController ininevagateGameController) {
+        this.eventInitializerController = inieventInitializerController;
+        this.fetchEventController = inifetchEventController;
+        this.nevagateGameController = ininevagateGameController;
+    }
+
+    /**
+     * Sets the event manager responsible for handling event-related data.
+     *
+     * @param inieventManager The event manager instance.
+     */
+    public void setManager(EventManager inieventManager) {
+        this.eventManager = inieventManager;
+    }
+
+    private void containerContent(Container container) {
         container.add(eventLabel);
         // Add the scroll pane, not just the text area
         container.add(descriptionScrollPane);
@@ -109,38 +154,6 @@ public class EventView extends JFrame implements EventInitializerInterface,
         container.add(negotiateButton);
         container.add(fleeButton);
         container.add(backButton);
-
-        // Call applyLayoutConstraints to position components
-        applyLayoutConstraints(container);
-
-        // Add button listeners
-        fightButton.addActionListener(e -> {
-            fetchEventController.execute();
-            // also reset event manager event string.
-            eventManager.execute(1);
-        });
-
-        negotiateButton.addActionListener(e -> {
-            fetchEventController.execute();
-            // also reset event manager event string.
-            eventManager.execute(2);
-        });
-
-        fleeButton.addActionListener(e -> {
-            fetchEventController.execute();
-            // also reset event manager event string.
-            eventManager.execute(3);
-        });
-
-        backButton.addActionListener(e -> {
-            nevagateGameController.execute();
-        });
-
-        // Window settings
-        setSize(600, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(false);
     }
 
     /**
@@ -163,7 +176,8 @@ public class EventView extends JFrame implements EventInitializerInterface,
 
         // Fight Button Constraints
         layout.putConstraint(SpringLayout.WEST, fightButton, Constants.TWENTY, SpringLayout.WEST, container);
-        layout.putConstraint(SpringLayout.NORTH, fightButton, Constants.TWENTY, SpringLayout.SOUTH, descriptionScrollPane);
+        layout.putConstraint(SpringLayout.NORTH, fightButton, Constants.TWENTY, SpringLayout.SOUTH,
+                descriptionScrollPane);
 
         // Negotiate Button Constraints
         layout.putConstraint(SpringLayout.WEST, negotiateButton, Constants.TWENTY, SpringLayout.EAST, fightButton);
@@ -190,12 +204,27 @@ public class EventView extends JFrame implements EventInitializerInterface,
         backButton.addActionListener(returnToGameViewListener);
     }
 
+    /**
+     * Renders the component by initializing required events, setting its size,
+     * and making it visible.
+     *
+     * <p>This method triggers the execution of the eventInitializerController
+     * and adjusts the component's size to a predefined value. Finally, it makes
+     * the component visible to the user.</p>
+     */
     public void render() {
         eventInitializerController.execute();
         setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(true);
     }
 
+    /**
+     * Disables the rendering of the component by maintaining its size but
+     * making it invisible.
+     *
+     * <p>This method adjusts the component's size to a predefined value but
+     * ensures that it is not visible to the user.</p>
+     */
     public void disrender() {
         setSize(Constants.FOUR_HUNDRED, Constants.FOUR_HUNDRED);
         setVisible(false);
