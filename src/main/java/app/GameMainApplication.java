@@ -268,12 +268,12 @@ public class GameMainApplication {
         final MinimapController minimapController = new MinimapController(minimapInteractor);
 
         // Lose detect usecase
-        final LosePresenter losePresenter = new LosePresenter(gameView);
+        final LosePresenter losePresenter = new LosePresenter(gameOverView, navigationManager, gameView);
         final LoseInteractor loseInteractor = new LoseInteractor(gamedatabase, losePresenter);
         final LoseController loseController = new LoseController(loseInteractor);
 
         // End process horde usecase
-        final HordePresenter hordePresenter = new HordePresenter(gameView);
+        final HordePresenter hordePresenter = new HordePresenter(gameOverView, navigationManager, gameView);
         final HordeInteractor hordeInteractor = new HordeInteractor(gamedatabase, hordePresenter);
         final HordeController hordeController = new HordeController(hordeInteractor);
 
@@ -295,5 +295,6 @@ public class GameMainApplication {
         attributeview.setAllowcateController(allowcateController, nevagateMainController);
         eventView.setController(eventInitializerController, fetchEventController, nevagateGameController);
         eventView.setManager(eventManager);
+        gameOverView.setController(nevagateMainController);
     }
 }

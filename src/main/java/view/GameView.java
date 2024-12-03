@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapters.NavigationManager;
 import interface_adapters.broadcast.BroadcastController;
 import interface_adapters.broadcast.BroadcastInterface;
 import interface_adapters.dailygather.DailyGatherController;
@@ -8,12 +9,14 @@ import interface_adapters.dailymove.DailyMoveController;
 import interface_adapters.dailymove.DailyMoveInterface;
 import interface_adapters.endprocesshorde.HordeController;
 import interface_adapters.endprocesshorde.HordeInterface;
+import interface_adapters.endprocesshorde.HordeInterfaceNavigate;
 import interface_adapters.eventdecide.EventDecideController;
 import interface_adapters.eventdecide.EventDecideInterface;
 import interface_adapters.fetchresource.FetchController;
 import interface_adapters.fetchresource.FetchInterface;
 import interface_adapters.gamelosedetecter.LoseController;
 import interface_adapters.gamelosedetecter.LoseInterface;
+import interface_adapters.gamelosedetecter.LoseInterfaceNavigate;
 import interface_adapters.gameminimap.MinimapController;
 import interface_adapters.gameminimap.MinimapInterface;
 import interface_adapters.gamenewday.NewdayController;
@@ -35,7 +38,8 @@ import java.util.ArrayList;
 
 public class GameView extends JFrame implements PropertyChangeListener, FetchInterface, BroadcastInterface,
         PlaceDescriptionInterface, DailyGatherInterface, DailyMoveInterface,
-        EventDecideInterface, NevagateEventInterface, NewdayInterface, MinimapInterface, LoseInterface, HordeInterface,
+        EventDecideInterface, NevagateEventInterface, NewdayInterface, MinimapInterface,
+        LoseInterfaceNavigate, HordeInterfaceNavigate,
         NevagateGameOverInterface {
     private int day;
     private int food;
@@ -558,18 +562,12 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
     }
 
     @Override
-    public void updateUiHorde(String message, int score) {
-        // navigate to game over and display this.
-
+    public void navigateGameOver(NavigationManager navigationManager) {
+        navigationManager.showGameOverView();
     }
 
     @Override
-    public void failureHorde(String failmessage) {
-
-    }
-
-    @Override
-    public void prepareGameOverEarly(String message) {
-        // also navigate to game over and display this.
+    public void NavigateHordeGameOver(NavigationManager manager) {
+        manager.showGameOverView();
     }
 }

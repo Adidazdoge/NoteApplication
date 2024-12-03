@@ -39,7 +39,8 @@ public class LoseInteractor implements LoseInputBoundary {
 
         if (!loseMessage.isEmpty()) {
             // Call output boundary with the failure message
-            final LoseOutputData outputData = new LoseOutputData(loseMessage);
+            final int score = dataaccess.getPlayerInfo().getScore();
+            final LoseOutputData outputData = new LoseOutputData(loseMessage, score);
             outputBoundary.preapareGameoverEarly(outputData);
         }
         // do nothing if player is not losing.
