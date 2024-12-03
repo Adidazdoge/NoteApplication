@@ -28,6 +28,8 @@ public class LoginInteractor implements LoginInputBoundary {
      */
     @Override
     public void execute(LoginInputData inputData) {
+        dataAccess.reloadData();
+
         final String username = inputData.getUsername();
         final String password = inputData.getPassword();
 

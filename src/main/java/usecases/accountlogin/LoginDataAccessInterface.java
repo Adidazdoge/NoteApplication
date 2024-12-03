@@ -21,4 +21,6 @@ public interface LoginDataAccessInterface {
      * @return True if the user exists, otherwise false.
      */
     boolean doesUserExist(String username);
+
+    void reloadData();
 }

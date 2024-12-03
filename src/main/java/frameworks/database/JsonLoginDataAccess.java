@@ -51,4 +51,21 @@ public class JsonLoginDataAccess implements LoginDataAccessInterface {
         return players.stream()
                 .anyMatch(player -> player.getUsername().equals(username));
     }
+
+    /**
+     * Reloads the player data from the JSON file.
+     * This ensures that any updates to the file are reflected in the players list.
+     */
+    @Override
+    public void reloadData() {
+        try {
+            this.players = database.load();
+            System.out.println("Data successfully reloaded. Current players: " + players);
+        }
+        catch (IOException e) {
+            System.err.println("Error reloading data: " + e.getMessage());
+            throw new RuntimeException("Unable to reload player data.", e);
+        }
+    }
+
 }
