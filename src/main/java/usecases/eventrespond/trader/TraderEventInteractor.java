@@ -46,7 +46,7 @@ public class TraderEventInteractor implements TraderInputBoundary {
 
             if (chosenOption == EntityConstants.FIRSTCHOICE) {
                 // Trade with the trader
-                if (dataAccess.getPlayerAttributesAsObject().getSocial() >= EntityConstants.TRADERNEGOTIATE) {
+                if (dataAccess.getPlayerAttributes().getSocial() >= EntityConstants.TRADERNEGOTIATE) {
                     foodChange = EntityConstants.TRADERTRADEGAINFOOD;
                     waterChange = EntityConstants.TRADERTRADEGAINWATER;
                 } else {
