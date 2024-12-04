@@ -516,7 +516,7 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
         }
 
         // Set text to mapPanel with fixed font and centered scroll
-        mapPanel.setFont(new Font("Monospaced", Font.PLAIN, Constants.FIFTEEN));
+        mapPanel.setFont(new Font("Monospaced", Font.PLAIN, Constants.MINIMAPSIZE));
         mapPanel.setText(mapBuilder.toString());
         mapPanel.setCaretPosition(0);
     }
