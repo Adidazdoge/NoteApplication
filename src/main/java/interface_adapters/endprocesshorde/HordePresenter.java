@@ -21,7 +21,7 @@ public class HordePresenter implements HordeOutputBoundary {
     @Override
     public void prepareSuccessView(HordeOutputData outputData) {
         view.NavigateHordeGameOver(navigationManager);
-        newview.updateUiHorde(outputData.getDescription(), outputData.getScore());
+        newview.updateUiHorde(outputData.getIntroduction(), outputData.getPoints());
     }
 
     @Override

@@ -12,12 +12,12 @@ public class HordeOutputData {
         this.introduction = Description;
     }
 
-    public int getScore() {
+    public int getPoints() {
 
         return points;
     }
 
-    public String getDescription() {
+    public String getIntroduction() {
 
         return introduction;
     }
