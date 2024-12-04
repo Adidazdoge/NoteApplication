@@ -165,7 +165,6 @@ public class RankingView extends JFrame implements RankingInterface {
         setVisible(false);
     }
 
-
     public static void main(String[] args) {
         try {
             new JsonApplication("PlayerFile", "PlayerFile", "RankingFile");

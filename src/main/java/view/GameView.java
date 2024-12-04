@@ -313,18 +313,18 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                               MinimapController iniminimapController,
                               LoseController iniloseController, HordeController inihordeController,
                               NevagateGameOverController ininevagateGameOverController) {
-        this.fetchController = fetchController;
-        this.broadcastController = broadcastController;
-        this.placeDescriptionController = placeDescriptionController;
-        this.dailyGatherController = dailyGatherController;
-        this.dailyMoveController = dailyMoveController;
-        this.nevagateEventController = nevagateEventController;
-        this.eventDecideController = eventDecideController;
-        this.newdayController = newdayController;
-        this.minimapController = minimapController;
-        this.loseController = loseController;
-        this.hordeController = hordeController;
-        this.nevagateGameOverController = nevagateGameOverController;
+        this.fetchController = inifetchController;
+        this.broadcastController = inibroadcastController;
+        this.placeDescriptionController = iniplaceDescriptionController;
+        this.dailyGatherController = inidailyGatherController;
+        this.dailyMoveController = inidailyMoveController;
+        this.nevagateEventController = ininevagateEventController;
+        this.eventDecideController = inieventDecideController;
+        this.newdayController = ininewdayController;
+        this.minimapController = iniminimapController;
+        this.loseController = iniloseController;
+        this.hordeController = inihordeController;
+        this.nevagateGameOverController = ininevagateGameOverController;
     }
 
     /**
@@ -555,11 +555,11 @@ public class GameView extends JFrame implements PropertyChangeListener, FetchInt
                                  int iniactionpoint) {
         loseController.execute();
         // check if player lose on update.
-        setFood(food);
-        setWater(water);
-        setPeople(people);
-        setWeapon(weapon);
-        setDay(day);
+        setFood(inifood);
+        setWater(iniwater);
+        setPeople(inipeople);
+        setWeapon(iniweapon);
+        setDay(iniday);
         setAction(iniactionpoint);
     }
 
