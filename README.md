@@ -56,7 +56,7 @@
 2. Import the project into your IDE and configure the JDK.
 3. Install dependencies via your IDE's package manager.
 4. Run the main application:
-   src/app/GameMainApplication.java
+   src/app/JsonApplication.java
 ## **Usage Guide**
 1. Login or Register:
    - Use the login interface to sign in or create a new account.
