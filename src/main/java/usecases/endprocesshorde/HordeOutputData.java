@@ -4,19 +4,21 @@ package usecases.endprocesshorde;
  * Output data, consist of final outcome description, player's score.
  */
 public class HordeOutputData {
-    private int score;
-    private String description;
+    private int points;
+    private String introduction;
 
-    public HordeOutputData(int score, String description) {
-        this.score = score;
-        this.description = description;
+    public HordeOutputData(int Score, String Description) {
+        this.points = Score;
+        this.introduction = Description;
     }
 
     public int getScore() {
-        return score;
+
+        return points;
     }
 
     public String getDescription() {
-        return description;
+
+        return introduction;
     }
 }
