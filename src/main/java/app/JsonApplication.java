@@ -91,7 +91,7 @@ import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.nevagateEventPage.NevagateEventInteractor;
 import usecases.nevagateGame.NevagateGameInteractor;
 import usecases.nevagateGameover.NevagateGameOverInteractor;
-import usecases.nevagateMain.NevagateMainInteractor;
+import usecases.navigateMain.NavigateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
 import view.*;
 
@@ -212,8 +212,8 @@ public class JsonApplication {
         final AllowcateController allowcateController = new AllowcateController(allowcateInteractor);
         // Nevagate Main usecase.
         final NevagateMainPresenter nevagateMainPresenter = new NevagateMainPresenter(navigationManager);
-        final NevagateMainInteractor nevagateMainInteractor =
-                new NevagateMainInteractor(gamedatabase, nevagateMainPresenter);
+        final NavigateMainInteractor nevagateMainInteractor =
+                new NavigateMainInteractor(gamedatabase, nevagateMainPresenter);
         final NevagateMainController nevagateMainController = new NevagateMainController(nevagateMainInteractor);
         // Fetch Usecase
         final FetchPresenter fetchPresenter = new FetchPresenter(gameView);

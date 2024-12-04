@@ -26,7 +26,7 @@ import usecases.gameplacedescription.PlaceDescriptionDataAccessInterface;
 import usecases.nevagateAllowcatePage.NevagateAllowcateDataAccessInterface;
 import usecases.nevagateGame.NevagateGameDataAccessInterface;
 import usecases.nevagateGameover.NevagateGameOverDataAccessInterface;
-import usecases.nevagateMain.NevagateMainDataAccessInterface;
+import usecases.navigateMain.NavigateMainDataAccessInterface;
 import usecases.startallowcate.AllowcateDataAccessInterface;
 
 /**
@@ -50,7 +50,7 @@ public class InMemoryUnifiedDataAccess implements
         TraderDataAccessInterface,
         BlizzardDataAccessInterface,
         AmbushDataAccessInterface,
-        NevagateMainDataAccessInterface,
+        NavigateMainDataAccessInterface,
         NevagateEventDataAccessInterface,
         CurrentEventDataAccessInterface,
         NevagateGameDataAccessInterface,

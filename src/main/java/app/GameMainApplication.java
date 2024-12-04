@@ -76,7 +76,7 @@ import usecases.gameplacedescription.PlaceDescriptionInteractor;
 import usecases.nevagateAllowcatePage.NevagateAllowcateInteractor;
 import usecases.nevagateGame.NevagateGameInteractor;
 import usecases.nevagateGameover.NevagateGameOverInteractor;
-import usecases.nevagateMain.NevagateMainInteractor;
+import usecases.navigateMain.NavigateMainInteractor;
 import usecases.startallowcate.AllowcateInteractor;
 import frameworks.database.JsonRankingDataAccess;
 import usecases.chatgpt.ChatGptService;
@@ -166,8 +166,8 @@ public class GameMainApplication {
         final AllowcateController allowcateController = new AllowcateController(allowcateInteractor);
         // Nevagate Main usecase.
         final NevagateMainPresenter nevagateMainPresenter = new NevagateMainPresenter(navigationManager);
-        final NevagateMainInteractor nevagateMainInteractor =
-                new NevagateMainInteractor(gamedatabase, nevagateMainPresenter);
+        final NavigateMainInteractor nevagateMainInteractor =
+                new NavigateMainInteractor(gamedatabase, nevagateMainPresenter);
         final NevagateMainController nevagateMainController = new NevagateMainController(nevagateMainInteractor);
         // Fetch Usecase
         final FetchPresenter fetchPresenter = new FetchPresenter(gameView);
