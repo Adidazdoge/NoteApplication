@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class ChatGptService {
     private static final String API_URL = "https://api.openai.com/v1/chat/completions";
+    private static final String API_KEY = "";
 
     /**
      * Sends a request to ChatGPT with the event description, player attributes, and player choice.

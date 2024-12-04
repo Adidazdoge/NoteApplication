@@ -8,11 +8,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class ChatGptResponseParser {
 
+    private static final int LINE_LENGTH = 50; // Adjust this value based on screen width
+
     /**
-     * Parses the response from ChatGPT and extracts the event outcome description.
-     *
+     * Parses the response from ChatGPT and extracts the message content.
      * @param response The raw JSON response from ChatGPT.
-     * @return The event outcome description.
+     * @return The formatted assistant's response content.
      * @throws Exception If the parsing fails.
      */
     public static String parseEventOutcome(String response) throws Exception {
@@ -39,6 +40,29 @@ public class ChatGptResponseParser {
             throw new RuntimeException("Invalid ChatGPT response format: 'content' is missing or empty.");
         }
 
-        return contentNode.asText().trim();
+        // Format the content to ensure it fits on the screen
+        return formatResponse(contentNode.asText());
+    }
+
+    /**
+     * Formats a long response into shorter lines with proper line breaks.
+     * @param responseContent The original response content.
+     * @return The formatted response with added line breaks.
+     */
+    private static String formatResponse(String responseContent) {
+        StringBuilder formattedResponse = new StringBuilder();
+        String[] words = responseContent.split(" ");
+        int currentLineLength = 0;
+
+        for (String word : words) {
+            if (currentLineLength + word.length() + 1 > LINE_LENGTH) {
+                formattedResponse.append("\n"); // Add a new line
+                currentLineLength = 0;
+            }
+            formattedResponse.append(word).append(" ");
+            currentLineLength += word.length() + 1;
+        }
+
+        return formattedResponse.toString().trim();
     }
 }
